@@ -29,7 +29,7 @@ export const tryLoginFromServiceToken = (onSuccess, reauthenticationCallback) =>
 
 export const signUp = (user, onSuccess, onErrors, reauthenticationCallback) => {
 
-    appFetch('/users/signUp', config('POST', user), 
+    appFetch('/users/createEmployee', config('POST', user),
         authenticatedUser => {
             setServiceToken(authenticatedUser.serviceToken);
             setReauthenticationCallback(reauthenticationCallback);

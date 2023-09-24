@@ -6,7 +6,11 @@ import static es.udc.paproject.backend.rest.dtos.UserConversor.toUserDto;
 
 import java.net.URI;
 import java.util.Locale;
+import java.util.Optional;
 
+import es.udc.paproject.backend.model.entities.Farm;
+import es.udc.paproject.backend.model.entities.FarmDao;
+import es.udc.paproject.backend.model.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -24,12 +28,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import es.udc.paproject.backend.model.exceptions.DuplicateInstanceException;
-import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.entities.User;
-import es.udc.paproject.backend.model.exceptions.IncorrectLoginException;
-import es.udc.paproject.backend.model.exceptions.IncorrectPasswordException;
-import es.udc.paproject.backend.model.exceptions.PermissionException;
 import es.udc.paproject.backend.model.services.UserService;
 import es.udc.paproject.backend.rest.common.ErrorsDto;
 import es.udc.paproject.backend.rest.common.JwtGenerator;
@@ -45,6 +44,7 @@ public class UserController {
 	
 	private final static String INCORRECT_LOGIN_EXCEPTION_CODE = "project.exceptions.IncorrectLoginException";
 	private final static String INCORRECT_PASSWORD_EXCEPTION_CODE = "project.exceptions.IncorrectPasswordException";
+	private final static String FARM_DOESNT_EXIST_CODE = "project.exception.FarmDoesntExistException";
 	
 	@Autowired
 	private MessageSource messageSource;
@@ -54,6 +54,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private FarmDao farmDao;
 	
 	@ExceptionHandler(IncorrectLoginException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
@@ -65,6 +68,16 @@ public class UserController {
 
 		return new ErrorsDto(errorMessage);
 		
+	}
+
+	@ExceptionHandler(FarmDoesntExistException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ResponseBody
+	public ErrorsDto handleFarmDoesntExistException(FarmDoesntExistException exception, Locale locale) {
+		String errorMessage = messageSource.getMessage(FARM_DOESNT_EXIST_CODE, null,
+				FARM_DOESNT_EXIST_CODE, locale);
+
+		return new ErrorsDto(errorMessage);
 	}
 	
 	@ExceptionHandler(IncorrectPasswordException.class)
@@ -79,20 +92,24 @@ public class UserController {
 		
 	}
 
-	@PostMapping("/signUp")
-	public ResponseEntity<AuthenticatedUserDto> signUp(
-		@Validated({UserDto.AllValidations.class}) @RequestBody UserDto userDto) throws DuplicateInstanceException {
-		
-		User user = toUser(userDto);
-		
-		userService.signUp(user);
-		
-		URI location = ServletUriComponentsBuilder
-			.fromCurrentRequest().path("/{id}")
-			.buildAndExpand(user.getId()).toUri();
-	
-		return ResponseEntity.created(location).body(toAuthenticatedUserDto(generateServiceToken(user), user));
+	@PostMapping("/createEmployee")
+	public ResponseEntity<AuthenticatedUserDto> createEmployee(
+		@Validated({UserDto.AllValidations.class}) @RequestBody UserDto userDto) throws DuplicateInstanceException, FarmDoesntExistException {
 
+		Optional<Farm> farm = farmDao.findById(userDto.getFarmId());
+
+		if (farm.isPresent()) {
+			User user = toUser(userDto, farm.get());
+			userService.signUp(user);
+
+			URI location = ServletUriComponentsBuilder
+					.fromCurrentRequest().path("/{id}")
+					.buildAndExpand(user.getId()).toUri();
+
+			return ResponseEntity.created(location).body(toAuthenticatedUserDto(generateServiceToken(user), user));
+		} else {
+			throw new FarmDoesntExistException();
+		}
 	}
 	
 	@PostMapping("/login")

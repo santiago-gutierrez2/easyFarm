@@ -1,14 +1,11 @@
 package es.udc.paproject.backend.model.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class User {
 	
-	public enum RoleType {USER};
+	public enum RoleType {EMPLOYEE, ADMIN};
 
 	private Long id;
 	private String userName;
@@ -17,17 +14,18 @@ public class User {
 	private String lastName;
 	private String email;
 	private RoleType role;
+	private Farm farm; // MANY TO ONE
 
 	public User() {}
 
-	public User(String userName, String password, String firstName, String lastName, String email) {
+	public User(String userName, String password, String firstName, String lastName, String email, Farm farm) {
 
 		this.userName = userName;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		
+		this.farm = farm;
 	}
 
 	@Id
@@ -87,5 +85,11 @@ public class User {
 	public void setRole(RoleType role) {
 		this.role = role;
 	}
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "farmId")
+	public Farm getFarm() {return farm;}
+
+	public void setFarm(Farm farm) {this.farm = farm;}
 
 }

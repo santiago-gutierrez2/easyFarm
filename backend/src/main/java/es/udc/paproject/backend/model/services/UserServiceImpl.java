@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 		}
 			
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		user.setRole(User.RoleType.USER);
+		user.setRole(User.RoleType.EMPLOYEE);
 		
 		userDao.save(user);
 		
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 		
 		Optional<User> user = userDao.findByUserName(userName);
 		
-		if (!user.isPresent()) {
+		if (user.isEmpty()) {
 			throw new IncorrectLoginException(userName, password);
 		}
 		
