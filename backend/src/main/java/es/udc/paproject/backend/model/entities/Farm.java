@@ -19,7 +19,7 @@ public class Farm {
     // empty constructor
     public Farm() {}
 
-    // mai constructor
+    // main constructor
     public Farm(String name, String address, Integer sizeHectares) {
         this.name = name;
         this.address = address;
