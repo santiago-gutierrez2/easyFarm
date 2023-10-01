@@ -1,7 +1,12 @@
-package es.udc.paproject.backend.rest.dtos;
+package es.udc.paproject.backend.rest.dtos.UserDTOs;
 
 import es.udc.paproject.backend.model.entities.Farm;
 import es.udc.paproject.backend.model.entities.User;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static es.udc.paproject.backend.rest.dtos.FarmDTOs.FarmConversor.toFarmDto;
 
 public class UserConversor {
 	
@@ -9,7 +14,11 @@ public class UserConversor {
 	
 	public final static UserDto toUserDto(User user) {
 		return new UserDto(user.getId(), user.getUserName(), user.getFirstName(), user.getLastName(), user.getEmail(),
-			user.getRole().toString(), user.getFarm().getId());
+			user.getRole().toString(), toFarmDto(user.getFarm()));
+	}
+
+	public final static List<UserDto> toUserDtos(List<User> users) {
+		return users.stream().map(UserConversor::toUserDto).collect(Collectors.toList());
 	}
 	
 	/*public final static User toUser(UserDto userDto) {

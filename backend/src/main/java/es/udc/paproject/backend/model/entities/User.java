@@ -14,6 +14,7 @@ public class User {
 	private String lastName;
 	private String email;
 	private RoleType role;
+	private boolean isEliminated;
 	private Farm farm; // MANY TO ONE
 
 	public User() {}
@@ -26,6 +27,7 @@ public class User {
 		this.lastName = lastName;
 		this.email = email;
 		this.farm = farm;
+		this.isEliminated = false;
 	}
 
 	@Id
@@ -92,4 +94,11 @@ public class User {
 
 	public void setFarm(Farm farm) {this.farm = farm;}
 
+	public boolean getIsEliminated() {
+		return isEliminated;
+	}
+
+	public void setIsEliminated(boolean eliminated) {
+		isEliminated = eliminated;
+	}
 }

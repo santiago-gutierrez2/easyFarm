@@ -6,6 +6,8 @@ import es.udc.paproject.backend.model.exceptions.IncorrectPasswordException;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.entities.User;
 
+import java.util.List;
+
 public interface UserService {
 	
 	void signUp(User user) throws DuplicateInstanceException;
@@ -18,5 +20,9 @@ public interface UserService {
 	
 	void changePassword(Long id, String oldPassword, String newPassword)
 		throws InstanceNotFoundException, IncorrectPasswordException;
+
+	void deleteEmployee(Long employeeId) throws InstanceNotFoundException;
+
+	List<User> getEmployees(Long userId) throws InstanceNotFoundException;
 
 }

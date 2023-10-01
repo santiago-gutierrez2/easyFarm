@@ -1,14 +1,16 @@
 // eslint-disable-next-line
 export default {
 
-    'project.app.Footer.text': 'PA Project - Area of Telematics Engineering - University of A Coruña',
+    'project.app.Footer.text': 'EasyFarm - Santiago Gutiérrez Gómez - santiago.gutierrez@udc.es',
     'project.app.Header.home': 'Home',
     'project.app.Header.logout': 'Logout',
-    'project.app.Home.welcome': 'MiniPortal main page content!',
+    'project.app.Home.welcome': 'Welcome to EasyFarm!',
+    'project.app.Home.login': 'Please login into your account, or get in contact with us to get one.',
 
     'project.common.ErrorDialog.title': 'Error',
 
     'project.global.buttons.cancel': 'Cancel',
+    'project.global.buttons.create': 'Create',
     'project.global.buttons.close': 'Close',
     'project.global.buttons.next': 'Next',
     'project.global.buttons.ok': 'OK',
@@ -35,6 +37,10 @@ export default {
     'project.users.Login.title': 'Login',
     'project.users.SignUp.fields.confirmPassword': 'Confirm password',
     'project.users.SignUp.title': 'Sign up',
-    'project.users.UpdateProfile.title': 'Update profile'
+    'project.users.UpdateProfile.title': 'Update profile',
+
+    'project.employees.title': 'Employees',
+    'project.users.employees.create': 'Create new employee',
+    'project.users.employees.seeAllEmployees': 'See all employees'
 
 }

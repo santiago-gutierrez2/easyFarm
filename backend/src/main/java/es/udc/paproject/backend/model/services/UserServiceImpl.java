@@ -1,7 +1,10 @@
 package es.udc.paproject.backend.model.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import es.udc.paproject.backend.model.entities.Farm;
 import es.udc.paproject.backend.model.exceptions.IncorrectLoginException;
 import es.udc.paproject.backend.model.exceptions.IncorrectPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +93,31 @@ public class UserServiceImpl implements UserService {
 			user.setPassword(passwordEncoder.encode(newPassword));
 		}
 		
+	}
+
+	@Override
+	public void deleteEmployee(Long employeeId) throws InstanceNotFoundException {
+
+		User employee = permissionChecker.checkUser(employeeId);
+
+		// delete employee set to true isEliminated
+		employee.setIsEliminated(true);
+		userDao.save(employee);
+	}
+
+	@Override
+	public List<User> getEmployees(Long userId) throws InstanceNotFoundException{
+
+		Optional<User> admin = userDao.findById(userId);
+
+		if (admin.isEmpty()) {
+			throw new InstanceNotFoundException("project.entities.user", userId);
+		}
+
+		Farm farm = admin.get().getFarm();
+
+        return farm.getUsers().stream()
+				.filter(user -> !user.getIsEliminated() && user.getRole() == User.RoleType.EMPLOYEE).collect(Collectors.toList());
 	}
 
 }

@@ -1,14 +1,16 @@
 // eslint-disable-next-line
 export default {
 
-    'project.app.Footer.text': 'PA Project - Area de Enxeñaría Telemática - Universidade da Coruña',
+    'project.app.Footer.text': 'EasyFarm - Santiago Gutiérrez Gómez - santiago.gutierrez@udc.es',
     'project.app.Header.home': 'Inicio',
     'project.app.Header.logout': 'Saír',
-    'project.app.Home.welcome': '¡Contido da páxina principal de PA Project!',
+    'project.app.Home.welcome': '¡Benvido a EasyFarm!',
+    'project.app.Home.login': 'Inicia sesión na túa conta ou ponte en contacto co noso equipo para conseguir unha.',
     
     'project.common.ErrorDialog.title': 'Erro',
 
     'project.global.buttons.cancel': 'Cancelar',
+    'project.global.buttons.create': 'Crear',
     'project.global.buttons.close': 'Cerrar',
     'project.global.buttons.next': 'Seguinte',
     'project.global.buttons.ok': 'OK',
@@ -35,6 +37,10 @@ export default {
     'project.users.Login.title': 'Autenticarse',
     'project.users.SignUp.fields.confirmPassword': 'Confirmar contrasinal',
     'project.users.SignUp.title': 'Rexistrarse',
-    'project.users.UpdateProfile.title': 'Actualizar perfil'
+    'project.users.UpdateProfile.title': 'Actualizar perfil',
+
+    'project.employees.title': 'Empleados',
+    'project.users.employees.create': 'Crear novo empleado',
+    'project.users.employees.seeAllEmployees': 'Ver empleados'
 
 }

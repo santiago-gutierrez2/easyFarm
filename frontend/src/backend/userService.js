@@ -30,10 +30,10 @@ export const tryLoginFromServiceToken = (onSuccess, reauthenticationCallback) =>
 export const signUp = (user, onSuccess, onErrors, reauthenticationCallback) => {
 
     appFetch('/users/createEmployee', config('POST', user),
-        authenticatedUser => {
-            setServiceToken(authenticatedUser.serviceToken);
-            setReauthenticationCallback(reauthenticationCallback);
-            onSuccess(authenticatedUser);
+        userDto => {
+            //setServiceToken(authenticatedUser.serviceToken);
+            //setReauthenticationCallback(reauthenticationCallback);
+            onSuccess(userDto);
         }, 
         onErrors);
 
@@ -50,3 +50,13 @@ export const changePassword = (id, oldPassword, newPassword, onSuccess,
     appFetch(`/users/${id}/changePassword`, 
         config('POST', {oldPassword, newPassword}),
         onSuccess, onErrors);
+
+export const getEmployees = (onSuccess, onErrors) => {
+    appFetch('/users/getEmployees', config('GET'),
+        onSuccess, onErrors);
+}
+
+export const deleteEmployee = (employeeId, onSuccess, onErrors) => {
+    appFetch(`/users/${employeeId}/deleteEmployee`, config('DELETE'),
+        onSuccess, onErrors);
+}

@@ -6,7 +6,7 @@ const Footer = () => (
         <br/>
         <hr/>
         <footer>
-            <p className="text-center">
+            <p className="text-center footer">
                 <FormattedMessage id="project.app.Footer.text"/>
             </p>
         </footer>

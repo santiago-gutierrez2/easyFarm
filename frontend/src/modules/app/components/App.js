@@ -1,6 +1,7 @@
 import {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import {BrowserRouter as Router} from 'react-router-dom';
+import '../../../styles.css';
 
 import Header from './Header';
 import Body from './Body';
@@ -19,6 +20,7 @@ const App = () => {
     });
 
     return (
+        <>
         <div>
             <Router>
                 <div>
@@ -26,8 +28,9 @@ const App = () => {
                     <Body/>
                 </div>
             </Router>
-            <Footer/>
         </div>
+            <Footer/>
+        </>
     );
 
 }

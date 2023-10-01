@@ -1,4 +1,7 @@
-package es.udc.paproject.backend.rest.dtos;
+package es.udc.paproject.backend.rest.dtos.UserDTOs;
+
+import es.udc.paproject.backend.model.entities.Farm;
+import es.udc.paproject.backend.rest.dtos.FarmDTOs.FarmDto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -17,11 +20,11 @@ public class UserDto {
 	private String lastName;
 	private String email;
 	private String role;
-	private Long farmId;
+	private FarmDto farm;
 
 	public UserDto() {}
 
-	public UserDto(Long id, String userName, String firstName, String lastName, String email, String role, Long farmId) {
+	public UserDto(Long id, String userName, String firstName, String lastName, String email, String role, FarmDto farm) {
 
 		this.id = id;
 		this.userName = userName != null ? userName.trim() : null;
@@ -29,7 +32,7 @@ public class UserDto {
 		this.lastName = lastName.trim();
 		this.email = email.trim();
 		this.role = role;
-		this.farmId = farmId;
+		this.farm = farm;
 	}
 
 	public Long getId() {
@@ -99,8 +102,8 @@ public class UserDto {
 		this.role = role;
 	}
 
-	public Long getFarmId() {return farmId;}
+	public FarmDto getFarm() {return farm;}
 
-	public void setFarmId(Long farmId) {this.farmId = farmId;}
+	public void setFarmId(FarmDto farm) {this.farm = farm;}
 
 }

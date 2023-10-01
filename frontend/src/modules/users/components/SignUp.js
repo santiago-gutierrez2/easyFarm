@@ -1,15 +1,18 @@
 import {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {FormattedMessage} from 'react-intl';
 import {useHistory} from 'react-router-dom';
 
 import {Errors} from '../../common';
+import {Success} from "../../common";
 import * as actions from '../actions';
+import users from "../index";
 
 const SignUp = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const user = useSelector(users.selectors.getUser); // admin user (creator) to get info of farm.
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -17,6 +20,7 @@ const SignUp = () => {
     const [lastName, setLastName] = useState('');
     const [email, setEmail]  = useState('');
     const [backendErrors, setBackendErrors] = useState(null);
+    const [success, setSuccess] = useState(null);
     const [passwordsDoNotMatch, setPasswordsDoNotMatch] = useState(false);
     let form;
     let confirmPasswordInput;
@@ -32,8 +36,19 @@ const SignUp = () => {
                 password: password,
                 firstName: firstName.trim(),
                 lastName: lastName.trim(),
-                email: email.trim()},
-                () => history.push('/'),
+                email: email.trim(),
+                farm: user.farm},
+                () =>{
+                    //history.push('/')
+                    setSuccess('Employee created correctly');
+                    // reset state of form
+                    setUserName('');
+                    setPassword('');
+                    setConfirmPassword('');
+                    setFirstName('');
+                    setLastName('');
+                    setEmail('');
+                },
                 errors => setBackendErrors(errors),
                 () => {
                     history.push('/users/login');
@@ -75,11 +90,13 @@ const SignUp = () => {
     }
 
     return (
-        <div>
+        <div className="row justify-content-center">
+            <div className="col-7">
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
+            <Success message={success} onClose={() => setSuccess(null)}></Success>
             <div className="card bg-light border-dark">
                 <h5 className="card-header">
-                    <FormattedMessage id="project.users.SignUp.title"/>
+                    <FormattedMessage id="project.users.employees.create"/>
                 </h5>
                 <div className="card-body">
                     <form ref={node => form = node}
@@ -176,12 +193,13 @@ const SignUp = () => {
                         <div className="form-group row">
                             <div className="offset-md-3 col-md-2">
                                 <button type="submit" className="btn btn-primary">
-                                    <FormattedMessage id="project.users.SignUp.title"/>
+                                    <FormattedMessage id="project.global.buttons.create"/>
                                 </button>
                             </div>
                         </div>
                     </form>
                 </div>
+            </div>
             </div>
         </div>
     );

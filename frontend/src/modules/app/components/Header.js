@@ -7,10 +7,11 @@ import users from '../../users';
 const Header = () => {
 
     const userName = useSelector(users.selectors.getUserName);
+    const userRole = useSelector(users.selectors.getRole);
 
     return (
 
-        <nav className="navbar navbar-expand-lg navbar-light bg-light border">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark bg-light ">
             <Link className="navbar-brand" to="/">EasyFarm</Link>
             <button className="navbar-toggler" type="button" 
                 data-toggle="collapse" data-target="#navbarSupportedContent" 
@@ -22,17 +23,22 @@ const Header = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
 
                 <ul className="navbar-nav mr-auto">
-                    <li className="nav-item dropdown">
-                        <a className="dropdown-toggle nav-link" href="/"
-                           data-toggle="dropdown">
-                            HELLO
-                        </a>
-                        <div className="dropdown-menu dropdown-menu-right">
-                            <Link className="dropdown-item" to="/users/update-profile">
-                                <FormattedMessage id="project.users.UpdateProfile.title"/>
-                            </Link>
-                        </div>
-                    </li>
+                    { userRole === "ADMIN" &&
+                        <li className="nav-item dropdown">
+                            <a className="dropdown-toggle nav-link" href="/"
+                               data-toggle="dropdown">
+                                <FormattedMessage id="project.employees.title"></FormattedMessage>
+                            </a>
+                            <div className="dropdown-menu dropdown-menu-right">
+                                <Link className="dropdown-item" to="/users/signup">
+                                    <FormattedMessage id="project.users.employees.create"/>
+                                </Link>
+                                <Link className="dropdown-item" to="/users/seeAllEmployees">
+                                    <FormattedMessage id="project.users.employees.seeAllEmployees"></FormattedMessage>
+                                </Link>
+                            </div>
+                        </li>
+                    }
                 </ul>
                 
                 {userName ? 

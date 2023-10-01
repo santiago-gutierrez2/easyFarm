@@ -9,10 +9,11 @@ import users from '../../users';
 const Body = () => {
 
     const loggedIn = useSelector(users.selectors.isLoggedIn);
+    const role = useSelector(users.selectors.getRole);
     
    return (
 
-        <div className="container">
+        <div className="container mw-100">
             <br/>
             <AppGlobalComponents/>
             <Switch>
@@ -20,8 +21,8 @@ const Body = () => {
                 {loggedIn && <Route exact path="/users/update-profile"><UpdateProfile/></Route>}
                 {loggedIn && <Route exact path="/users/change-password"><ChangePassword/></Route>}
                 {loggedIn && <Route exact path="/users/logout"><Logout/></Route>}
+                {loggedIn && role == 'ADMIN' && <Route exact path="/users/signup"><SignUp/></Route>}
                 {!loggedIn && <Route exact path="/users/login"><Login/></Route>}
-                {!loggedIn && <Route exact path="/users/signup"><SignUp/></Route>}
                 <Route><Home/></Route>
             </Switch>
         </div>

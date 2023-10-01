@@ -1,4 +1,4 @@
-package es.udc.paproject.backend.rest.dtos;
+package es.udc.paproject.backend.rest.dtos.UserDTOs;
 
 import javax.validation.constraints.NotNull;
 

@@ -1,3 +1,5 @@
+DROP TABLE Weighing;
+DROP TABLE Milking;
 DROP TABLE FoodConsumption;
 DROP TABLE FoodPurchase;
 DROP TABLE Animal;
@@ -22,6 +24,7 @@ CREATE TABLE User (
     lastName VARCHAR(60) NOT NULL, 
     email VARCHAR(60) NOT NULL,
     role TINYINT NOT NULL,
+    isEliminated BOOLEAN default false,
     farmId BIGINT NOT NULL,
     CONSTRAINT UserPK PRIMARY KEY (id),
     CONSTRAINT UserNameUniqueKey UNIQUE (userName),

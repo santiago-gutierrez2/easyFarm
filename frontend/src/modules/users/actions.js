@@ -9,7 +9,7 @@ const signUpCompleted = authenticatedUser => ({
 export const signUp = (user, onSuccess, onErrors, reauthenticationCallback) => dispatch =>
     backend.userService.signUp(user,
         authenticatedUser => {
-            dispatch(signUpCompleted(authenticatedUser));
+            //dispatch(signUpCompleted(authenticatedUser));
             onSuccess();
         },
         onErrors,

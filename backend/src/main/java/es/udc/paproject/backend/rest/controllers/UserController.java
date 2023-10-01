@@ -1,10 +1,7 @@
 package es.udc.paproject.backend.rest.controllers;
 
-import static es.udc.paproject.backend.rest.dtos.UserConversor.toAuthenticatedUserDto;
-import static es.udc.paproject.backend.rest.dtos.UserConversor.toUser;
-import static es.udc.paproject.backend.rest.dtos.UserConversor.toUserDto;
-
 import java.net.URI;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -16,16 +13,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.udc.paproject.backend.model.entities.User;
@@ -33,10 +21,12 @@ import es.udc.paproject.backend.model.services.UserService;
 import es.udc.paproject.backend.rest.common.ErrorsDto;
 import es.udc.paproject.backend.rest.common.JwtGenerator;
 import es.udc.paproject.backend.rest.common.JwtInfo;
-import es.udc.paproject.backend.rest.dtos.AuthenticatedUserDto;
-import es.udc.paproject.backend.rest.dtos.ChangePasswordParamsDto;
-import es.udc.paproject.backend.rest.dtos.LoginParamsDto;
-import es.udc.paproject.backend.rest.dtos.UserDto;
+import es.udc.paproject.backend.rest.dtos.UserDTOs.AuthenticatedUserDto;
+import es.udc.paproject.backend.rest.dtos.UserDTOs.ChangePasswordParamsDto;
+import es.udc.paproject.backend.rest.dtos.UserDTOs.LoginParamsDto;
+import es.udc.paproject.backend.rest.dtos.UserDTOs.UserDto;
+
+import static es.udc.paproject.backend.rest.dtos.UserDTOs.UserConversor.*;
 
 @RestController
 @RequestMapping("/users")
@@ -93,20 +83,22 @@ public class UserController {
 	}
 
 	@PostMapping("/createEmployee")
-	public ResponseEntity<AuthenticatedUserDto> createEmployee(
+	public UserDto createEmployee( @RequestAttribute Long userId,
 		@Validated({UserDto.AllValidations.class}) @RequestBody UserDto userDto) throws DuplicateInstanceException, FarmDoesntExistException {
 
-		Optional<Farm> farm = farmDao.findById(userDto.getFarmId());
+		Optional<Farm> farm = farmDao.findById(userDto.getFarm().getId());
 
 		if (farm.isPresent()) {
 			User user = toUser(userDto, farm.get());
 			userService.signUp(user);
 
-			URI location = ServletUriComponentsBuilder
+			return toUserDto(user);
+
+			/*URI location = ServletUriComponentsBuilder
 					.fromCurrentRequest().path("/{id}")
 					.buildAndExpand(user.getId()).toUri();
 
-			return ResponseEntity.created(location).body(toAuthenticatedUserDto(generateServiceToken(user), user));
+			return ResponseEntity.created(location).body(toAuthenticatedUserDto(generateServiceToken(user), user));*/
 		} else {
 			throw new FarmDoesntExistException();
 		}
@@ -158,6 +150,26 @@ public class UserController {
 		
 		userService.changePassword(id, params.getOldPassword(), params.getNewPassword());
 		
+	}
+
+	@DeleteMapping("/{employeeId}/deleteEmployee")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteEmployee(@RequestAttribute Long userId, @PathVariable Long employeeId)
+		throws PermissionException, InstanceNotFoundException {
+
+		if (userId.equals(employeeId)) {
+			throw new PermissionException();
+		}
+
+		userService.deleteEmployee(employeeId);
+
+	}
+
+	@GetMapping("/getEmployees")
+	public List<UserDto> getEmployees(@RequestAttribute Long userId) throws InstanceNotFoundException {
+
+		List<User> employees =  userService.getEmployees(userId);
+		return toUserDtos(employees);
 	}
 	
 	private String generateServiceToken(User user) {
