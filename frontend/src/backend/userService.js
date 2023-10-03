@@ -53,7 +53,9 @@ export const changePassword = (id, oldPassword, newPassword, onSuccess,
 
 export const getEmployees = (onSuccess, onErrors) => {
     appFetch('/users/getEmployees', config('GET'),
-        onSuccess, onErrors);
+        (employees) => {
+            onSuccess(employees)
+        }, onErrors);
 }
 
 export const deleteEmployee = (employeeId, onSuccess, onErrors) => {
