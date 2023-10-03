@@ -56,10 +56,11 @@ const GetEmployees = () => {
 
     return (
         <div className="row justify-content-center">
-            <div className="col-10">
+            <div className="col-12 col-sm-10">
                 <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}></Errors>
-                <table className="table">
-                    <thead className="thead-dark">
+                <div className="table-responsive">
+                    <table className="table">
+                        <thead className="thead-dark">
                         <tr>
                             <th scope="col"><FormattedMessage id="project.global.fields.userName"/></th>
                             <th scope="col"><FormattedMessage id="project.global.fields.firstName"/></th>
@@ -67,16 +68,16 @@ const GetEmployees = () => {
                             <th scope="col"><FormattedMessage id="project.global.fields.email"/></th>
                             <th scope="col"></th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         {employees.map(employee => {
                             return (
                                 <tr key={employee.id}>
-                                    <td>{employee.userName}</td>
-                                    <td>{employee.firstName}</td>
-                                    <td>{employee.lastName}</td>
-                                    <td>{employee.email}</td>
-                                    <td>
+                                    <td scope="row">{employee.userName}</td>
+                                    <td scope="row">{employee.firstName}</td>
+                                    <td scope="row">{employee.lastName}</td>
+                                    <td scope="row">{employee.email}</td>
+                                    <td scope="row">
                                         <button className="btn btn-danger" title="Delete" onClick={event => handleDelete(event, employee)}>
                                             <i className="fas fa-trash"></i>
                                         </button>
@@ -84,8 +85,9 @@ const GetEmployees = () => {
                                 </tr>
                             )
                         })}
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );
