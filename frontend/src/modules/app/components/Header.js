@@ -23,6 +23,7 @@ const Header = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
 
                 <ul className="navbar-nav mr-auto">
+                    {/* EMPLOYEES MANAGEMENT */}
                     { userRole === "ADMIN" &&
                         <li className="nav-item dropdown">
                             <a className="dropdown-toggle nav-link" href="/"
@@ -35,6 +36,24 @@ const Header = () => {
                                 </Link>
                                 <Link className="dropdown-item" to="/users/seeAllEmployees">
                                     <FormattedMessage id="project.users.employees.seeAllEmployees"></FormattedMessage>
+                                </Link>
+                            </div>
+                        </li>
+                    }
+
+                    {/* ISSUE MANAGEMENT */}
+                    { userRole === "ADMIN" &&
+                        <li className="nav-item dropdown">
+                            <a className="dropdown-toggle nav-link" href="/"
+                               data-toggle="dropdown">
+                               <FormattedMessage id="project.issues.title" />
+                            </a>
+                            <div className="dropdown-menu dropdown-menu-right">
+                                <Link className="dropdown-item" to="/issues/createIssue">
+                                    <FormattedMessage id="project.issues.create"/>
+                                </Link>
+                                <Link className="dropdown-item" to="/issues/SeeAllIssues">
+                                    <FormattedMessage id="project.issues.seeAllIssues" />
                                 </Link>
                             </div>
                         </li>

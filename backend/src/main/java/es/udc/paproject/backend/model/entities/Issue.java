@@ -61,15 +61,17 @@ public class Issue {
         this.creationDate = creationDate;
     }
 
-    public Boolean getDone() {
+    @JoinColumn(name = "isDone")
+    public Boolean getIsDone() {
         return isDone;
     }
 
-    public void setDone(Boolean done) {
+    public void setIsDone(Boolean done) {
         isDone = done;
     }
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "createdBy")
     public User getCreatedBy() {
         return createdBy;
     }
@@ -78,6 +80,7 @@ public class Issue {
         this.createdBy = createdBy;
     }
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "assignedTo")
     public User getAssignedTo() {
         return assignedTo;
     }

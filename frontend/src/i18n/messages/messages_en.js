@@ -26,6 +26,7 @@ export default {
     'project.global.fields.postalAddress': 'Postal address',
     'project.global.fields.postalCode': 'Postal code',
     'project.global.fields.userName': 'Username',
+    'project.global.fields.assignedTo' : 'Assigned to',
     'project.global.validator.email': 'Provide a correct e-mail address',
     'project.global.validator.passwordsDoNotMatch': 'Passwords do not match',
     'project.global.validator.required': 'Required field',
@@ -41,6 +42,13 @@ export default {
 
     'project.employees.title': 'Employees',
     'project.users.employees.create': 'Create new employee',
-    'project.users.employees.seeAllEmployees': 'See all employees'
+    'project.users.employees.seeAllEmployees': 'See all employees',
+
+    'project.issues.title': 'Issues',
+    'project.issues.create': 'Create new issue',
+    'project.issues.seeAllIssues': 'See all issues',
+    'project.issues.issueName': 'Issue name',
+    'project.issues.description': 'Description',
+    'project.issues.assignedTo': 'Assigned to'
 
 }

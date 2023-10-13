@@ -5,6 +5,7 @@ import AppGlobalComponents from './AppGlobalComponents';
 import Home from './Home';
 import {Login, SignUp, UpdateProfile, ChangePassword, Logout, GetEmployees} from '../../users';
 import users from '../../users';
+import CreateIssue from "../../issues/components/CreateIssue";
 
 const Body = () => {
 
@@ -23,6 +24,8 @@ const Body = () => {
                 {loggedIn && <Route exact path="/users/logout"><Logout/></Route>}
                 {loggedIn && role == 'ADMIN' && <Route exact path="/users/signup"><SignUp/></Route>}
                 {loggedIn && role == 'ADMIN' && <Route exact path="/users/seeAllEmployees"><GetEmployees/></Route>}
+                {loggedIn && role == 'ADMIN' && <Route exact path="/issues/createIssue"><CreateIssue /></Route>}
+                {loggedIn && role == 'ADMIN' && <Route exact path="/issues/SeeAllIssues">  </Route>}
                 {!loggedIn && <Route exact path="/users/login"><Login/></Route>}
                 <Route><Home/></Route>
             </Switch>

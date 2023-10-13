@@ -26,6 +26,7 @@ export default {
     'project.global.fields.postalAddress': 'Dirección postal',
     'project.global.fields.postalCode': 'Código postal',
     'project.global.fields.userName': 'Usuario',
+    'project.global.fields.assignedTo' : 'Asignado a',
     'project.global.validator.email': 'Introduzca unha dirección de correo electrónico correcta',
     'project.global.validator.passwordsDoNotMatch': 'As contrasinais non coinciden',
     'project.global.validator.required': 'Campo obrigatorio',
@@ -41,6 +42,13 @@ export default {
 
     'project.employees.title': 'Empleados',
     'project.users.employees.create': 'Crear novo empleado',
-    'project.users.employees.seeAllEmployees': 'Ver empleados'
+    'project.users.employees.seeAllEmployees': 'Ver empleados',
+
+    'project.issues.title': 'Tarefas',
+    'project.issues.create': 'Crear nova tarefa',
+    'project.issues.seeAllIssues': 'Ver tarefas',
+    'project.issues.issueName': 'Nome da tarefa',
+    'project.issues.description': 'Descripción',
+    'project.issues.assignedTo': 'Asignado a'
 
 }
