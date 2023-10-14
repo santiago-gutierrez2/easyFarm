@@ -1,15 +1,16 @@
 package es.udc.paproject.backend.model.services;
 
-import es.udc.paproject.backend.model.entities.Issue;
-import es.udc.paproject.backend.model.entities.IssueDao;
-import es.udc.paproject.backend.model.entities.User;
-import es.udc.paproject.backend.model.entities.UserDao;
+import es.udc.paproject.backend.model.entities.*;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.exceptions.PermissionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -80,5 +81,26 @@ public class IssueServiceImpl implements IssueService{
         }
 
         return optionalIssue.get();
+    }
+
+    @Override
+    public Block<Issue> getAllIssues(Long userId, int page, int size) throws InstanceNotFoundException {
+        Optional<User> optionalUser = userDao.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.user", userId);
+        }
+
+        User user = optionalUser.get();
+
+        Farm farm = user.getFarm();
+
+        Slice<Issue> issuesSlice = issueDao.findByCreatedByFarmId(farm.getId(), PageRequest.of(page, size));
+
+        List<Issue> issueList = issuesSlice.getContent();
+
+        return new Block<>(issueList, issuesSlice.hasNext());
+
+
     }
 }

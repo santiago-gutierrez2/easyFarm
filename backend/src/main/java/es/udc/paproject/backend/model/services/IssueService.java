@@ -3,6 +3,9 @@ package es.udc.paproject.backend.model.services;
 import es.udc.paproject.backend.model.entities.Issue;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.exceptions.PermissionException;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 public interface IssueService {
 
@@ -14,4 +17,6 @@ public interface IssueService {
     void deleteIssue(Long userId, Long id) throws InstanceNotFoundException, PermissionException;
 
     Issue getIssueById(Long userId, Long id) throws InstanceNotFoundException, PermissionException;
+
+    Block<Issue> getAllIssues(Long userId, int page, int size) throws InstanceNotFoundException;
 }

@@ -5,6 +5,8 @@ import es.udc.paproject.backend.model.entities.Issue;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class IssueConversor {
 
@@ -17,6 +19,10 @@ public class IssueConversor {
 
     public final static Issue toIssue(IssueDto issueDto) {
         return new Issue(issueDto.getIssueName(), issueDto.getDescription(), issueDto.getDone(), null, null);
+    }
+
+    public final static List<IssueDto> toIssueDtos(List<Issue> issues) {
+        return issues.stream().map(IssueConversor::toIssueDto).collect(Collectors.toList());
     }
 
     private static long toMillis(LocalDateTime date) {

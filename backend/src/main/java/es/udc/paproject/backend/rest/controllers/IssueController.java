@@ -5,8 +5,10 @@ import es.udc.paproject.backend.model.entities.User;
 import es.udc.paproject.backend.model.entities.UserDao;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.exceptions.PermissionException;
+import es.udc.paproject.backend.model.services.Block;
 import es.udc.paproject.backend.model.services.IssueService;
 import es.udc.paproject.backend.model.services.UserService;
+import es.udc.paproject.backend.rest.dtos.BlockDto;
 import es.udc.paproject.backend.rest.dtos.IssueDTOs.IssueDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -14,10 +16,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
-import static es.udc.paproject.backend.rest.dtos.IssueDTOs.IssueConversor.toIssue;
-import static es.udc.paproject.backend.rest.dtos.IssueDTOs.IssueConversor.toIssueDto;
+import static es.udc.paproject.backend.rest.dtos.IssueDTOs.IssueConversor.*;
 
 @RestController
 @RequestMapping("/issues")
@@ -66,5 +68,12 @@ public class IssueController {
     public IssueDto getIssueById(@RequestAttribute Long userId, @PathVariable Long id) throws PermissionException, InstanceNotFoundException {
         Issue issue = issueService.getIssueById(userId, id);
         return toIssueDto(issue);
+    }
+
+    @GetMapping("/allMyIssues")
+    public BlockDto<IssueDto> getAllIssues(@RequestAttribute Long userId, @RequestParam(defaultValue="0") int page, @RequestParam(defaultValue = "10") int size) throws InstanceNotFoundException {
+        Block<Issue> issueBlock = issueService.getAllIssues(userId, page, size);
+
+        return new BlockDto<>(toIssueDtos(issueBlock.getItems()) , issueBlock.getExistMoreItems());
     }
 }
