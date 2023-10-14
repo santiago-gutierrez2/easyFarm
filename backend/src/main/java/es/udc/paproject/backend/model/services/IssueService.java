@@ -12,4 +12,6 @@ public interface IssueService {
             throws InstanceNotFoundException;
 
     void deleteIssue(Long userId, Long id) throws InstanceNotFoundException, PermissionException;
+
+    Issue getIssueById(Long userId, Long id) throws InstanceNotFoundException, PermissionException;
 }

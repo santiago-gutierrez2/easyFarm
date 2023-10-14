@@ -65,4 +65,20 @@ public class IssueServiceImpl implements IssueService{
 
         issueDao.delete(OptionalIssue.get());
     }
+
+    @Override
+    public Issue getIssueById(Long userId, Long id) throws InstanceNotFoundException, PermissionException {
+
+        Optional<Issue> optionalIssue = issueDao.findById(id);
+        Optional<User> optionalUser = userDao.findById(userId);
+
+        if (optionalIssue.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.issue", id);
+        } else if (optionalUser.isEmpty() || ( !optionalIssue.get().getCreatedBy().getId().equals(optionalUser.get().getId()) &&
+                    !optionalIssue.get().getAssignedTo().getId().equals(optionalUser.get().getId()) )) {
+            throw new PermissionException();
+        }
+
+        return optionalIssue.get();
+    }
 }

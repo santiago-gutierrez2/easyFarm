@@ -49,6 +49,11 @@ export default {
     'project.issues.seeAllIssues': 'Ver tareas',
     'project.issues.issueName': 'Nombre de la tarea',
     'project.issues.description': 'Descripción',
-    'project.issues.assignedTo': 'Asignado a'
+    'project.issues.assignedTo': 'Asignado a',
+    'project.issues.update': 'Actualizar tarea',
+    'project.issue.isDone': 'Realizada?',
+    'project.issue.state': 'Estado',
+    'project.issue.active': 'Activa',
+    'project.issue.done': 'Terminada',
 
 }

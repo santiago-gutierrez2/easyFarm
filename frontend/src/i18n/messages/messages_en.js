@@ -49,6 +49,11 @@ export default {
     'project.issues.seeAllIssues': 'See all issues',
     'project.issues.issueName': 'Issue name',
     'project.issues.description': 'Description',
-    'project.issues.assignedTo': 'Assigned to'
+    'project.issues.assignedTo': 'Assigned to',
+    'project.issues.update': 'Update issue',
+    'project.issue.isDone': 'done?',
+    'project.issue.state': 'State',
+    'project.issue.active': 'Active',
+    'project.issue.done': 'Done',
 
 }

@@ -61,4 +61,10 @@ public class IssueController {
     public void deleteIssue(@RequestAttribute Long userId, @PathVariable Long id) throws InstanceNotFoundException, PermissionException{
         issueService.deleteIssue(userId, id);
     }
+
+    @GetMapping("/{id}")
+    public IssueDto getIssueById(@RequestAttribute Long userId, @PathVariable Long id) throws PermissionException, InstanceNotFoundException {
+        Issue issue = issueService.getIssueById(userId, id);
+        return toIssueDto(issue);
+    }
 }
