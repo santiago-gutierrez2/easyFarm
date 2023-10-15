@@ -39,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, "/issues/createIssue").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.PUT, "/issues/*").hasAnyRole("ADMIN","USER")
 			.antMatchers(HttpMethod.GET, "/issues/*").hasAnyRole("ADMIN","USER")
+			.antMatchers(HttpMethod.GET, "/issues/allIssues").hasAnyRole("ADMIN")
 			.antMatchers(HttpMethod.DELETE, "/issues/*/deleteIssue").hasAnyRole("ADMIN")
 			.anyRequest().denyAll();
 

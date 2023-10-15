@@ -70,7 +70,7 @@ public class IssueController {
         return toIssueDto(issue);
     }
 
-    @GetMapping("/allMyIssues")
+    @GetMapping("/allIssues")
     public BlockDto<IssueDto> getAllIssues(@RequestAttribute Long userId, @RequestParam(defaultValue="0") int page, @RequestParam(defaultValue = "10") int size) throws InstanceNotFoundException {
         Block<Issue> issueBlock = issueService.getAllIssues(userId, page, size);
 

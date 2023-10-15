@@ -55,5 +55,7 @@ export default {
     'project.issue.state': 'Estado',
     'project.issue.active': 'Activa',
     'project.issue.done': 'Terminada',
+    'project.issues.issuesNotFound': 'No se han encontrado tareas',
+    'project.issues.creationDate': 'Fecha de creación'
 
 }

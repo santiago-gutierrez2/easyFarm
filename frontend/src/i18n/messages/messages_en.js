@@ -55,5 +55,7 @@ export default {
     'project.issue.state': 'State',
     'project.issue.active': 'Active',
     'project.issue.done': 'Done',
+    'project.issues.issuesNotFound': 'Issues not found',
+    'project.issues.creationDate': 'Creation date'
 
 }

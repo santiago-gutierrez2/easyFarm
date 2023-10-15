@@ -13,3 +13,8 @@ export const updateIssue = (issueId, issue, onSuccess, onErrors) => {
 export const getIssueById = (issueId, onSuccess, onErrors) => {
     appFetch(`/issues/${issueId}`, config('GET'), onSuccess, onErrors);
 }
+
+export const getAllIssues = ({page}, onSuccess, onErrors) => {
+    appFetch(`/issues/allIssues?page=${page}&size=10`, config('GET'),
+        onSuccess, onErrors);
+}
