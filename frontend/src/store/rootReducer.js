@@ -2,12 +2,14 @@ import {combineReducers} from 'redux';
 
 import app from '../modules/app';
 import users from '../modules/users';
-import issues from '../modules/issues'
+import issues from '../modules/issues';
+import foodPurchases from "../modules/foodPurchases";
 
 const rootReducer = combineReducers({
     app: app.reducer,
     users: users.reducer,
-    issues: issues.reducer
+    issues: issues.reducer,
+    foodPurchases: foodPurchases.reducer
 });
 
 export default rootReducer;

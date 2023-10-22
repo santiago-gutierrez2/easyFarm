@@ -30,6 +30,7 @@ export default {
     'project.global.validator.email': 'Introduzca una dirección de correo electrónico correcta',
     'project.global.validator.passwordsDoNotMatch': 'Las contraseñas no coinciden',
     'project.global.validator.required': 'Campo obligatorio',
+    'project.global.validator.integer': 'Debe ser un número entero',
     'project.global.all': 'Todos',
     'project.global.search': 'Buscar',
 
@@ -58,6 +59,14 @@ export default {
     'project.issue.active': 'Activa',
     'project.issue.done': 'Terminada',
     'project.issues.issuesNotFound': 'No se han encontrado tareas',
-    'project.issues.creationDate': 'Fecha de creación'
+    'project.issues.creationDate': 'Fecha de creación',
+
+    'project.foodPurchase.title': 'Compra de alimento',
+    'project.foodPurchase.create': 'Registrar nueva compra de alimento',
+    'project.foodPurchase.productName': 'Nombre del producto',
+    'project.foodPurchase.ingredients': 'Ingredientes',
+    'project.foodPurchase.supplier': 'Proveedor',
+    'project.foodPurchase.kilos': 'Kilogramos',
+    'project.foodPurchase.unitPrice': 'Precio por kilo'
 
 }

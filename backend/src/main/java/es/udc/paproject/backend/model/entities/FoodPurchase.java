@@ -90,6 +90,7 @@ public class FoodPurchase {
     }
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "madeBy")
     public User getMadeBy() {
         return madeBy;
     }

@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,8 +72,11 @@ public class IssueController {
     }
 
     @GetMapping("/allIssues")
-    public BlockDto<IssueDto> getAllIssues(@RequestAttribute Long userId, @RequestParam(defaultValue="0") int page, @RequestParam(defaultValue = "10") int size) throws InstanceNotFoundException {
-        Block<Issue> issueBlock = issueService.getAllIssues(userId, page, size);
+    public BlockDto<IssueDto> getAllIssues(@RequestAttribute Long userId, @RequestParam(defaultValue="0") int page, @RequestParam(defaultValue = "5") int size,
+                                           @RequestParam(required = false) String issueName, @RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate,
+                                           @RequestParam(required = false) Boolean isDone) throws InstanceNotFoundException {
+
+        Block<Issue> issueBlock = issueService.getAllIssues(userId, issueName, startDate, endDate, isDone, page, size);
 
         return new BlockDto<>(toIssueDtos(issueBlock.getItems()) , issueBlock.getExistMoreItems());
     }

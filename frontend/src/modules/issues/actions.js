@@ -24,8 +24,16 @@ export const getAllIssues = (criteria, onSuccess, onErrors) => dispacth => {
 }
 
 export const previousGetAllIssues = criteria =>
-    getAllIssues({...criteria, page: criteria.page - 1});
+    getAllIssues({...criteria, page: criteria.page - 1}, () => {
+
+    }, () => {
+        
+    });
 
 
 export const nextGetAllIssues = criteria =>
-    getAllIssues({...criteria, page: criteria.page + 1});
+    getAllIssues({...criteria, page: criteria.page + 1}, () => {
+
+    }, () => {
+
+    });

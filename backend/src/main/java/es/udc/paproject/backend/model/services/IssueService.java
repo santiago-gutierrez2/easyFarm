@@ -5,6 +5,7 @@ import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.exceptions.PermissionException;
 import org.springframework.data.domain.Page;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IssueService {
@@ -18,5 +19,6 @@ public interface IssueService {
 
     Issue getIssueById(Long userId, Long id) throws InstanceNotFoundException, PermissionException;
 
-    Block<Issue> getAllIssues(Long userId, int page, int size) throws InstanceNotFoundException;
+    Block<Issue> getAllIssues(Long userId, String issueName, String startDate, String endTime,
+                              Boolean isDone, int page, int size) throws InstanceNotFoundException;
 }

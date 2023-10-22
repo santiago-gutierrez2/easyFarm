@@ -3,6 +3,7 @@ package es.udc.paproject.backend.model.services;
 import es.udc.paproject.backend.model.entities.*;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.exceptions.PermissionException;
+import org.apache.catalina.WebResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,7 +86,8 @@ public class IssueServiceImpl implements IssueService{
     }
 
     @Override
-    public Block<Issue> getAllIssues(Long userId, int page, int size) throws InstanceNotFoundException {
+    public Block<Issue> getAllIssues(Long userId, String issueName, String startDate, String endDate,
+                                     Boolean isDone, int page, int size) throws InstanceNotFoundException {
         Optional<User> optionalUser = userDao.findById(userId);
 
         if (optionalUser.isEmpty()) {
@@ -95,7 +98,12 @@ public class IssueServiceImpl implements IssueService{
 
         Farm farm = user.getFarm();
 
-        Slice<Issue> issuesSlice = issueDao.findByCreatedByFarmId(farm.getId(), PageRequest.of(page, size));
+        Slice<Issue> issuesSlice;
+        if (issueName != null || startDate != null || endDate != null || isDone != null) {
+            issuesSlice = issueDao.find(farm.getId(), issueName != null ? issueName.trim() : null, startDate, endDate, isDone, page, size);
+        } else {
+            issuesSlice = issueDao.findByCreatedByFarmIdOrderByCreationDateDesc(farm.getId(), PageRequest.of(page, size));
+        }
 
         List<Issue> issueList = issuesSlice.getContent();
 

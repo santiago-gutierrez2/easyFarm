@@ -14,7 +14,15 @@ export const getIssueById = (issueId, onSuccess, onErrors) => {
     appFetch(`/issues/${issueId}`, config('GET'), onSuccess, onErrors);
 }
 
-export const getAllIssues = ({page}, onSuccess, onErrors) => {
-    appFetch(`/issues/allIssues?page=${page}&size=10`, config('GET'),
+export const getAllIssues = ({page, issueName, startDate, endDate, isDone}, onSuccess, onErrors) => {
+
+    let path = `/issues/allIssues?page=${page}&size=5`;
+
+    path += issueName?.length > 0 ? `&issueName=${encodeURIComponent(issueName)}` : "";
+    path += startDate ? `&startDate=${encodeURIComponent(startDate.toISOString().substring(0,10))}` : "";
+    path += endDate ? `&endDate=${encodeURIComponent(endDate.toISOString().substring(0,10))}` : "";
+    path += isDone ? `&isDone=${encodeURIComponent(isDone)}` : "";
+
+    appFetch(path, config('GET'),
         onSuccess, onErrors);
 }

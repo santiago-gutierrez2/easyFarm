@@ -55,6 +55,23 @@ const AllIssues = () => {
         }
     }
 
+    function handleFilter() {
+        let criteria = {
+            page: 0,
+            issueName: issueName.length > 0 ? issueName : null,
+            startDate: startDate != null ? startDate : null,
+            endDate: endDate != null ? endDate : null,
+            isDone: isDone === "" ? null : isDone
+        }
+        dispatch(actions.getAllIssues(criteria,
+            (result) => {
+                console.log(result);
+            }, (errors) => {
+                setBackendErrors(errors);
+            })
+        );
+    }
+
     if (!issuesSearch) {
         return null;
     }
@@ -65,14 +82,6 @@ const AllIssues = () => {
                 <div className="col-1 text-center">
                     <BounceLoader color="#343A40" />
                 </div>
-            </div>
-        );
-    }
-
-    if (issuesSearch.result.items.length === 0) {
-        return (
-            <div className="alert alert-danger" role="alert">
-                <FormattedMessage id='project.issues.issuesNotFound'/>
             </div>
         );
     }
@@ -99,12 +108,17 @@ const AllIssues = () => {
                 <DatePicker className="form-control mt-1" selected={endDate} onChange={(date) => setEndDate(date)} />
               </div>
               <div className="col-sm-2 text-center">
-                  <button className="btn btn-primary" style={{marginTop: '37px'}}> <FormattedMessage id="project.global.search"/></button>
+                  <button className="btn btn-primary" style={{marginTop: '37px'}} onClick={e => handleFilter()}><FormattedMessage id="project.global.search"/></button>
               </div>
           </div>
+          {issuesSearch.result.items.length === 0 &&
+              <div className="alert alert-danger" role="alert">
+                  <FormattedMessage id='project.issues.issuesNotFound'/>
+              </div>
+          }
           {issuesSearch.result.items.map(issue => {
               return (
-                  <div key={issue.id} className="card">
+                  <div key={issue.id} className="card mt-2">
                       <div className="card-header container">
                         <div className="row">
                             <div className="col-xl-10 col-7">
