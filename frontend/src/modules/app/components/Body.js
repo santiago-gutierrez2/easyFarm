@@ -7,7 +7,7 @@ import {Login, SignUp, UpdateProfile, ChangePassword, Logout, GetEmployees} from
 import users from '../../users';
 import CreateIssue from "../../issues/components/CreateIssue";
 import {AllIssues, UpdateIssue} from "../../issues";
-import {CreateFoodPurchase} from "../../foodPurchases";
+import {CreateFoodPurchase, UpdateFoodPurchase} from "../../foodPurchases";
 
 const Body = () => {
 
@@ -30,6 +30,7 @@ const Body = () => {
                 {loggedIn && role == 'ADMIN' && <Route exact path="/issues/SeeAllIssues"> <AllIssues/> </Route>}
                 {loggedIn && role == 'ADMIN' && <Route exact path="/issues/:issueId"> <UpdateIssue/></Route>}
                 {loggedIn && <Route exact path="/foodPurchase/createFoodPurchase"> <CreateFoodPurchase/> </Route>}
+                {loggedIn && <Route exact path="/foodPurchase/:foodPurchaseId"> <UpdateFoodPurchase/></Route>}
                 {!loggedIn && <Route exact path="/users/login"><Login/></Route>}
                 <Route><Home/></Route>
             </Switch>

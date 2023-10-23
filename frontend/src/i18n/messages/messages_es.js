@@ -67,6 +67,7 @@ export default {
     'project.foodPurchase.ingredients': 'Ingredientes',
     'project.foodPurchase.supplier': 'Proveedor',
     'project.foodPurchase.kilos': 'Kilogramos',
-    'project.foodPurchase.unitPrice': 'Precio por kilo'
+    'project.foodPurchase.unitPrice': 'Precio por kilo',
+    'project.foodPurchase.update': 'Actualizar compra de alimento'
 
 }

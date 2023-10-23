@@ -4,6 +4,7 @@ import reducer from "./reducer";
 import * as selectors from './selectors';
 
 export {default as CreateFoodPurchase} from './components/CreateFoodPurchase';
+export {default as UpdateFoodPurchase} from './components/UpdateFoodPurchase';
 
 // eslint-disable-next-line
 export default {actions, actionTypes, reducer, selectors};
