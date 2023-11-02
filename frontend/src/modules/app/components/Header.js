@@ -1,6 +1,7 @@
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {FormattedMessage} from 'react-intl';
+import "./HeaderStyle.css";
 
 import users from '../../users';
 
@@ -11,7 +12,7 @@ const Header = () => {
 
     return (
 
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark bg-light ">
+        <nav className="navbar navbar-expand-lg navbar-dark header-custom">
             <Link className="navbar-brand" to="/">EasyFarm</Link>
             <button className="navbar-toggler" type="button" 
                 data-toggle="collapse" data-target="#navbarSupportedContent" 
@@ -60,7 +61,7 @@ const Header = () => {
                     }
 
                     {/* FOODPURCHASE MANAGEMENT */}
-                    { userName &&
+                    { userRole === "ADMIN" &&
                         <li className="nav-item dropdown">
                             <a className="dropdown-toggle nav-link" href="/"
                                 data-toggle="dropdown">
@@ -69,6 +70,9 @@ const Header = () => {
                             <div className="dropdown-menu dropdown-menu-right">
                                 <Link className="dropdown-item" to="/foodPurchase/createFoodPurchase">
                                     <FormattedMessage id="project.foodPurchase.create"/>
+                                </Link>
+                                <Link className="dropdown-item" to="/foodPurchase/allFoodPurchases">
+                                    <FormattedMessage id="project.foodPurchase.seeAllFoodPurchases"/>
                                 </Link>
                             </div>
                         </li>

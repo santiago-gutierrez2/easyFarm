@@ -14,13 +14,13 @@ export const getFoodPurchaseById = (foodPurchaseId, onSuccess, onErrors) => {
     appFetch(`/foodPurchase/${foodPurchaseId}`, config('GET'), onSuccess, onErrors);
 }
 
-export const getAllFoodPurchases = ({page, productName, startDate, endDate, madeBy}, onSuccess, onErrors) => {
+export const getAllFoodPurchases = ({page, productName, supplier, startDate, endDate}, onSuccess, onErrors) => {
     let path = `/foodPurchase/allFoodPurchases?page=${page}&size=5`;
 
     path += productName?.length > 0 ? `&productName=${encodeURIComponent(productName)}` : "";
+    path += supplier?.length > 0 ? `&supplier=${encodeURIComponent(supplier)}` : "";
     path += startDate ? `&startDate=${encodeURIComponent(startDate.toISOString().substring(0,10))}` : "";
     path += endDate ? `&endDate=${encodeURIComponent(endDate.toISOString().substring(0,10))}` : "";
-    path += madeBy > 0 ? `&madeBy=${madeBy}` : "";
 
     appFetch(path, config('GET'), onSuccess, onErrors);
 }

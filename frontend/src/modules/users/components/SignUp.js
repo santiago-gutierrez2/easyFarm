@@ -95,7 +95,7 @@ const SignUp = () => {
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
             <Success message={success} onClose={() => setSuccess(null)}></Success>
             <div className="card bg-light border-dark">
-                <h5 className="card-header">
+                <h5 className="card-header card-title-custom">
                     <FormattedMessage id="project.users.employees.create"/>
                 </h5>
                 <div className="card-body">

@@ -68,6 +68,10 @@ export default {
     'project.foodPurchase.supplier': 'Proveedor',
     'project.foodPurchase.kilos': 'Kilogramos',
     'project.foodPurchase.unitPrice': 'Precio por kilo',
-    'project.foodPurchase.update': 'Actualizar compra de alimento'
+    'project.foodPurchase.update': 'Actualizar compra de alimento',
+    'project.foodPurchase.MadeBy': 'Hecha por',
+    'project.foodPurchase.foodPurchasesNotFound': 'No se han encontrado registros de compras',
+    'project.foodPurchase.purchaseDate': 'Fecha de compra',
+    'project.foodPurchase.seeAllFoodPurchases': 'Ver compras de alimento'
 
 }

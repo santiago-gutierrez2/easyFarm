@@ -36,6 +36,7 @@ const AllIssues = () => {
                 (result) => {
                     console.log(result);
                     setIsLoading(false);
+                    setBackendErrors(null);
                 }, (errors) => {
                     setBackendErrors(errors);
                     setIsLoading(false);
@@ -119,7 +120,7 @@ const AllIssues = () => {
           {issuesSearch.result.items.map(issue => {
               return (
                   <div key={issue.id} className="card mt-2">
-                      <div className="card-header container">
+                      <div className="card-header container card-title-custom">
                         <div className="row">
                             <div className="col-xl-10 col-7">
                                 <h3>{issue.issueName}</h3>

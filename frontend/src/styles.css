@@ -5,3 +5,7 @@
 .form-group > label > span {
     font-weight: bold;
 }
+
+.card-title-custom {
+    background-color: #BCEEF5;
+}

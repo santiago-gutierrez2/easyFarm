@@ -60,11 +60,10 @@ public class FoodPurchaseController {
 
     @GetMapping("/allFoodPurchases")
     public BlockDto<FoodPurchaseDto> getAllFoodPurchases(@RequestAttribute Long userId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,
-         @RequestParam(required = false) String productName, @RequestParam(required = false) String startDate,
-         @RequestParam(required = false) String endDate, @RequestParam(required = false) Long madeBy) throws InstanceNotFoundException {
+         @RequestParam(required = false) String productName, @RequestParam(required = false) String supplier, @RequestParam(required = false) String startDate,
+         @RequestParam(required = false) String endDate) throws InstanceNotFoundException {
 
-        Block<FoodPurchase> foodPurchaseBlock = foodPurchaseService.getAllFoodPurchases(userId, productName, startDate, endDate,
-                madeBy, page, size);
+        Block<FoodPurchase> foodPurchaseBlock = foodPurchaseService.getAllFoodPurchases(userId, productName, supplier, startDate, endDate, page, size);
 
         return new BlockDto<>(FoodPurchaseConversor.toFoodPurchaseDtos(foodPurchaseBlock.getItems()), foodPurchaseBlock.getExistMoreItems());
     }

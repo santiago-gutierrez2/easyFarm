@@ -17,6 +17,6 @@ public interface FoodPurchaseService {
 
     FoodPurchase getFoodPurchaseById(Long userId, Long id) throws InstanceNotFoundException;
 
-    Block<FoodPurchase> getAllFoodPurchases(Long userId, String productName, String startDate, String endDate, Long madeBy,
+    Block<FoodPurchase> getAllFoodPurchases(Long userId, String productName, String supplier, String startDate, String endDate,
         int page, int size) throws InstanceNotFoundException;
 }

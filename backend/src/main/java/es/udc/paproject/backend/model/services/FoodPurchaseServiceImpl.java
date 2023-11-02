@@ -1,16 +1,16 @@
 package es.udc.paproject.backend.model.services;
 
-import es.udc.paproject.backend.model.entities.FoodPurchase;
-import es.udc.paproject.backend.model.entities.FoodPurchaseDao;
-import es.udc.paproject.backend.model.entities.User;
-import es.udc.paproject.backend.model.entities.UserDao;
+import es.udc.paproject.backend.model.entities.*;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.exceptions.PermissionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -77,8 +77,27 @@ public class FoodPurchaseServiceImpl implements FoodPurchaseService{
     }
 
     @Override
-    public Block<FoodPurchase> getAllFoodPurchases(Long userId, String productName, String startDate, String endDate, Long madeBy,
+    public Block<FoodPurchase> getAllFoodPurchases(Long userId, String productName, String supplier, String startDate, String endDate,
         int page, int size) throws InstanceNotFoundException {
-        return null;
+
+        Optional<User> optionalUser = userDao.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.user", userId);
+        }
+
+        User user = optionalUser.get();
+        Farm farm = user.getFarm();
+
+        Slice<FoodPurchase> foodPurchaseSlice;
+        if (productName != null || supplier != null || startDate != null || endDate != null) {
+            foodPurchaseSlice = foodPurchaseDao.find(farm.getId(), productName, startDate, endDate, supplier, page, size);
+        } else {
+            foodPurchaseSlice = foodPurchaseDao.findByMadeByFarmIdOrderByPurchaseDateDesc(farm.getId(), PageRequest.of(page, size));
+        }
+
+        List<FoodPurchase> foodPurchaseList = foodPurchaseSlice.getContent();
+
+        return new Block<>(foodPurchaseList, foodPurchaseSlice.hasNext());
     }
 }
