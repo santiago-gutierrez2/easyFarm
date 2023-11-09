@@ -64,11 +64,12 @@ public class Animal {
         this.birthDate = birthDate;
     }
 
-    public Boolean getMale() {
+    @JoinColumn(name = "isMale")
+    public Boolean getIsMale() {
         return isMale;
     }
 
-    public void setMale(Boolean male) {
+    public void setIsMale(Boolean male) {
         isMale = male;
     }
 
@@ -81,6 +82,7 @@ public class Animal {
     }
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "belongsTo")
     public Farm getBelongsTo() {
         return belongsTo;
     }
@@ -89,11 +91,12 @@ public class Animal {
         this.belongsTo = belongsTo;
     }
 
-    public Boolean getDead() {
+    @JoinColumn(name = "isDead")
+    public Boolean getIsDead() {
         return isDead;
     }
 
-    public void setDead(Boolean dead) {
+    public void setIsDead(Boolean dead) {
         isDead = dead;
     }
 }
