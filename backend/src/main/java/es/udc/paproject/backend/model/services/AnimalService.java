@@ -9,7 +9,7 @@ public interface AnimalService {
 
     void createAnimal(Animal animal);
 
-    Animal updateAnimal(Long id, Animal animal) throws InstanceNotFoundException;
+    void updateAnimal(Long id, Animal animal) throws InstanceNotFoundException;
 
     void setAnimalDead(Long userId, Long id) throws InstanceNotFoundException, PermissionException;
 

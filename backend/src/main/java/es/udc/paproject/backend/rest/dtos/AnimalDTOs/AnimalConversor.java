@@ -18,7 +18,7 @@ public class AnimalConversor {
                 animal.getIsMale(), animal.getPhysicalDescription(), animal.getBelongsTo().getId(), animal.getIsDead());
     }
 
-    public final static Animal toAnimal(AnimalDto animalDto) {
+    public final static Animal toAnimal(NewAnimalDto animalDto) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime sd = LocalDateTime.parse(animalDto.getBirthDateString() + " 23:59:59", formatter);
         return new Animal(animalDto.getName(), animalDto.getIdentificationNumber(), sd, animalDto.getMale(),

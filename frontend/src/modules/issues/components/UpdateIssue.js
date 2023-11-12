@@ -73,7 +73,7 @@ const UpdateIssue = () => {
 
     return (
         <div className="row justify-content-center">
-            <div className="col-7">
+            <div className="col-sm-7 col-12">
                 <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
                 <Success message={success} onClose={() => setSuccess(null)}></Success>
                 <div className="card bg-light border-dark">
@@ -88,7 +88,7 @@ const UpdateIssue = () => {
                                 <label htmlFor="issueName" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.issues.issueName"/>
                                 </label>
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                     <input type="text" id="issueName" className="form-control"
                                            value={issueName}
                                            onChange={e => setIssueName(e.target.value)}
@@ -103,7 +103,7 @@ const UpdateIssue = () => {
                                 <label htmlFor="description" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.issues.description" />
                                 </label>
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                     <textarea className="form-control" id="description" rows="3"
                                               value={description}
                                               onChange={e => setDescription(e.target.value)}/>
@@ -113,14 +113,14 @@ const UpdateIssue = () => {
                                 <label htmlFor="isDone" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.issue.state" />
                                 </label>
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                     <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                                        <label className="btn btn-info active">
+                                        <label className="btn btn-success active">
                                             <input type="radio" name="active" id="active" autoComplete="off" checked={!isDone}
                                                    onClick={e => setIsDone(false)}/>
                                             <FormattedMessage id="project.issue.active"/>
                                         </label>
-                                        <label className="btn btn-info">
+                                        <label className="btn btn-success">
                                             <input type="radio" name="done" id="done" autoComplete="off" checked={isDone}
                                                    onClick={e => setIsDone(true)}/>
                                             <FormattedMessage id="project.issue.done" />
@@ -131,7 +131,7 @@ const UpdateIssue = () => {
                             <div className="form-group row">
                                 <div className="offset-md-3 col-md-1">
                                     <button type="submit" className="btn btn-primary">
-                                        <FormattedMessage id="project.global.buttons.save"/>
+                                        <FormattedMessage id="project.global.update"/>
                                     </button>
                                 </div>
                             </div>

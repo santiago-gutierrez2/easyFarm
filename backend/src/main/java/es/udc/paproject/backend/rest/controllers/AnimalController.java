@@ -9,6 +9,7 @@ import es.udc.paproject.backend.model.services.Block;
 import es.udc.paproject.backend.model.services.UserService;
 import es.udc.paproject.backend.rest.dtos.AnimalDTOs.AnimalConversor;
 import es.udc.paproject.backend.rest.dtos.AnimalDTOs.AnimalDto;
+import es.udc.paproject.backend.rest.dtos.AnimalDTOs.NewAnimalDto;
 import es.udc.paproject.backend.rest.dtos.BlockDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class AnimalController {
     @PostMapping("/registerAnimal")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void registerAnimal(@RequestAttribute Long userId,
-        @Validated({AnimalDto.CreateAnimalValidation.class}) @RequestBody AnimalDto animalDto)
+        @Validated({AnimalDto.CreateAnimalValidation.class}) @RequestBody NewAnimalDto animalDto)
         throws InstanceNotFoundException {
 
         User user = userService.loginFromId(userId);
@@ -40,11 +41,12 @@ public class AnimalController {
     }
 
     @PutMapping("/{id}")
-    public AnimalDto updateAnimal(@PathVariable Long id,
-        @Validated({AnimalDto.UpdateAnimalValidation.class}) @RequestBody AnimalDto animalDto) throws InstanceNotFoundException {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateAnimal(@PathVariable Long id,
+        @Validated({AnimalDto.UpdateAnimalValidation.class}) @RequestBody NewAnimalDto animalDto) throws InstanceNotFoundException {
 
         Animal animal = AnimalConversor.toAnimal(animalDto);
-        return AnimalConversor.toAnimalDto(animalService.updateAnimal(id, animal));
+        animalService.updateAnimal(id, animal);
     }
 
     @DeleteMapping("/{id}/isDead")

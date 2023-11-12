@@ -46,6 +46,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.GET, "/foodPurchase/*").hasAnyRole("ADMIN", "EMPLOYEE")
 			.antMatchers(HttpMethod.GET, "/foodPurchase/allFoodPurchases").hasAnyRole("ADMIN", "EMPLOYEE")
 			.antMatchers(HttpMethod.DELETE, "/foodPurchase/*/deleteFoodPurchase").hasAnyRole("ADMIN", "EMPLOYEE")
+			.antMatchers(HttpMethod.POST, "/animal/registerAnimal").hasAnyRole("ADMIN", "EMPLOYEE")
+			.antMatchers(HttpMethod.PUT, "/animal/*").hasAnyRole("ADMIN", "EMPLOYEE")
+			.antMatchers(HttpMethod.DELETE, "/animal/*/isDead").hasAnyRole("ADMIN", "EMPLOYEE")
+			.antMatchers(HttpMethod.GET, "/animal/*").hasAnyRole("ADMIN", "EMPLOYEE")
+			.antMatchers(HttpMethod.GET, "/animal/allAnimals").hasAnyRole("ADMIN", "EMPLOYEE")
 			.anyRequest().denyAll();
 
 	}

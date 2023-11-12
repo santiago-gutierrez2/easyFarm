@@ -54,7 +54,7 @@ const CreateFoodPurchase = () => {
 
     return (
         <div className="row justify-content-center">
-            <div className="col-7">
+            <div className="col-sm-7 col-12">
                 <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
                 <Success message={success} onClose={() => setSuccess(null)}/>
                 <div className="card bg-light border-dark">
@@ -69,7 +69,7 @@ const CreateFoodPurchase = () => {
                                 <label htmlFor="productName" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.foodPurchase.productName" />
                                 </label>
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                     <input type="text" id="productName" className="form-control"
                                         value={productName}
                                         onChange={e => setProductName(e.target.value)}
@@ -84,7 +84,7 @@ const CreateFoodPurchase = () => {
                                 <label htmlFor="ingredients" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.foodPurchase.ingredients"/>
                                 </label>
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                     <textarea className="form-control" id="ingredients" rows="3"
                                         value={ingredients}
                                         onChange={e => setIngredients(e.target.value)}/>
@@ -94,7 +94,7 @@ const CreateFoodPurchase = () => {
                                 <label htmlFor="supplier" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.foodPurchase.supplier"/>
                                 </label>
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                     <input type="text" id="supplier" className="form-control"
                                         value={supplier}
                                         onChange={e => setSupplier(e.target.value)}/>
@@ -104,7 +104,7 @@ const CreateFoodPurchase = () => {
                                 <label htmlFor="kilos" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.foodPurchase.kilos"/>
                                 </label>
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                     <input type="number" min="1" step="1" className="form-control"
                                            value={kilos}
                                            pattern="[0-9]{10}"
@@ -119,7 +119,7 @@ const CreateFoodPurchase = () => {
                                 <label htmlFor="unitPrice" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.foodPurchase.unitPrice"/>
                                 </label>
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                     <input type="number" min="1" step="0.25" className="form-control"
                                            value={unitPrice}
                                            required

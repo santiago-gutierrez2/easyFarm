@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 import users from "../../users";
 import {getFoodPurchaseById, updateFoodPurchase} from "../../../backend/FoodPurchaseService";
 import {error} from "../../app/actions";
-import {BounceLoader} from "react-spinners";
+import {BounceLoader, MoonLoader} from "react-spinners";
 import {Errors, Success} from "../../common";
 import {FormattedMessage} from "react-intl";
 import errors from "../../common/components/Errors";
@@ -78,7 +78,7 @@ const UpdateFoodPurchase = () => {
         return (
             <div className="row justify-content-center">
                 <div className="col-1 text-center">
-                    <BounceLoader color="#343A40" />
+                    <MoonLoader color="#97C99D" />
                 </div>
             </div>
         );
@@ -86,7 +86,7 @@ const UpdateFoodPurchase = () => {
 
     return (
         <div className="row justify-content-center">
-            <div className="col-7">
+            <div className="col-sm-7 col-12">
                 <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
                 <Success message={success} onClose={() => setSuccess(null)}></Success>
                 <div className="card bg-light border-dark">
@@ -101,7 +101,7 @@ const UpdateFoodPurchase = () => {
                                 <label htmlFor="productName" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.foodPurchase.productName"/>
                                 </label>
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                     <input type="text" id="productName" className="form-control"
                                        value={productName}
                                        onChange={e => setProductName(e.target.value)}
@@ -116,7 +116,7 @@ const UpdateFoodPurchase = () => {
                                 <label htmlFor="ingredients" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.foodPurchase.ingredients"/>
                                 </label>
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                     <textarea className="form-control" id="ingredients" rows="3"
                                         value={ingredients}
                                         onChange={e => setIngredients(e.target.value)}/>
@@ -126,7 +126,7 @@ const UpdateFoodPurchase = () => {
                                 <label htmlFor="supplier" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.foodPurchase.supplier"/>
                                 </label>
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                     <input type="text" id="supplier" className="form-control"
                                        value={supplier}
                                        onChange={e => setSupplier(e.target.value)}/>
@@ -136,7 +136,7 @@ const UpdateFoodPurchase = () => {
                                 <label htmlFor="kilos" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.foodPurchase.kilos"/>
                                 </label>
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                     <input type="number" min="1" step="1" className="form-control"
                                        value={kilos}
                                        pattern="[0-9]{10}"
@@ -151,7 +151,7 @@ const UpdateFoodPurchase = () => {
                                 <label htmlFor="unitPrice" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.foodPurchase.unitPrice"/>
                                 </label>
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                     <input type="number" min="1" step="0.25" className="form-control"
                                            value={unitPrice}
                                            required
@@ -164,7 +164,7 @@ const UpdateFoodPurchase = () => {
                             <div className="form-group row">
                                 <div className="offset-md-3 col-md-2">
                                     <button type="submit" className="btn btn-primary">
-                                        <FormattedMessage id="project.global.buttons.create"/>
+                                        <FormattedMessage id="project.global.update"/>
                                     </button>
                                 </div>
                             </div>

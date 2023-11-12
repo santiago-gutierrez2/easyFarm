@@ -3,7 +3,7 @@ package es.udc.paproject.backend.rest.dtos.AnimalDTOs;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class AnimalDto {
+public class NewAnimalDto {
 
     public interface CreateAnimalValidation {}
     public interface UpdateAnimalValidation {}
@@ -11,17 +11,17 @@ public class AnimalDto {
     private Long id;
     private String name;
     private Long identificationNumber;
-    private Long birthDate;
     private Boolean isMale;
     private String physicalDescription;
     private Long belongsTo;
     private Boolean isDead;
+    private String birthDateString;
 
-    public AnimalDto(Long id, String name, Long identificationNumber, Long birthDate, Boolean isMale, String physicalDescription, Long belongsTo, Boolean isDead) {
+    public NewAnimalDto(Long id, String name, Long identificationNumber, String birthDateString, Boolean isMale, String physicalDescription, Long belongsTo, Boolean isDead) {
         this.id = id;
         this.name = name != null ? name.trim() : null;
         this.identificationNumber = identificationNumber;
-        this.birthDate = birthDate;
+        this.birthDateString = birthDateString;
         this.isMale = isMale;
         this.physicalDescription = physicalDescription;
         this.belongsTo = belongsTo;
@@ -36,8 +36,8 @@ public class AnimalDto {
         this.id = id;
     }
 
-    @NotNull(groups = {CreateAnimalValidation.class, UpdateAnimalValidation.class})
-    @Size(min = 1, max=60, groups = {CreateAnimalValidation.class, UpdateAnimalValidation.class})
+    @NotNull(groups = {AnimalDto.CreateAnimalValidation.class, AnimalDto.UpdateAnimalValidation.class})
+    @Size(min = 1, max=60, groups = {AnimalDto.CreateAnimalValidation.class, AnimalDto.UpdateAnimalValidation.class})
     public String getName() {
         return name;
     }
@@ -46,7 +46,7 @@ public class AnimalDto {
         this.name = name;
     }
 
-    @NotNull(groups = {CreateAnimalValidation.class, UpdateAnimalValidation.class})
+    @NotNull(groups = {AnimalDto.CreateAnimalValidation.class, AnimalDto.UpdateAnimalValidation.class})
     public Long getIdentificationNumber() {
         return identificationNumber;
     }
@@ -55,16 +55,7 @@ public class AnimalDto {
         this.identificationNumber = identificationNumber;
     }
 
-    @NotNull(groups = {CreateAnimalValidation.class, UpdateAnimalValidation.class})
-    public Long getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Long birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    @NotNull(groups = {CreateAnimalValidation.class, UpdateAnimalValidation.class})
+    @NotNull(groups = {AnimalDto.CreateAnimalValidation.class, AnimalDto.UpdateAnimalValidation.class})
     public Boolean getMale() {
         return isMale;
     }
@@ -73,7 +64,7 @@ public class AnimalDto {
         isMale = male;
     }
 
-    @Size(max=250, groups = {CreateAnimalValidation.class, UpdateAnimalValidation.class})
+    @Size(max=250, groups = {AnimalDto.CreateAnimalValidation.class, AnimalDto.UpdateAnimalValidation.class})
     public String getPhysicalDescription() {
         return physicalDescription;
     }
@@ -82,7 +73,6 @@ public class AnimalDto {
         this.physicalDescription = physicalDescription;
     }
 
-    @NotNull(groups = {CreateAnimalValidation.class})
     public Long getBelongsTo() {
         return belongsTo;
     }
@@ -99,4 +89,12 @@ public class AnimalDto {
         isDead = dead;
     }
 
+    @NotNull(groups = {AnimalDto.CreateAnimalValidation.class, AnimalDto.UpdateAnimalValidation.class})
+    public String getBirthDateString() {
+        return birthDateString;
+    }
+
+    public void setBirthDateString(String birthDateString) {
+        this.birthDateString = birthDateString;
+    }
 }

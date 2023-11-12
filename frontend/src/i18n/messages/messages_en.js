@@ -33,6 +33,7 @@ export default {
     'project.global.validator.integer': 'Number must be an integer',
     'project.global.all': 'All',
     'project.global.search': 'Search',
+    'project.global.update': 'Update',
 
     'project.users.ChangePassword.fields.confirmNewPassword': 'Confirm new password',
     'project.users.ChangePassword.fields.newPassword': 'New password',
@@ -72,6 +73,17 @@ export default {
     'project.foodPurchase.MadeBy': 'Made by',
     'project.foodPurchase.foodPurchasesNotFound': 'Food purchases not found',
     'project.foodPurchase.purchaseDate': 'Purchase date',
-    'project.foodPurchase.seeAllFoodPurchases': 'See all food purchases'
+    'project.foodPurchase.seeAllFoodPurchases': 'See all food purchases',
+
+    'project.animal.create': 'Register new animal',
+    'project.animal.name': 'Name',
+    'project.animal.identificationNumber': 'Identification Number',
+    'project.animal.birthDate': 'Date of birth',
+    'project.animal.gender': 'Gender',
+    'project.animal.female': 'female',
+    'project.animal.male': 'male',
+    'project.animal.physicalDescription': 'Physical description',
+    'project.animal.title': 'Livestock',
+    'project.animal.update': 'Update animal info'
 
 }

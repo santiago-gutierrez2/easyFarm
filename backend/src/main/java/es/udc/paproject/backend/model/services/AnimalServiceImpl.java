@@ -27,7 +27,7 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public Animal updateAnimal(Long id, Animal newAnimal) throws InstanceNotFoundException {
+    public void updateAnimal(Long id, Animal newAnimal) throws InstanceNotFoundException {
         Optional<Animal> optionalAnimal = animalDao.findById(id);
 
         if (optionalAnimal.isEmpty()) {
@@ -44,7 +44,6 @@ public class AnimalServiceImpl implements AnimalService {
 
         animalDao.save(animal);
 
-        return null;
     }
 
     @Override

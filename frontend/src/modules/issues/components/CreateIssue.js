@@ -72,7 +72,7 @@ const CreateIssue = () => {
 
     return (
         <div className="row justify-content-center">
-            <div className="col-7">
+            <div className="col-sm-7 col-12">
                 <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
                 <Success message={success} onClose={() => setSuccess(null)}></Success>
                 <div className="card bg-light border-dark">
@@ -87,7 +87,7 @@ const CreateIssue = () => {
                                 <label htmlFor="issueName" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.issues.issueName"/>
                                 </label>
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                     <input type="text" id="issueName" className="form-control"
                                        value={issueName}
                                        onChange={e => setIssueName(e.target.value)}
@@ -102,7 +102,7 @@ const CreateIssue = () => {
                                 <label htmlFor="description" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.issues.description" />
                                 </label>
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                     <textarea className="form-control" id="description" rows="3"
                                         value={description}
                                         onChange={e => setDescription(e.target.value)}/>
@@ -112,7 +112,7 @@ const CreateIssue = () => {
                                 <label htmlFor="assignedTo" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.issues.assignedTo"/>
                                 </label>
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                     <select id="assignedTo" className="form-control" required
                                         value={assignedTo}
                                         onChange={e => setAssignedTo(e.target.value)}>

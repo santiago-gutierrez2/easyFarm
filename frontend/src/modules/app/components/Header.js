@@ -76,7 +76,21 @@ const Header = () => {
                                 </Link>
                             </div>
                         </li>
+                    }
 
+                    {/* ANIMAL MANAGEMENT */}
+                    { userRole === "ADMIN" &&
+                        <li className="nav-item dropdown">
+                            <a className="dropdown-toggle nav-link" href="/"
+                                data-toggle="dropdown">
+                                <FormattedMessage id="project.animal.title"/>
+                            </a>
+                            <div className="dropdown-menu dropdown-menu-right">
+                                <Link className="dropdown-item" to="/animal/createAnimal">
+                                    <FormattedMessage id="project.animal.create"/>
+                                </Link>
+                            </div>
+                        </li>
                     }
                 </ul>
                 

@@ -3,7 +3,7 @@ import {FormattedMessage} from "react-intl";
 import {Errors} from "../../common";
 import {useEffect} from "react";
 import {deleteEmployee, getEmployees} from "../../../backend/userService";
-import {BounceLoader} from "react-spinners";
+import {BounceLoader, MoonLoader} from "react-spinners";
 
 
 const GetEmployees = () => {
@@ -48,7 +48,7 @@ const GetEmployees = () => {
         return (
             <div className="row justify-content-center">
                 <div className="col-1 text-center">
-                    <BounceLoader color="#343A40" />
+                    <MoonLoader color="#97C99D" />
                 </div>
             </div>
         );

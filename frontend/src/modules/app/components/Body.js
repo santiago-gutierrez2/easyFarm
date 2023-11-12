@@ -8,6 +8,7 @@ import users from '../../users';
 import CreateIssue from "../../issues/components/CreateIssue";
 import {AllIssues, UpdateIssue} from "../../issues";
 import {AllFoodPurchases, CreateFoodPurchase, UpdateFoodPurchase} from "../../foodPurchases";
+import {CreateAnimal, UpdateAnimal} from "../../animals";
 
 const Body = () => {
 
@@ -32,6 +33,8 @@ const Body = () => {
                 {loggedIn && role == 'ADMIN' && <Route exact path="/foodPurchase/createFoodPurchase"> <CreateFoodPurchase/> </Route>}
                 {loggedIn && role == 'ADMIN' && <Route exact path="/foodPurchase/allFoodPurchases"> <AllFoodPurchases/> </Route> }
                 {loggedIn && role == 'ADMIN' && <Route exact path="/foodPurchase/:foodPurchaseId"> <UpdateFoodPurchase/></Route>}
+                {loggedIn && role == 'ADMIN' && <Route exact path="/animal/createAnimal"> <CreateAnimal/></Route>}
+                {loggedIn && role == 'ADMIN' && <Route exact path="/animal/:animalId"> <UpdateAnimal/> </Route>}
                 {!loggedIn && <Route exact path="/users/login"><Login/></Route>}
                 <Route><Home/></Route>
             </Switch>

@@ -33,6 +33,7 @@ export default {
     'project.global.validator.integer': 'Debe ser un número enteiro',
     'project.global.all': 'Todos',
     'project.global.search': 'Buscar',
+    'project.global.update': 'Actualizar',
 
     'project.users.ChangePassword.fields.confirmNewPassword': 'Confirmar contrasinal nova',
     'project.users.ChangePassword.fields.newPassword': 'Contrasinal nova',
@@ -72,5 +73,15 @@ export default {
     'project.foodPurchase.MadeBy': 'Feita por',
     'project.foodPurchase.foodPurchasesNotFound': 'Non se atoparon rexistros de compras',
     'project.foodPurchase.purchaseDate': 'Data de compra',
-    'project.foodPurchase.seeAllFoodPurchases': 'Ver compras do alimento'
+    'project.foodPurchase.seeAllFoodPurchases': 'Ver compras do alimento',
+
+    'project.animal.create': 'Rexistrar novo animal',
+    'project.animal.name': 'Nome',
+    'project.animal.birthDate': 'Data do nazemento',
+    'project.animal.gender': 'Sexo',
+    'project.animal.female': 'hembra',
+    'project.animal.male': 'macho',
+    'project.animal.physicalDescription': 'Descripción física',
+    'project.animal.title': 'Gando',
+    'project.animal.update': 'Actualizar información do animal'
 }

@@ -91,7 +91,7 @@ const SignUp = () => {
 
     return (
         <div className="row justify-content-center">
-            <div className="col-7">
+            <div className="col-sm-7 col-12">
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
             <Success message={success} onClose={() => setSuccess(null)}></Success>
             <div className="card bg-light border-dark">
@@ -106,7 +106,7 @@ const SignUp = () => {
                             <label htmlFor="userName" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.global.fields.userName"/>
                             </label>
-                            <div className="col-md-4">
+                            <div className="col-md-6">
                                 <input type="text" id="userName" className="form-control"
                                     value={userName}
                                     onChange={e => setUserName(e.target.value)}
@@ -121,7 +121,7 @@ const SignUp = () => {
                             <label htmlFor="password" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.global.fields.password"/>
                             </label>
-                            <div className="col-md-4">
+                            <div className="col-md-6">
                                 <input type="password" id="password" className="form-control"
                                     value={password}
                                     onChange={e => setPassword(e.target.value)}
@@ -135,7 +135,7 @@ const SignUp = () => {
                             <label htmlFor="confirmPassword" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.users.SignUp.fields.confirmPassword"/>
                             </label>
-                            <div className="col-md-4">
+                            <div className="col-md-6">
                                 <input ref={node => confirmPasswordInput = node}
                                     type="password" id="confirmPassword" className="form-control"
                                     value={confirmPassword}
@@ -152,7 +152,7 @@ const SignUp = () => {
                             <label htmlFor="firstName" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.global.fields.firstName"/>
                             </label>
-                            <div className="col-md-4">
+                            <div className="col-md-6">
                                 <input type="text" id="firstName" className="form-control"
                                     value={firstName}
                                     onChange={e => setFirstName(e.target.value)}
@@ -166,7 +166,7 @@ const SignUp = () => {
                             <label htmlFor="lastName" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.global.fields.lastName"/>
                             </label>
-                            <div className="col-md-4">
+                            <div className="col-md-6">
                                 <input type="text" id="lastName" className="form-control"
                                     value={lastName}
                                     onChange={e => setLastName(e.target.value)}
@@ -180,7 +180,7 @@ const SignUp = () => {
                             <label htmlFor="email" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.global.fields.email"/>
                             </label>
-                            <div className="col-md-4">
+                            <div className="col-md-6">
                                 <input type="email" id="email" className="form-control"
                                     value={email}
                                     onChange={e => setEmail(e.target.value)}
