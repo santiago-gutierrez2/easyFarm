@@ -8,7 +8,7 @@ import users from '../../users';
 import CreateIssue from "../../issues/components/CreateIssue";
 import {AllIssues, UpdateIssue} from "../../issues";
 import {AllFoodPurchases, CreateFoodPurchase, UpdateFoodPurchase} from "../../foodPurchases";
-import {CreateAnimal, UpdateAnimal} from "../../animals";
+import {AllAnimals, CreateAnimal, UpdateAnimal} from "../../animals";
 
 const Body = () => {
 
@@ -17,7 +17,7 @@ const Body = () => {
     
    return (
 
-        <div className="container mw-100">
+        <div className="container mw-100 mb-5">
             <br/>
             <AppGlobalComponents/>
             <Switch>
@@ -34,6 +34,7 @@ const Body = () => {
                 {loggedIn && role == 'ADMIN' && <Route exact path="/foodPurchase/allFoodPurchases"> <AllFoodPurchases/> </Route> }
                 {loggedIn && role == 'ADMIN' && <Route exact path="/foodPurchase/:foodPurchaseId"> <UpdateFoodPurchase/></Route>}
                 {loggedIn && role == 'ADMIN' && <Route exact path="/animal/createAnimal"> <CreateAnimal/></Route>}
+                {loggedIn && <Route exact path="/animal/allAnimals"> <AllAnimals/> </Route>}
                 {loggedIn && role == 'ADMIN' && <Route exact path="/animal/:animalId"> <UpdateAnimal/> </Route>}
                 {!loggedIn && <Route exact path="/users/login"><Login/></Route>}
                 <Route><Home/></Route>

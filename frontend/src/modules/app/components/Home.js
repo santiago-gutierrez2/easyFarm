@@ -8,7 +8,7 @@ const Home = () => {
 
     return (
         !loggedIn &&
-        <div className="row justify-content-center">
+        <div className="row justify-content-center fade-in">
             <div className="col-9">
                 <div className="text-center card w-100">
                     <div className="card-header">

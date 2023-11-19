@@ -23,6 +23,7 @@ public class CustomizedFoodPurchaseDaoImpl implements CustomizedFoodPurchaseDao 
             return issueName.split("\\s");
         }
     }
+
     @Override
     public Slice<FoodPurchase> find(Long farmId, String productName, String startDate, String endDate, String supplier, int page, int size) {
 

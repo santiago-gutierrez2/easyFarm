@@ -3,7 +3,7 @@ import {FormattedMessage} from "react-intl";
 import {Errors} from "../../common";
 import {useEffect} from "react";
 import {deleteEmployee, getEmployees} from "../../../backend/userService";
-import {BounceLoader, MoonLoader} from "react-spinners";
+import {BounceLoader, MoonLoader, PuffLoader} from "react-spinners";
 
 
 const GetEmployees = () => {
@@ -11,10 +11,6 @@ const GetEmployees = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [employees, setEmployees] = useState([]);
     const [backendErrors, setBackendErrors] = useState(null);
-
-    const sleep = (milliseconds) => {
-        return new Promise(resolve => setTimeout(resolve, milliseconds))
-    }
 
     useEffect(async () => {
         if (isLoading) {
@@ -48,14 +44,14 @@ const GetEmployees = () => {
         return (
             <div className="row justify-content-center">
                 <div className="col-1 text-center">
-                    <MoonLoader color="#97C99D" />
+                    <PuffLoader color="#97C99D" />
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="row justify-content-center">
+        <div className="row justify-content-center fade-in">
             <div className="col-12 col-sm-10">
                 <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}></Errors>
                 <div className="table-responsive">

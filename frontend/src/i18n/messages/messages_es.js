@@ -76,13 +76,16 @@ export default {
     'project.foodPurchase.seeAllFoodPurchases': 'Ver compras de alimento',
 
     'project.animal.create': 'Registrar nuevo animal',
-    'project.animal.name': 'Name',
+    'project.animal.name': 'Nombre de animal',
+    'project.animal.identificationNumber': 'Código de identificación',
     'project.animal.birthDate': 'Fecha de nacimiento',
     'project.animal.gender': 'Sexo',
     'project.animal.female': 'hembra',
     'project.animal.male': 'macho',
     'project.animal.physicalDescription': 'Descripción física',
     'project.animal.title': 'Ganado',
-    'project.animal.update': 'Actualizar información del animal'
+    'project.animal.update': 'Actualizar información del animal',
+    'project.animal.animalsNotFound': 'No se han encontrado ganado',
+    'project.animal.seeAllAnimals': 'Ver animales'
 
 }

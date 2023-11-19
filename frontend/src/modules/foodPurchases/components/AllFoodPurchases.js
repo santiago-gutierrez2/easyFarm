@@ -4,7 +4,7 @@ import {Errors, Pager} from "../../common";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {useEffect} from "react";
-import {BounceLoader, MoonLoader} from "react-spinners";
+import {BounceLoader, MoonLoader, PuffLoader} from "react-spinners";
 import {useDispatch, useSelector} from "react-redux";
 import * as actions from '../actions';
 import * as selectors from '../selectors';
@@ -55,18 +55,19 @@ const AllFoodPurchases = () => {
         );
     }
 
-    if (!foodPurchasesSearch) {
-        return null;
-    }
 
     if (isLoading) {
         return (
             <div className="row justify-content-center">
                 <div className="col-1 text-center">
-                    <MoonLoader color="#97C99D" />
+                    <PuffLoader color="#97C99D" />
                 </div>
             </div>
         );
+    }
+
+    if (!foodPurchasesSearch) {
+        return null;
     }
 
     return (

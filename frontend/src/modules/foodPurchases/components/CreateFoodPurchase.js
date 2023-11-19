@@ -53,7 +53,7 @@ const CreateFoodPurchase = () => {
     }
 
     return (
-        <div className="row justify-content-center">
+        <div className="row justify-content-center fade-in">
             <div className="col-sm-7 col-12">
                 <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
                 <Success message={success} onClose={() => setSuccess(null)}/>

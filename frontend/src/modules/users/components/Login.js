@@ -41,7 +41,7 @@ const Login = () => {
     }
 
     return (
-        <div className="row justify-content-center">
+        <div className="row justify-content-center fade-in">
             <div className="col-4">
                 {/*<p className="text-center">
                     <Link to="/users/signup">

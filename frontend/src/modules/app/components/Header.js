@@ -89,7 +89,17 @@ const Header = () => {
                                 <Link className="dropdown-item" to="/animal/createAnimal">
                                     <FormattedMessage id="project.animal.create"/>
                                 </Link>
+                                <Link className="dropdown-item" to="/animal/allAnimals">
+                                    <FormattedMessage id="project.animal.seeAllAnimals"/>
+                                </Link>
                             </div>
+                        </li>
+                    }
+                    { userRole === "EMPLOYEE" &&
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/animal/allAnimals">
+                                <FormattedMessage id="project.animal.seeAllAnimals"/>
+                            </Link>
                         </li>
                     }
                 </ul>

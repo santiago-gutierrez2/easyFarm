@@ -89,7 +89,7 @@ public class AnimalServiceImpl implements AnimalService {
 
         Slice<Animal> animalSlice;
         if (name != null || identificationNumber != null || startDate != null || endDate != null || isMale != null) {
-            animalSlice = null;
+            animalSlice = animalDao.find(farm.getId(), name, identificationNumber, startDate, endDate, isMale, page, size);
         } else {
             animalSlice = animalDao.findByBelongsToIdOrderByBirthDateDesc(farm.getId(), PageRequest.of(page, size));
         }

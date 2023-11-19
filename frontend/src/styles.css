@@ -9,3 +9,17 @@
 .card-title-custom {
     background-color: #97C99D;
 }
+
+.fade-in {
+    animation: fadeIn 1s;
+    opacity: 1;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

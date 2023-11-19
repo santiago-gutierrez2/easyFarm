@@ -76,12 +76,15 @@ export default {
     'project.foodPurchase.seeAllFoodPurchases': 'Ver compras do alimento',
 
     'project.animal.create': 'Rexistrar novo animal',
-    'project.animal.name': 'Nome',
+    'project.animal.name': 'Nome do animal',
+    'project.animal.identificationNumber': 'Código do identificación',
     'project.animal.birthDate': 'Data do nazemento',
     'project.animal.gender': 'Sexo',
     'project.animal.female': 'hembra',
     'project.animal.male': 'macho',
     'project.animal.physicalDescription': 'Descripción física',
     'project.animal.title': 'Gando',
-    'project.animal.update': 'Actualizar información do animal'
+    'project.animal.update': 'Actualizar información do animal',
+    'project.animal.animalsNotFound': 'Non se atoparon animales',
+    'project.animal.seeAllAnimals': 'Ver animales'
 }

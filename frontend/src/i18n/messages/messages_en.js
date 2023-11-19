@@ -46,11 +46,11 @@ export default {
 
     'project.employees.title': 'Employees',
     'project.users.employees.create': 'Create new employee',
-    'project.users.employees.seeAllEmployees': 'See all employees',
+    'project.users.employees.seeAllEmployees': 'List all employees',
 
     'project.issues.title': 'Issues',
     'project.issues.create': 'Create new issue',
-    'project.issues.seeAllIssues': 'See all issues',
+    'project.issues.seeAllIssues': 'List all issues',
     'project.issues.issueName': 'Issue name',
     'project.issues.description': 'Description',
     'project.issues.assignedTo': 'Assigned to',
@@ -73,17 +73,18 @@ export default {
     'project.foodPurchase.MadeBy': 'Made by',
     'project.foodPurchase.foodPurchasesNotFound': 'Food purchases not found',
     'project.foodPurchase.purchaseDate': 'Purchase date',
-    'project.foodPurchase.seeAllFoodPurchases': 'See all food purchases',
+    'project.foodPurchase.seeAllFoodPurchases': 'List all food purchases',
 
     'project.animal.create': 'Register new animal',
-    'project.animal.name': 'Name',
-    'project.animal.identificationNumber': 'Identification Number',
+    'project.animal.name': 'Animal name',
+    'project.animal.identificationNumber': 'Identification Code',
     'project.animal.birthDate': 'Date of birth',
     'project.animal.gender': 'Gender',
     'project.animal.female': 'female',
     'project.animal.male': 'male',
     'project.animal.physicalDescription': 'Physical description',
     'project.animal.title': 'Livestock',
-    'project.animal.update': 'Update animal info'
-
+    'project.animal.update': 'Update animal info',
+    'project.animal.animalsNotFound': 'Animals not found',
+    'project.animal.seeAllAnimals': 'List all animals'
 }
