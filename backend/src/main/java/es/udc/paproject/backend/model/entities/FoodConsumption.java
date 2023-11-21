@@ -51,6 +51,7 @@ public class FoodConsumption {
     }
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "foodBatch")
     public FoodPurchase getFoodBatch() {
         return foodBatch;
     }
@@ -60,6 +61,7 @@ public class FoodConsumption {
     }
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "consumedBy")
     public Animal getConsumedBy() {
         return consumedBy;
     }

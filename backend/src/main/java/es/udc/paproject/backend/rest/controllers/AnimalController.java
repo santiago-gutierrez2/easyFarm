@@ -29,7 +29,7 @@ public class AnimalController {
     @PostMapping("/registerAnimal")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void registerAnimal(@RequestAttribute Long userId,
-        @Validated({AnimalDto.CreateAnimalValidation.class}) @RequestBody NewAnimalDto animalDto)
+        @Validated({NewAnimalDto.CreateAnimalValidation.class}) @RequestBody NewAnimalDto animalDto)
         throws InstanceNotFoundException {
 
         User user = userService.loginFromId(userId);
@@ -43,7 +43,7 @@ public class AnimalController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateAnimal(@PathVariable Long id,
-        @Validated({AnimalDto.UpdateAnimalValidation.class}) @RequestBody NewAnimalDto animalDto) throws InstanceNotFoundException {
+        @Validated({NewAnimalDto.UpdateAnimalValidation.class}) @RequestBody NewAnimalDto animalDto) throws InstanceNotFoundException {
 
         Animal animal = AnimalConversor.toAnimal(animalDto);
         animalService.updateAnimal(id, animal);
