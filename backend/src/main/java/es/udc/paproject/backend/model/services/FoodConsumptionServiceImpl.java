@@ -1,10 +1,10 @@
 package es.udc.paproject.backend.model.services;
 
-import es.udc.paproject.backend.model.entities.FoodConsumption;
-import es.udc.paproject.backend.model.entities.FoodConsumptionDao;
-import es.udc.paproject.backend.model.entities.UserDao;
+import es.udc.paproject.backend.model.entities.*;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +21,8 @@ public class FoodConsumptionServiceImpl implements FoodConsumptionService{
     private UserService userService;
     @Autowired
     private AnimalService animalService;
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public void createFoodConsumption(FoodConsumption foodConsumption) {
@@ -70,6 +72,23 @@ public class FoodConsumptionServiceImpl implements FoodConsumptionService{
 
     @Override
     public Block<FoodConsumption> getAllFoodConsumptions(Long userId, Long animalId, Long foodBatchId, String startDate, String endDate, int page, int size) throws InstanceNotFoundException {
+
+        Optional<User> optionalUser = userDao.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.user", userId);
+        }
+
+        User user = optionalUser.get();
+        Farm farm = user.getFarm();
+
+        Slice<FoodConsumption> foodConsumptionsSlice;
+        if (animalId != null || foodBatchId != null || startDate != null || endDate != null) {
+            foodConsumptionsSlice = null;
+        } else {
+            foodConsumptionsSlice =  foodConsumptionDao.findByConsumedByBelongsToIdOrderByDateDesc(farm.getId(), PageRequest.of(page, size));
+        }
+
         return null;
     }
 }
