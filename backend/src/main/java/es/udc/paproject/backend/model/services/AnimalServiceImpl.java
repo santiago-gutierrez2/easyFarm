@@ -9,8 +9,10 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -97,5 +99,23 @@ public class AnimalServiceImpl implements AnimalService {
         List<Animal> animalList = animalSlice.getContent();
 
         return new Block<>(animalList, animalSlice.hasNext());
+    }
+
+    @Override
+    public List<Animal> getAnimalsWithLabel(Long userId) throws InstanceNotFoundException {
+
+        Optional<User> optionalUser = userDao.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.user", userId);
+        }
+
+        User user = optionalUser.get();
+        Farm farm = user.getFarm();
+
+        List<Animal> animalsList = animalDao.findAnimalsByBelongsToIdOrderByBirthDateDesc(farm.getId());
+
+        return animalsList.stream().filter(a -> !a.getIsDead()).collect(Collectors.toList());
+
     }
 }

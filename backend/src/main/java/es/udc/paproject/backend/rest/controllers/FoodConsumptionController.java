@@ -61,7 +61,7 @@ public class FoodConsumptionController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void createSeveralFoodConsumptions(@RequestBody List<FoodConsumptionDto> foodConsumptionDtos) throws InstanceNotFoundException {
 
-        Optional<FoodPurchase> optionalFoodPurchase = foodPurchaseDao.findById(foodConsumptionDtos.get(0).getId());
+        Optional<FoodPurchase> optionalFoodPurchase = foodPurchaseDao.findById(foodConsumptionDtos.get(0).getFoodBatch());
 
         if (optionalFoodPurchase.isEmpty()) {
             throw new InstanceNotFoundException("project.entities.foodPurchase", foodConsumptionDtos.get(0).getFoodBatch());
@@ -74,6 +74,7 @@ public class FoodConsumptionController {
                 throw new InstanceNotFoundException("project.entities.animal", foodConsumptionDto.getConsumedBy());
             }
             FoodConsumption foodConsumption = FoodConsumptionConversor.toFoodConsumption(foodConsumptionDto);
+            foodConsumption.setKilos(foodConsumption.getKilos() / foodConsumptionDtos.size());
             foodConsumption.setFoodBatch(optionalFoodPurchase.get());
             foodConsumption.setConsumedBy(optionalAnimal.get());
             // add to list

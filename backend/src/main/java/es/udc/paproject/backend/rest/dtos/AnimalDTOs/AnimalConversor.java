@@ -29,6 +29,15 @@ public class AnimalConversor {
         return animalList.stream().map(AnimalConversor::toAnimalDto).collect(Collectors.toList());
     }
 
+    public final static AnimalWithLabelDto toAnimalWithLabelDto(Animal animal) {
+        return new AnimalWithLabelDto(animal.getName() + " / " + animal.getIdentificationNumber().toString(),
+                animal.getId(), animal.getIsDead());
+    }
+
+    public final static List<AnimalWithLabelDto> toAnimalWithLabelDto(List<Animal> animal) {
+        return animal.stream().map(AnimalConversor::toAnimalWithLabelDto).collect(Collectors.toList());
+    }
+
     private static long toMillis(LocalDateTime date) {
         return date.truncatedTo(ChronoUnit.MINUTES).atZone(ZoneOffset.systemDefault()).toInstant().toEpochMilli();
     }

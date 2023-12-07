@@ -5,6 +5,8 @@ import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.exceptions.PermissionException;
 import org.hibernate.tuple.AbstractNonIdentifierAttribute;
 
+import java.util.List;
+
 public interface AnimalService {
 
     void createAnimal(Animal animal);
@@ -17,4 +19,7 @@ public interface AnimalService {
 
     Block<Animal> getAllAnimals(Long userId, String name, Long identificationNumber, String startDate, String endDate,
         Boolean isMale, int page, int size) throws InstanceNotFoundException;
+
+    List<Animal> getAnimalsWithLabel(Long userId) throws InstanceNotFoundException;
 }
+

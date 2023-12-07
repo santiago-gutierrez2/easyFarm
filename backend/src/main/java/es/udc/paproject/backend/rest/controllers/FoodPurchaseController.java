@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/foodPurchase")
 public class FoodPurchaseController {
@@ -66,5 +68,10 @@ public class FoodPurchaseController {
         Block<FoodPurchase> foodPurchaseBlock = foodPurchaseService.getAllFoodPurchases(userId, productName, supplier, startDate, endDate, page, size);
 
         return new BlockDto<>(FoodPurchaseConversor.toFoodPurchaseDtos(foodPurchaseBlock.getItems()), foodPurchaseBlock.getExistMoreItems());
+    }
+
+    @GetMapping("/getAvailableFoodBatches")
+    public List<FoodPurchaseDto> getAvailableFoodPurchases(@RequestAttribute Long userId) throws InstanceNotFoundException {
+        return foodPurchaseService.getAllAvailablesFoodBatches(userId);
     }
 }

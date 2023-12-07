@@ -19,6 +19,7 @@ public class FoodPurchaseDto {
     private Integer kilos;
     private BigDecimal unitPrice;
     private Long madeBy;
+    private Integer availableKilos;
 
     public FoodPurchaseDto(Long id, String productName, String ingredients, Long purchaseDate, String supplier, Integer kilos, BigDecimal unitPrice, Long madeBy) {
         this.id = id;
@@ -29,6 +30,18 @@ public class FoodPurchaseDto {
         this.kilos = kilos;
         this.unitPrice = unitPrice;
         this.madeBy = madeBy;
+    }
+
+    public FoodPurchaseDto(Long id, String productName, String ingredients, Long purchaseDate, String supplier, Integer kilos, BigDecimal unitPrice, Long madeBy, Integer availableKilos) {
+        this.id = id;
+        this.productName = productName != null ? productName.trim() : null;
+        this.ingredients = ingredients;
+        this.purchaseDate = purchaseDate;
+        this.supplier = supplier;
+        this.kilos = kilos;
+        this.unitPrice = unitPrice;
+        this.madeBy = madeBy;
+        this.availableKilos = availableKilos;
     }
 
     public Long getId() {
@@ -100,5 +113,13 @@ public class FoodPurchaseDto {
 
     public void setMadeBy(Long madeBy) {
         this.madeBy = madeBy;
+    }
+
+    public Integer getAvailableKilos() {
+        return availableKilos;
+    }
+
+    public void setAvailableKilos(Integer availableKilos) {
+        this.availableKilos = availableKilos;
     }
 }

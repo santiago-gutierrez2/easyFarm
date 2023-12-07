@@ -31,6 +31,7 @@ export default {
     'project.global.validator.passwordsDoNotMatch': 'Passwords do not match',
     'project.global.validator.required': 'Required field',
     'project.global.validator.integer': 'Number must be an integer',
+    'project.global.validator.max': 'Number must not exceed limit of kilos available',
     'project.global.all': 'All',
     'project.global.search': 'Search',
     'project.global.update': 'Update',
@@ -86,5 +87,11 @@ export default {
     'project.animal.title': 'Livestock',
     'project.animal.update': 'Update animal info',
     'project.animal.animalsNotFound': 'Animals not found',
-    'project.animal.seeAllAnimals': 'List all animals'
+    'project.animal.seeAllAnimals': 'List all animals',
+
+    'project.foodConsumption.title': 'Food consumptions',
+    'project.foodConsumption.create': 'Register food consumption',
+    'project.foodConsumption.foodBatch': 'Food batch',
+    'project.foodConsumption.animals': 'Consumed by',
+    'project.foodConsumption.kilos': 'Kilos consumed',
 }

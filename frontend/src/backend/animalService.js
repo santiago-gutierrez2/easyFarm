@@ -26,3 +26,7 @@ export const getAllAnimals = ({page, name, identificationNumber, startDate, endD
 
     appFetch(path, config('GET'), onSuccess, onErrors);
 }
+
+export const getAllAnimalsWithLabel = (onSuccess, onErrors) => {
+    appFetch('/animal/animalsWithLabel', config('GET'), onSuccess, onErrors);
+}

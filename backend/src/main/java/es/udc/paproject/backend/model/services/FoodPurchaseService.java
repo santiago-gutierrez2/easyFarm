@@ -3,8 +3,10 @@ package es.udc.paproject.backend.model.services;
 import es.udc.paproject.backend.model.entities.FoodPurchase;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.exceptions.PermissionException;
+import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.FoodPurchaseDto;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface FoodPurchaseService {
 
@@ -19,4 +21,6 @@ public interface FoodPurchaseService {
 
     Block<FoodPurchase> getAllFoodPurchases(Long userId, String productName, String supplier, String startDate, String endDate,
         int page, int size) throws InstanceNotFoundException;
+
+    List<FoodPurchaseDto> getAllAvailablesFoodBatches(Long userId) throws InstanceNotFoundException;
 }

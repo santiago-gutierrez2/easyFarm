@@ -3,6 +3,7 @@ package es.udc.paproject.backend.model.services;
 import es.udc.paproject.backend.model.entities.*;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.exceptions.PermissionException;
+import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.FoodPurchaseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
@@ -10,9 +11,13 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -22,6 +27,8 @@ public class FoodPurchaseServiceImpl implements FoodPurchaseService{
     private FoodPurchaseDao foodPurchaseDao;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private FoodConsumptionDao foodConsumptionDao;
 
     @Override
     public void createFoodPurchase(FoodPurchase foodPurchase) {
@@ -99,5 +106,38 @@ public class FoodPurchaseServiceImpl implements FoodPurchaseService{
         List<FoodPurchase> foodPurchaseList = foodPurchaseSlice.getContent();
 
         return new Block<>(foodPurchaseList, foodPurchaseSlice.hasNext());
+    }
+
+    @Override
+    public List<FoodPurchaseDto> getAllAvailablesFoodBatches(Long userId) throws InstanceNotFoundException {
+        Optional<User> optionalUser = userDao.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.user", userId);
+        }
+
+        User user = optionalUser.get();
+        Farm farm = user.getFarm();
+
+        List<FoodPurchase> foodBatches = foodPurchaseDao.findFoodPurchaseByMadeByFarmIdOrderByPurchaseDateDesc(farm.getId());
+
+        List<FoodPurchaseDto> foodPurchaseDtos = foodBatches.stream().map( f -> {
+            List<FoodConsumption> foodConsumptions = foodConsumptionDao.findFoodConsumptionByFoodBatchId(f.getId());
+
+            Integer consumedKilos = 0;
+            for (FoodConsumption fc : foodConsumptions) {
+                consumedKilos += fc.getKilos();
+            }
+
+            return new FoodPurchaseDto(f.getId(), f.getProductName(), f.getIngredients(), toMillis(f.getPurchaseDate()),
+                    f.getSupplier(), f.getKilos(), f.getUnitPrice(), f.getMadeBy().getId(), f.getKilos() - consumedKilos);
+
+        }).collect(Collectors.toList());
+
+        return foodPurchaseDtos.stream().filter(f -> f.getAvailableKilos() > 0).collect(Collectors.toList());
+    }
+
+    private static long toMillis(LocalDateTime date) {
+        return date.truncatedTo(ChronoUnit.MINUTES).atZone(ZoneOffset.systemDefault()).toInstant().toEpochMilli();
     }
 }

@@ -102,6 +102,21 @@ const Header = () => {
                             </Link>
                         </li>
                     }
+
+                    {/* FOOD CONSUMPTION MANAGEMENT */}
+                    { userName &&
+                        <li className="nav-item dropdown">
+                            <a className="dropdown-toggle nav-link" href="/"
+                                data-toggle="dropdown">
+                                <FormattedMessage id="project.foodConsumption.title"/>
+                            </a>
+                            <div className="dropdown-menu dropdown-menu-right">
+                                <Link className="dropdown-item" to="/foodConsumption/CreateFoodConsuption">
+                                    <FormattedMessage  id="project.foodConsumption.create"/>
+                                </Link>
+                            </div>
+                        </li>
+                    }
                 </ul>
                 
                 {userName ? 

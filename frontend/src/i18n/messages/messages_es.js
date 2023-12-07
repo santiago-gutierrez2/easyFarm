@@ -86,6 +86,11 @@ export default {
     'project.animal.title': 'Ganado',
     'project.animal.update': 'Actualizar información del animal',
     'project.animal.animalsNotFound': 'No se han encontrado ganado',
-    'project.animal.seeAllAnimals': 'Ver animales'
+    'project.animal.seeAllAnimals': 'Ver animales',
 
+    'project.foodConsumption.title': 'Consumos de alimento',
+    'project.foodConsumption.create': 'Registrar consumo de alimento',
+    'project.foodConsumption.foodBatch': 'Alimento',
+    'project.foodConsumption.animals': 'Consumido por',
+    'project.foodConsumption.kilos': 'Kilos consumidos',
 }

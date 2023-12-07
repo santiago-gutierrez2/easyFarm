@@ -9,12 +9,15 @@ import es.udc.paproject.backend.model.services.Block;
 import es.udc.paproject.backend.model.services.UserService;
 import es.udc.paproject.backend.rest.dtos.AnimalDTOs.AnimalConversor;
 import es.udc.paproject.backend.rest.dtos.AnimalDTOs.AnimalDto;
+import es.udc.paproject.backend.rest.dtos.AnimalDTOs.AnimalWithLabelDto;
 import es.udc.paproject.backend.rest.dtos.AnimalDTOs.NewAnimalDto;
 import es.udc.paproject.backend.rest.dtos.BlockDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/animal")
@@ -68,5 +71,11 @@ public class AnimalController {
         Block<Animal> animalBlock = animalService.getAllAnimals(userId, name, identificationNumber, startDate, endDate, isMale, page, size);
 
         return new BlockDto<>(AnimalConversor.toAnimalDtos(animalBlock.getItems()), animalBlock.getExistMoreItems());
+    }
+
+    @GetMapping("/animalsWithLabel")
+    public List<AnimalWithLabelDto> getAnimalsWithLabel(@RequestAttribute Long userId) throws InstanceNotFoundException {
+        List<Animal> animalList = animalService.getAnimalsWithLabel(userId);
+        return AnimalConversor.toAnimalWithLabelDto(animalList);
     }
 }
