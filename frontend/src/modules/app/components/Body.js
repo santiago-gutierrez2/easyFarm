@@ -9,7 +9,8 @@ import CreateIssue from "../../issues/components/CreateIssue";
 import {AllIssues, UpdateIssue} from "../../issues";
 import {AllFoodPurchases, CreateFoodPurchase, UpdateFoodPurchase} from "../../foodPurchases";
 import {AllAnimals, CreateAnimal, UpdateAnimal} from "../../animals";
-import CreateFoodConsumtion from "../../foodConsumption/components/CreateFoodConsumtion";
+import CreateFoodConsumtion from "../../foodConsumptions/components/CreateFoodConsumtion";
+import {AllFoodConsumptions} from "../../foodConsumptions";
 
 const Body = () => {
 
@@ -38,6 +39,7 @@ const Body = () => {
                 {loggedIn && <Route exact path="/animal/allAnimals"> <AllAnimals/> </Route>}
                 {loggedIn && role == 'ADMIN' && <Route exact path="/animal/:animalId"> <UpdateAnimal/> </Route>}
                 {loggedIn && <Route exact path="/foodConsumption/CreateFoodConsuption"> <CreateFoodConsumtion/> </Route>}
+                {loggedIn && <Route exact path="/foodConsumption/AllFoodConsumptions"> <AllFoodConsumptions/> </Route> }
                 {!loggedIn && <Route exact path="/users/login"><Login/></Route>}
                 <Route><Home/></Route>
             </Switch>

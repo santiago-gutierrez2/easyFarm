@@ -17,6 +17,6 @@ public interface FoodConsumptionService {
 
     FoodConsumption getFoodConsumptionById(Long id) throws InstanceNotFoundException;
 
-    Block<FoodConsumption> getAllFoodConsumptions(Long userId, Long animalId, Long foodBatchId, String startDate, String endDate,
+    Block<FoodConsumption> getAllFoodConsumptions(Long userId, List<Long> animalId, Long foodBatchId, String startDate, String endDate,
           int page, int size) throws InstanceNotFoundException;
 }

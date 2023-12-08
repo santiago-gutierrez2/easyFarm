@@ -29,7 +29,7 @@ const CreateFoodConsumption = () => {
                 setBackendErrors(errors);
             });
             // get animals
-            getAllAnimalsWithLabel((animals) => {
+            getAllAnimalsWithLabel(false, (animals) => {
                 setAnimalsOptions(animals);
                 // reset backend errors and is loading
                 setBackendErrors(null);
@@ -111,7 +111,7 @@ const CreateFoodConsumption = () => {
                                         value={foodBatchSelected}
                                         onChange={e => setFoodBatchSelected(e.target.value)}>
                                         {foodBatches && foodBatches.map(fb =>
-                                        <option key={fb.id} value={fb.id}>{fb.productName} / MaxKilos = {fb.availableKilos}</option>
+                                        <option key={fb.id} value={fb.id}>{fb.productName}</option>
                                         )}
                                     </select>
                                     <div className="invalid-feedback">
@@ -139,7 +139,11 @@ const CreateFoodConsumption = () => {
                                         value={kilos}
                                         required
                                         id="kilos"
+                                        className="form-control"
                                         onChange={e => setKilos(Number(e.target.value))}/>
+                                    <span className="badge badge-secondary float-right">
+                                            Max Kilos: {getAvailableKilos()}
+                                    </span>
                                     <div className="invalid-feedback">
                                         <FormattedMessage id="project.global.validator.max"/>
                                     </div>

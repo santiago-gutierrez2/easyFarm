@@ -25,6 +25,10 @@ export const getAllFoodPurchases = ({page, productName, supplier, startDate, end
     appFetch(path, config('GET'), onSuccess, onErrors);
 }
 
+export const getListOfAllFoodPurchases = (onSuccess, onErrors) => {
+    appFetch('/foodPurchase/getListOfFoodPurchases', config('GET'), onSuccess, onErrors);
+}
+
 export const getAllAvailableFoodBatches = (onSuccess, onErrors) => {
     appFetch('/foodPurchase/getAvailableFoodBatches', config('GET'), onSuccess, onErrors);
 }

@@ -114,6 +114,9 @@ const Header = () => {
                                 <Link className="dropdown-item" to="/foodConsumption/CreateFoodConsuption">
                                     <FormattedMessage  id="project.foodConsumption.create"/>
                                 </Link>
+                                <Link className="dropdown-item" to="/foodConsumption/AllFoodConsumptions">
+                                    <FormattedMessage id="project.foodConsumption.list"/>
+                                </Link>
                             </div>
                         </li>
                     }

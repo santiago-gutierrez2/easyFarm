@@ -102,7 +102,7 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public List<Animal> getAnimalsWithLabel(Long userId) throws InstanceNotFoundException {
+    public List<Animal> getAnimalsWithLabel(Long userId, boolean all) throws InstanceNotFoundException {
 
         Optional<User> optionalUser = userDao.findById(userId);
 
@@ -114,6 +114,10 @@ public class AnimalServiceImpl implements AnimalService {
         Farm farm = user.getFarm();
 
         List<Animal> animalsList = animalDao.findAnimalsByBelongsToIdOrderByBirthDateDesc(farm.getId());
+
+        if (all) {
+            return animalsList;
+        }
 
         return animalsList.stream().filter(a -> !a.getIsDead()).collect(Collectors.toList());
 

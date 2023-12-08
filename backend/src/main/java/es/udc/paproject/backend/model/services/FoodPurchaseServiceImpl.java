@@ -109,6 +109,20 @@ public class FoodPurchaseServiceImpl implements FoodPurchaseService{
     }
 
     @Override
+    public List<FoodPurchase> getListOfAllFoodPurchases(Long userId) throws InstanceNotFoundException {
+        Optional<User> optionalUser = userDao.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.user", userId);
+        }
+
+        User user = optionalUser.get();
+        Farm farm = user.getFarm();
+
+        return foodPurchaseDao.findFoodPurchaseByMadeByFarmIdOrderByPurchaseDateDesc(farm.getId());
+    }
+
+    @Override
     public List<FoodPurchaseDto> getAllAvailablesFoodBatches(Long userId) throws InstanceNotFoundException {
         Optional<User> optionalUser = userDao.findById(userId);
 

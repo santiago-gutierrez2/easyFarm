@@ -71,7 +71,7 @@ public class FoodConsumptionServiceImpl implements FoodConsumptionService{
     }
 
     @Override
-    public Block<FoodConsumption> getAllFoodConsumptions(Long userId, Long animalId, Long foodBatchId, String startDate, String endDate, int page, int size) throws InstanceNotFoundException {
+    public Block<FoodConsumption> getAllFoodConsumptions(Long userId, List<Long> animalId, Long foodBatchId, String startDate, String endDate, int page, int size) throws InstanceNotFoundException {
 
         Optional<User> optionalUser = userDao.findById(userId);
 
@@ -83,12 +83,14 @@ public class FoodConsumptionServiceImpl implements FoodConsumptionService{
         Farm farm = user.getFarm();
 
         Slice<FoodConsumption> foodConsumptionsSlice;
-        if (animalId != null || foodBatchId != null || startDate != null || endDate != null) {
-            foodConsumptionsSlice = null;
+        if ((animalId != null && !animalId.isEmpty()) || foodBatchId != null || startDate != null || endDate != null) {
+            foodConsumptionsSlice = foodConsumptionDao.find(farm.getId(), animalId, foodBatchId, startDate, endDate, page, size);
         } else {
             foodConsumptionsSlice =  foodConsumptionDao.findByConsumedByBelongsToIdOrderByDateDesc(farm.getId(), PageRequest.of(page, size));
         }
 
-        return null;
+        List<FoodConsumption> foodConsumptions = foodConsumptionsSlice.getContent();
+
+        return new Block<>(foodConsumptions, foodConsumptionsSlice.hasNext());
     }
 }

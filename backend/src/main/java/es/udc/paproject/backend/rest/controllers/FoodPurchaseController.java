@@ -70,6 +70,11 @@ public class FoodPurchaseController {
         return new BlockDto<>(FoodPurchaseConversor.toFoodPurchaseDtos(foodPurchaseBlock.getItems()), foodPurchaseBlock.getExistMoreItems());
     }
 
+    @GetMapping("/getListOfFoodPurchases")
+    public List<FoodPurchaseDto> getListOfAllFoodPurchases(@RequestAttribute Long userId) throws InstanceNotFoundException {
+        return FoodPurchaseConversor.toFoodPurchaseDtos(foodPurchaseService.getListOfAllFoodPurchases(userId));
+    }
+
     @GetMapping("/getAvailableFoodBatches")
     public List<FoodPurchaseDto> getAvailableFoodPurchases(@RequestAttribute Long userId) throws InstanceNotFoundException {
         return foodPurchaseService.getAllAvailablesFoodBatches(userId);

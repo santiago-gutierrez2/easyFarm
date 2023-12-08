@@ -22,5 +22,7 @@ public interface FoodPurchaseService {
     Block<FoodPurchase> getAllFoodPurchases(Long userId, String productName, String supplier, String startDate, String endDate,
         int page, int size) throws InstanceNotFoundException;
 
+    List<FoodPurchase> getListOfAllFoodPurchases(Long userId) throws InstanceNotFoundException;
+
     List<FoodPurchaseDto> getAllAvailablesFoodBatches(Long userId) throws InstanceNotFoundException;
 }

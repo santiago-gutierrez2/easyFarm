@@ -92,5 +92,8 @@ export default {
     'project.foodConsumption.create': 'Registrar consumo de alimento',
     'project.foodConsumption.foodBatch': 'Alimento',
     'project.foodConsumption.animals': 'Consumido por',
+    'project.foodConsumption.date': 'fecha de consumición',
+    'project.foodConsumption.update': 'Actualizar consumición',
+    'project.foodConsumption.list': 'Listado de consumiciones',
     'project.foodConsumption.kilos': 'Kilos consumidos',
 }

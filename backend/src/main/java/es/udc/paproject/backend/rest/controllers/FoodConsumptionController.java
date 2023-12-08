@@ -104,10 +104,10 @@ public class FoodConsumptionController {
 
     @GetMapping("/allFoodConsumptions")
     public BlockDto<FoodConsumptionDto> getAllFoodConsumptions(@RequestAttribute Long userId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,
-            @RequestParam(required = false) Long animalId, @RequestParam(required = false) Long foodBatchId, @RequestParam(required = false) String startDate,
+            @RequestParam(required = false) List<Long> animalsId, @RequestParam(required = false) Long foodBatchId, @RequestParam(required = false) String startDate,
             @RequestParam(required = false) String endDate) throws InstanceNotFoundException {
 
-        Block<FoodConsumption> foodConsumptionBlock = foodConsumptionService.getAllFoodConsumptions(userId, animalId, foodBatchId, startDate, endDate, page, size);
+        Block<FoodConsumption> foodConsumptionBlock = foodConsumptionService.getAllFoodConsumptions(userId, animalsId, foodBatchId, startDate, endDate, page, size);
 
         return new BlockDto<>(FoodConsumptionConversor.toFoodConsumptionDtos(foodConsumptionBlock.getItems()), foodConsumptionBlock.getExistMoreItems());
     }

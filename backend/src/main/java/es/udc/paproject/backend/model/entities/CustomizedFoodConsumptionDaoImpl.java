@@ -17,24 +17,24 @@ public class CustomizedFoodConsumptionDaoImpl implements CustomizedFoodConsumpti
     private EntityManager entityManager;
 
     @Override
-    public Slice<FoodConsumption> find(Long farmId, Long animalId, Long foodBatchId, String startDate, String endDate, int page, int size) {
+    public Slice<FoodConsumption> find(Long farmId, List<Long> animalId, Long foodBatchId, String startDate, String endDate, int page, int size) {
         String queryString = "SELECT f from FoodConsumption f " +
                 "left join Animal a on f.consumedBy.id = a.id " +
                 "WHERE a.belongsTo.id = " + farmId.toString();
 
 
-        if (animalId != null || foodBatchId != null || startDate != null || endDate != null) {
+        if ((animalId != null && !animalId.isEmpty()) || foodBatchId != null || startDate != null || endDate != null) {
             queryString += " AND ";
         }
 
         // animalId
         if (animalId != null) {
-            queryString += "f.consumedBy.id = :animalId ";
+            queryString += "f.consumedBy.id in :animalId ";
         }
 
         // foodBatchId
         if (foodBatchId != null) {
-            if (animalId != null) {
+            if ((animalId != null && !animalId.isEmpty())) {
                 queryString += " AND ";
             }
             queryString += "f.foodBatch.id = :foodBatchId ";
@@ -42,7 +42,7 @@ public class CustomizedFoodConsumptionDaoImpl implements CustomizedFoodConsumpti
 
         // startDate
         if (startDate != null) {
-            if (animalId != null || foodBatchId != null) {
+            if ((animalId != null && !animalId.isEmpty()) || foodBatchId != null) {
                 queryString += " AND ";
             }
             queryString += "f.date > :startDate ";
@@ -50,7 +50,7 @@ public class CustomizedFoodConsumptionDaoImpl implements CustomizedFoodConsumpti
 
         // endDate
         if (endDate != null) {
-            if (animalId != null || foodBatchId != null || startDate != null) {
+            if ((animalId != null && !animalId.isEmpty()) || foodBatchId != null || startDate != null) {
                 queryString += " AND ";
             }
             queryString += "f.date < :endDate ";
@@ -60,7 +60,7 @@ public class CustomizedFoodConsumptionDaoImpl implements CustomizedFoodConsumpti
         Query query = entityManager.createQuery(queryString).setFirstResult(page*size).setMaxResults(size+1);
 
         // animalId
-        if (animalId != null) {
+        if ((animalId != null && !animalId.isEmpty())) {
             query.setParameter("animalId", animalId);
         }
 

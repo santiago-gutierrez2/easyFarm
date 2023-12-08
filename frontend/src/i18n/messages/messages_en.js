@@ -90,8 +90,13 @@ export default {
     'project.animal.seeAllAnimals': 'List all animals',
 
     'project.foodConsumption.title': 'Food consumptions',
+    'project.foodConsumption.titleCard': 'Food consumption',
     'project.foodConsumption.create': 'Register food consumption',
     'project.foodConsumption.foodBatch': 'Food batch',
     'project.foodConsumption.animals': 'Consumed by',
     'project.foodConsumption.kilos': 'Kilos consumed',
+    'project.foodConsumption.date': 'Date of consumption',
+    'project.foodConsumption.update': 'Update food consumption',
+    'project.foodConsumption.list': 'List all food consumptions',
+    'project.foodConsumption.foodConsumptionNotFound': 'Food consumptions not found',
 }
