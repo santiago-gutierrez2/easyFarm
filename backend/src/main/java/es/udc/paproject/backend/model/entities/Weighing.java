@@ -51,6 +51,7 @@ public class Weighing {
     }
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "madeBy")
     public User getMadeBy() {
         return madeBy;
     }
@@ -60,6 +61,7 @@ public class Weighing {
     }
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "animalWeighed")
     public Animal getAnimalWeighed() {
         return animalWeighed;
     }
