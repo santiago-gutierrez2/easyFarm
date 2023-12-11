@@ -99,4 +99,8 @@ export default {
     'project.foodConsumption.update': 'Update food consumption',
     'project.foodConsumption.list': 'List all food consumptions',
     'project.foodConsumption.foodConsumptionNotFound': 'Food consumptions not found',
+
+    'project.weighing.create': 'Register new weighing',
+    'project.weighing.animal': 'Animal weighed',
+    'project.weighing.kilos': 'Weight (kg)'
 }

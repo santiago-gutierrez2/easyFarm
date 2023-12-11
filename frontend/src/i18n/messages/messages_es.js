@@ -75,7 +75,7 @@ export default {
     'project.foodPurchase.purchaseDate': 'Fecha de compra',
     'project.foodPurchase.seeAllFoodPurchases': 'Ver compras de alimento',
 
-    'project.animal.create': 'Registrar nuevo animal',
+    'project.animal.create': 'Registrar nuevo ganado',
     'project.animal.name': 'Nombre de animal',
     'project.animal.identificationNumber': 'Código de identificación',
     'project.animal.birthDate': 'Fecha de nacimiento',
@@ -96,4 +96,8 @@ export default {
     'project.foodConsumption.update': 'Actualizar consumición',
     'project.foodConsumption.list': 'Listado de consumiciones',
     'project.foodConsumption.kilos': 'Kilos consumidos',
+
+    'project.weighing.create': 'Registrar nuevo pesaje',
+    'project.weighing.animal': 'Animal pesado',
+    'project.weighing.kilos': 'Peso (kg)'
 }
