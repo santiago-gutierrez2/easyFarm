@@ -3,6 +3,7 @@ import {getAllAnimalsWithLabel} from "../../../backend/animalService";
 import {MoonLoader} from "react-spinners";
 import {Errors, Success} from "../../common";
 import {FormattedDate, FormattedMessage} from "react-intl";
+import {registerWeighing} from "../../../backend/weighingService";
 
 const CreateWeighing = () => {
 
@@ -19,6 +20,7 @@ const CreateWeighing = () => {
             // get animals
             getAllAnimalsWithLabel(false, (animals) => {
                 setAnimals(animals);
+                setAnimalSelected(animals[0].value);
                 // reset backend errors and is loading
                 setBackendErrors(null);
                 setIsLoading(false);
@@ -33,7 +35,15 @@ const CreateWeighing = () => {
         event.preventDefault();
 
         if (form.checkValidity()) {
-
+            let weighing = {
+                kilos: kilos,
+                animalWeighed: Number.parseInt(animalSelected)
+            }
+            registerWeighing(weighing, () => {
+                setSuccess('Weighing created correctly');
+                setAnimalSelected('');
+                setKilos(1);
+            }, errors => setBackendErrors(errors))
         } else {
             setBackendErrors(null);
             form.classList.add('was-validated');
@@ -110,3 +120,5 @@ const CreateWeighing = () => {
         </div>
     );
 }
+
+export default CreateWeighing;

@@ -120,6 +120,21 @@ const Header = () => {
                             </div>
                         </li>
                     }
+
+                    {/* WEIGHINGS MANAGEMENT*/}
+                    { userName &&
+                        <li className="nav-item dropdown">
+                            <a className="dropdown-toggle nav-link" href="/"
+                                data-toggle="dropdown">
+                                <FormattedMessage id="project.weighing.title"/>
+                            </a>
+                            <div className="dropdown-menu dropdown-menu-right">
+                                <Link className="dropdown-item" to="/weighing/CreateWeighing">
+                                    <FormattedMessage id="project.weighing.create"/>
+                                </Link>
+                            </div>
+                        </li>
+                    }
                 </ul>
                 
                 {userName ? 

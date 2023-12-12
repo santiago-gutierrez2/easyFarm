@@ -97,6 +97,7 @@ export default {
     'project.foodConsumption.list': 'Listado de consumiciones',
     'project.foodConsumption.kilos': 'Kilos consumidos',
 
+    'project.weighing.title': 'Pesaxes',
     'project.weighing.create': 'Rexistrar novo pesaxe',
     'project.weighing.animal': 'Animal pesado',
     'project.weighing.kilos': 'Peso (kg)'
