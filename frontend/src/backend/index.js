@@ -4,8 +4,9 @@ import * as issueService from './issueService';
 import * as foodService from './FoodPurchaseService';
 import * as animalService from './animalService';
 import * as foodConsumptionService from './foodConsumptionService';
+import * as weighingService from './weighingService';
 
 export {default as NetworkError} from "./NetworkError";
 
 // eslint-disable-next-line
-export default {init, userService, issueService, foodService, animalService, foodConsumptionService};
+export default {init, userService, issueService, foodService, animalService, foodConsumptionService, weighingService};

@@ -6,6 +6,7 @@ import issues from '../modules/issues';
 import foodPurchases from "../modules/foodPurchases";
 import animals from "../modules/animals";
 import foodConsumptions from "../modules/foodConsumptions";
+import weighing from "../modules/weighing";
 
 const rootReducer = combineReducers({
     app: app.reducer,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     issues: issues.reducer,
     foodPurchases: foodPurchases.reducer,
     animals: animals.reducer,
-    foodConsumptions: foodConsumptions.reducer
+    foodConsumptions: foodConsumptions.reducer,
+    weighing: weighing.reducer
 });
 
 export default rootReducer;

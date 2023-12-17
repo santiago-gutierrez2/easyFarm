@@ -76,7 +76,6 @@ const AllFoodConsumptions = () => {
     }
 
     function getAnimalNameAndCode(animalId) {
-        let animalName = "";
         for (let animal of animalsOptions) {
             if (animal.value === animalId) {
                 return animal.label;
@@ -85,7 +84,6 @@ const AllFoodConsumptions = () => {
     }
 
     function getFoodBatchProductName(foodPurchaseId) {
-        let productName = "";
         for (let fb of foodBatches) {
             if (fb.id === foodPurchaseId) {
                 return fb.productName;

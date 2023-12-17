@@ -78,4 +78,5 @@ public class AnimalController {
         List<Animal> animalList = animalService.getAnimalsWithLabel(userId, all);
         return AnimalConversor.toAnimalWithLabelDto(animalList);
     }
+
 }

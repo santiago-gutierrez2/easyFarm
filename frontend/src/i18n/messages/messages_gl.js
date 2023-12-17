@@ -99,6 +99,11 @@ export default {
 
     'project.weighing.title': 'Pesaxes',
     'project.weighing.create': 'Rexistrar novo pesaxe',
+    'project.weighing.update': 'Actualizar rexistro do pesaxe',
     'project.weighing.animal': 'Animal pesado',
-    'project.weighing.kilos': 'Peso (kg)'
+    'project.weighing.kilos': 'Peso (kg)',
+    'project.weighing.date': 'Data do pesaxe',
+    'project.weighing.kilosRange': 'Rango de peso (kg)',
+    'project.weighing.weighingNotFound': 'Weighings not found',
+    'project.weighing.List': 'Listado de pesaxes'
 }

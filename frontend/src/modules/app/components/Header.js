@@ -132,6 +132,9 @@ const Header = () => {
                                 <Link className="dropdown-item" to="/weighing/CreateWeighing">
                                     <FormattedMessage id="project.weighing.create"/>
                                 </Link>
+                                <Link className="dropdown-item" to="/weighing/AllWeighings">
+                                    <FormattedMessage id="project.weighing.List"/>
+                                </Link>
                             </div>
                         </li>
                     }

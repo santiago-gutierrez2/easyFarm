@@ -63,7 +63,7 @@ public class CustomizedWeighingDaoImpl implements CustomizedWeighingDao{
             queryString += "w.date < :endDate ";
         }
 
-        queryString += " ORDER BY f.date DESC";
+        queryString += " ORDER BY w.date DESC";
         Query query = entityManager.createQuery(queryString).setFirstResult(page*size).setMaxResults(size+1);
 
         // animalId

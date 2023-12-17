@@ -5,9 +5,10 @@ logging:
         SQL: debug
 spring:
   datasource:
-    url: @dataSource.url@
-    username: @dataSource.user@
-    password: @dataSource.password@
+    #url: @dataSource.url@
+    url: jdbc:mysql://localhost/easyfarm?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Europe/Madrid
+    username: easyfarm
+    password: easyfarm
     max-active: 4
     max-idle: 2
     max-wait: 10000

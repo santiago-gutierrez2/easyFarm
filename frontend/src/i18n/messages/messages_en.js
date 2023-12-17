@@ -47,11 +47,11 @@ export default {
 
     'project.employees.title': 'Employees',
     'project.users.employees.create': 'Create new employee',
-    'project.users.employees.seeAllEmployees': 'List all employees',
+    'project.users.employees.seeAllEmployees': 'List of employees',
 
     'project.issues.title': 'Issues',
     'project.issues.create': 'Create new issue',
-    'project.issues.seeAllIssues': 'List all issues',
+    'project.issues.seeAllIssues': 'List of issues',
     'project.issues.issueName': 'Issue name',
     'project.issues.description': 'Description',
     'project.issues.assignedTo': 'Assigned to',
@@ -74,7 +74,7 @@ export default {
     'project.foodPurchase.MadeBy': 'Made by',
     'project.foodPurchase.foodPurchasesNotFound': 'Food purchases not found',
     'project.foodPurchase.purchaseDate': 'Purchase date',
-    'project.foodPurchase.seeAllFoodPurchases': 'List all food purchases',
+    'project.foodPurchase.seeAllFoodPurchases': 'List of food purchases',
 
     'project.animal.create': 'Register new animal',
     'project.animal.name': 'Animal name',
@@ -87,7 +87,7 @@ export default {
     'project.animal.title': 'Livestock',
     'project.animal.update': 'Update animal info',
     'project.animal.animalsNotFound': 'Animals not found',
-    'project.animal.seeAllAnimals': 'List all animals',
+    'project.animal.seeAllAnimals': 'List of animals',
 
     'project.foodConsumption.title': 'Food consumptions',
     'project.foodConsumption.titleCard': 'Food consumption',
@@ -97,11 +97,16 @@ export default {
     'project.foodConsumption.kilos': 'Kilos consumed',
     'project.foodConsumption.date': 'Date of consumption',
     'project.foodConsumption.update': 'Update food consumption',
-    'project.foodConsumption.list': 'List all food consumptions',
+    'project.foodConsumption.list': 'List of food consumptions',
     'project.foodConsumption.foodConsumptionNotFound': 'Food consumptions not found',
 
     'project.weighing.title': 'Weighings',
     'project.weighing.create': 'Register new weighing',
+    'project.weighing.update': 'Update weighing record',
     'project.weighing.animal': 'Animal weighed',
-    'project.weighing.kilos': 'Weight (kg)'
+    'project.weighing.kilos': 'Weight (kg)',
+    'project.weighing.date': 'Date of weighing',
+    'project.weighing.kilosRange': 'Weight range (kg)',
+    'project.weighing.weighingNotFound': 'Weighings not found',
+    'project.weighing.List': 'List of weighings'
 }
