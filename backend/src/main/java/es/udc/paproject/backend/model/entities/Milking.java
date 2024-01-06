@@ -9,7 +9,7 @@ public class Milking {
 
     private Long id;
     private LocalDateTime date;
-    private BigDecimal liters;
+    private Integer liters;
     private User madeBy;
     private Animal animalMilked;
 
@@ -18,7 +18,7 @@ public class Milking {
 
     // main constructor
 
-    public Milking(BigDecimal liters, User madeBy, Animal animalMilked) {
+    public Milking(Integer liters, User madeBy, Animal animalMilked) {
         this.liters = liters;
         this.madeBy = madeBy;
         this.animalMilked = animalMilked;
@@ -43,15 +43,16 @@ public class Milking {
         this.date = date;
     }
 
-    public BigDecimal getLiters() {
+    public Integer getLiters() {
         return liters;
     }
 
-    public void setLiters(BigDecimal liters) {
+    public void setLiters(Integer liters) {
         this.liters = liters;
     }
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "madeBy")
     public User getMadeBy() {
         return madeBy;
     }
@@ -61,6 +62,7 @@ public class Milking {
     }
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "animalMilked")
     public Animal getAnimalMilked() {
         return animalMilked;
     }

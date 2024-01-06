@@ -95,7 +95,7 @@ CREATE TABLE Weighing (
 CREATE TABLE Milking (
     id BIGINT NOT NULL AUTO_INCREMENT,
     date DATETIME NOT NULL,
-    liters DECIMAL(11,2) NOT NULL,
+    liters INTEGER NOT NULL,
     madeBy BIGINT NOT NULL,
     animalMilked BIGINT NOT NULL,
     CONSTRAINT MilkingPK PRIMARY KEY (id),
