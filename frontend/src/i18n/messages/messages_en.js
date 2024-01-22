@@ -108,5 +108,15 @@ export default {
     'project.weighing.date': 'Date of weighing',
     'project.weighing.kilosRange': 'Weight range (kg)',
     'project.weighing.weighingNotFound': 'Weighings not found',
-    'project.weighing.List': 'List of weighings'
+    'project.weighing.List': 'List of weighings',
+
+    'project.milking.title': 'Milkings',
+    'project.milking.create': 'Register new milking',
+    'project.milking.animal': 'Animal milked',
+    'project.milking.liters': 'Liters',
+    'project.milking.update': 'Update milking record',
+    'project.milking.date': 'Date of milking',
+    'project.milking.litersRange': 'Liters Range',
+    'project.milking.milkingNotFound': 'Milkings not found',
+    'project.milking.list': 'List of milkings'
 }

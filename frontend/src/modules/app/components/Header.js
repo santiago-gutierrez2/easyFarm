@@ -121,7 +121,7 @@ const Header = () => {
                         </li>
                     }
 
-                    {/* WEIGHINGS MANAGEMENT*/}
+                    {/* WEIGHINGS MANAGEMENT */}
                     { userName &&
                         <li className="nav-item dropdown">
                             <a className="dropdown-toggle nav-link" href="/"
@@ -134,6 +134,24 @@ const Header = () => {
                                 </Link>
                                 <Link className="dropdown-item" to="/weighing/AllWeighings">
                                     <FormattedMessage id="project.weighing.List"/>
+                                </Link>
+                            </div>
+                        </li>
+                    }
+
+                    {/* MILKING MANAGEMENT */}
+                    {userName &&
+                        <li className="nav-item dropdown">
+                            <a className="dropdown-toggle nav-link" href="/"
+                                data-toggle="dropdown">
+                                <FormattedMessage id="project.milking.title"/>
+                            </a>
+                            <div className="dropdown-menu dropdown-menu-right">
+                                <Link className="dropdown-item" to="/milking/CreateMilking">
+                                    <FormattedMessage id="project.milking.create"></FormattedMessage>
+                                </Link>
+                                <Link className="dropdown-item" to="/milking/AllMilkings">
+                                    <FormattedMessage id="project.milking.list"/>
                                 </Link>
                             </div>
                         </li>

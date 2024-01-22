@@ -12,6 +12,8 @@ import {AllAnimals, CreateAnimal, UpdateAnimal} from "../../animals";
 import CreateFoodConsumtion from "../../foodConsumptions/components/CreateFoodConsumtion";
 import {AllFoodConsumptions} from "../../foodConsumptions";
 import {AllWeighings, CreateWeighing, UpdateWeighing} from "../../weighing";
+import {AllMilkings, CreateMilking} from "../../Milking";
+import UpdateMilking from "../../Milking/components/UpdateMilking";
 
 const Body = () => {
 
@@ -43,7 +45,10 @@ const Body = () => {
                 {loggedIn && <Route exact path="/foodConsumption/AllFoodConsumptions"> <AllFoodConsumptions/> </Route>}
                 {loggedIn && <Route exact path="/weighing/CreateWeighing"> <CreateWeighing/> </Route>}
                 {loggedIn && <Route exact path="/weighing/AllWeighings"> <AllWeighings/> </Route>}
-                {loggedIn && <Route exact path="/weighing/:weighingId"> <UpdateWeighing/> </Route> }
+                {loggedIn && <Route exact path="/weighing/:weighingId"> <UpdateWeighing/> </Route>}
+                {loggedIn && <Route exact path="/milking/CreateMilking"> <CreateMilking/> </Route>}
+                {loggedIn && <Route exact path="/milking/AllMilkings"> <AllMilkings/> </Route>}
+                {loggedIn && <Route exact path="/milking/:milkingId"> <UpdateMilking/> </Route>}
                 {!loggedIn && <Route exact path="/users/login"><Login/></Route>}
                 <Route><Home/></Route>
             </Switch>

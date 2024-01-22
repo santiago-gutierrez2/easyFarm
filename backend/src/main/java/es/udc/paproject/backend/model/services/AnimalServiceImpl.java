@@ -102,7 +102,7 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public List<Animal> getAnimalsWithLabel(Long userId, boolean all) throws InstanceNotFoundException {
+    public List<Animal> getAnimalsWithLabel(Long userId, boolean all, boolean onlyFemale) throws InstanceNotFoundException {
 
         Optional<User> optionalUser = userDao.findById(userId);
 
@@ -114,6 +114,10 @@ public class AnimalServiceImpl implements AnimalService {
         Farm farm = user.getFarm();
 
         List<Animal> animalsList = animalDao.findAnimalsByBelongsToIdOrderByBirthDateDesc(farm.getId());
+
+        if (onlyFemale) {
+            animalsList = animalsList.stream().filter(a -> !a.getIsMale()).collect(Collectors.toList());
+        }
 
         if (all) {
             return animalsList;

@@ -27,10 +27,12 @@ export const getAllAnimals = ({page, name, identificationNumber, startDate, endD
     appFetch(path, config('GET'), onSuccess, onErrors);
 }
 
-export const getAllAnimalsWithLabel = (all, onSuccess, onErrors) => {
-    if (all) {
-        appFetch('/animal/animalsWithLabel?all=true', config('GET'), onSuccess, onErrors);
-    } else {
+export const getAllAnimalsWithLabel = (all, onlyFemale, onSuccess, onErrors) => {
+    if (all && onlyFemale) {
+        appFetch('/animal/animalsWithLabel?all=true&onlyFemale=true', config('GET'), onSuccess, onErrors);
+    } else if (all) {
         appFetch('/animal/animalsWithLabel', config('GET'), onSuccess, onErrors);
+    } else if (onlyFemale) {
+        appFetch('/animal/animalsWithLabel?onlyFemale=true', config('GET'), onSuccess, onErrors);
     }
 }

@@ -74,8 +74,8 @@ public class AnimalController {
     }
 
     @GetMapping("/animalsWithLabel")
-    public List<AnimalWithLabelDto> getAnimalsWithLabel(@RequestAttribute Long userId, @RequestParam(defaultValue = "false") boolean all) throws InstanceNotFoundException {
-        List<Animal> animalList = animalService.getAnimalsWithLabel(userId, all);
+    public List<AnimalWithLabelDto> getAnimalsWithLabel(@RequestAttribute Long userId, @RequestParam(defaultValue = "false") boolean all, @RequestParam(defaultValue = "false") boolean onlyFemale) throws InstanceNotFoundException {
+        List<Animal> animalList = animalService.getAnimalsWithLabel(userId, all, onlyFemale);
         return AnimalConversor.toAnimalWithLabelDto(animalList);
     }
 

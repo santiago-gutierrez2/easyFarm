@@ -28,7 +28,7 @@ const AllFoodConsumptions = () => {
     useEffect(() => {
         if (isLoading) {
             // get animals
-            getAllAnimalsWithLabel(true,(animals) => {
+            getAllAnimalsWithLabel(true, false,(animals) => {
                 setAnimalsOptions(animals);
                 // reset backend errors and is loading
                 setBackendErrors(null);

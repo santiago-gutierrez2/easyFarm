@@ -34,7 +34,7 @@ const UpdateWeighing = () => {
                 setIsLoading(false);
             })
             // getAnimals
-            getAllAnimalsWithLabel(false, (animals) => {
+            getAllAnimalsWithLabel(false, false, (animals) => {
                 setAnimals(animals);
                 // reset backend errors and is loading
                 setBackendErrors(null);

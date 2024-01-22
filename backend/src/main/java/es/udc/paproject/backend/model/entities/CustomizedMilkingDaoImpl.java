@@ -29,7 +29,7 @@ public class CustomizedMilkingDaoImpl implements CustomizedMilkingDao{
 
         // animalId
         if (animalId  != null) {
-            queryString += "m.animalWeighed.id = :animalId ";
+            queryString += "m.animalMilked.id = :animalId ";
         }
 
         // startLiters
@@ -64,7 +64,7 @@ public class CustomizedMilkingDaoImpl implements CustomizedMilkingDao{
             queryString += "m.date < :endDate ";
         }
 
-        queryString += " ORDER BY w.date DESC";
+        queryString += " ORDER BY m.date DESC";
         Query query = entityManager.createQuery(queryString).setFirstResult(page*size).setMaxResults(size+1);
 
         // animalId

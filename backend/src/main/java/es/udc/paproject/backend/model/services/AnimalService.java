@@ -20,6 +20,6 @@ public interface AnimalService {
     Block<Animal> getAllAnimals(Long userId, String name, Long identificationNumber, String startDate, String endDate,
         Boolean isMale, int page, int size) throws InstanceNotFoundException;
 
-    List<Animal> getAnimalsWithLabel(Long userId, boolean all) throws InstanceNotFoundException;
+    List<Animal> getAnimalsWithLabel(Long userId, boolean all, boolean onlyFemale) throws InstanceNotFoundException;
 }
 

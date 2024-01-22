@@ -29,7 +29,7 @@ const CreateFoodConsumption = () => {
                 setBackendErrors(errors);
             });
             // get animals
-            getAllAnimalsWithLabel(false, (animals) => {
+            getAllAnimalsWithLabel(false, false,(animals) => {
                 setAnimalsOptions(animals);
                 // reset backend errors and is loading
                 setBackendErrors(null);

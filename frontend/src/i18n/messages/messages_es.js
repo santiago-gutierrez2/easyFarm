@@ -105,5 +105,15 @@ export default {
     'project.weighing.date': 'Fecha de pesaje',
     'project.weighing.kilosRange': 'Rango de peso (kg)',
     'project.weighing.weighingNotFound': 'Weighings not found',
-    'project.weighing.List': 'Listado de pesajes'
+    'project.weighing.List': 'Listado de pesajes',
+
+    'project.milking.title': 'Ordeños',
+    'project.milking.create': 'Registrar nuevo ordeño',
+    'project.milking.animal': 'Animal ordeñado',
+    'project.milking.liters': 'Litros',
+    'project.milking.update': 'Actualizar registro de ordeño',
+    'project.milking.date': 'Fecha de ordeño',
+    'project.milking.litersRange': 'Rango de litros',
+    'project.milking.milkingNotFound': 'Milkings not found',
+    'project.milking.list': 'Listado de ordeños'
 }
