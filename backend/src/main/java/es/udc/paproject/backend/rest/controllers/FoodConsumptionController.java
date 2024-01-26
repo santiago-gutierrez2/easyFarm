@@ -7,8 +7,10 @@ import es.udc.paproject.backend.model.services.FoodConsumptionService;
 import es.udc.paproject.backend.model.services.FoodPurchaseService;
 import es.udc.paproject.backend.model.services.UserService;
 import es.udc.paproject.backend.rest.dtos.BlockDto;
+import es.udc.paproject.backend.rest.dtos.FoodConsumptionDTOs.FoodConsumptionChartDto;
 import es.udc.paproject.backend.rest.dtos.FoodConsumptionDTOs.FoodConsumptionConversor;
 import es.udc.paproject.backend.rest.dtos.FoodConsumptionDTOs.FoodConsumptionDto;
+import es.udc.paproject.backend.rest.dtos.FoodConsumptionDTOs.StockChartDto;
 import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.FoodPurchaseConversor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -111,4 +113,10 @@ public class FoodConsumptionController {
 
         return new BlockDto<>(FoodConsumptionConversor.toFoodConsumptionDtos(foodConsumptionBlock.getItems()), foodConsumptionBlock.getExistMoreItems());
     }
+
+    @GetMapping("/stockChart")
+    public List<StockChartDto> getStockChart(@RequestAttribute Long userId) throws InstanceNotFoundException {
+        return foodConsumptionService.getStockChart(userId);
+    }
+
 }

@@ -31,8 +31,10 @@ export const getAllAnimalsWithLabel = (all, onlyFemale, onSuccess, onErrors) => 
     if (all && onlyFemale) {
         appFetch('/animal/animalsWithLabel?all=true&onlyFemale=true', config('GET'), onSuccess, onErrors);
     } else if (all) {
-        appFetch('/animal/animalsWithLabel', config('GET'), onSuccess, onErrors);
+        appFetch('/animal/animalsWithLabel?all=true', config('GET'), onSuccess, onErrors);
     } else if (onlyFemale) {
         appFetch('/animal/animalsWithLabel?onlyFemale=true', config('GET'), onSuccess, onErrors);
+    } else {
+        appFetch('/animal/animalsWithLabel', config('GET'), onSuccess, onErrors);
     }
 }

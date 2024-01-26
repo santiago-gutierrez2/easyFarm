@@ -25,6 +25,7 @@ const CreateFoodConsumption = () => {
             getAllAvailableFoodBatches((availableFoodBatches) => {
                 setFoodBatches(availableFoodBatches);
                 setFoodBatchSelected(availableFoodBatches[0].id);
+                setIsLoading(false);
             }, errors => {
                 setBackendErrors(errors);
             });
@@ -94,7 +95,7 @@ const CreateFoodConsumption = () => {
             <div className="col-sm-7 col-12">
                 <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
                 <Success message={success} onClose={() => setSuccess(null)}></Success>
-                <div className="card bg-light border-dark">
+                <div className="card bg-light">
                     <h5 className="card-header card-title-custom">
                         <FormattedMessage id="project.foodConsumption.create" />
                     </h5>

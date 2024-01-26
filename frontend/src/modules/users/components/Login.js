@@ -49,7 +49,7 @@ const Login = () => {
                     </Link>
                 </p>*/}
                 <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
-                <div className="card bg-light border-dark">
+                <div className="card bg-light">
                     <h5 className="card-header">
                         <FormattedMessage id="project.users.Login.title"/>
                     </h5>

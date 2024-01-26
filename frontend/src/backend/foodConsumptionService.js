@@ -27,3 +27,7 @@ export const getAllFoodConsumptions = ({page, animals, foodBatch, startDate, end
 
     appFetch(path, config('GET'), onSuccess, onErrors);
 }
+
+export const getStockChart = (onSuccess, onErrors) => {
+    appFetch('/foodConsumption/stockChart', config('GET'), onSuccess, onErrors);
+}

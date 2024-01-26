@@ -84,7 +84,7 @@ const UpdateAnimal = () => {
             <div className="col-sm-7 col-12">
                 <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
                 <Success message={success} onClose={() => setSuccess(null)}/>
-                <div className="card bg-light border-dark">
+                <div className="card bg-light ">
                     <h5 className="card-header card-title-custom">
                         <FormattedMessage id="project.animal.update"/>
                     </h5>

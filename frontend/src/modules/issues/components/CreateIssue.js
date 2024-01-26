@@ -75,7 +75,7 @@ const CreateIssue = () => {
             <div className="col-sm-7 col-12">
                 <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
                 <Success message={success} onClose={() => setSuccess(null)}></Success>
-                <div className="card bg-light border-dark">
+                <div className="card bg-light ">
                     <h5 className="card-header card-title-custom">
                         <FormattedMessage id="project.issues.create"/>
                     </h5>

@@ -1,12 +1,10 @@
 package es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs;
 
-import es.udc.paproject.backend.rest.dtos.IssueDTOs.IssueDto;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
-public class FoodPurchaseDto {
+public class FoodPurchaseWithAvailableKilosDto {
 
     public interface CreateFoodPurchaseValidation {}
     public interface UpdateFoodPurchaseValidation {}
@@ -21,18 +19,8 @@ public class FoodPurchaseDto {
     private Long madeBy;
     private Integer availableKilos;
 
-    public FoodPurchaseDto(Long id, String productName, String ingredients, Long purchaseDate, String supplier, Integer kilos, BigDecimal unitPrice, Long madeBy) {
-        this.id = id;
-        this.productName = productName != null ? productName.trim() : null;
-        this.ingredients = ingredients;
-        this.purchaseDate = purchaseDate;
-        this.supplier = supplier;
-        this.kilos = kilos;
-        this.unitPrice = unitPrice;
-        this.madeBy = madeBy;
-    }
 
-    /*public FoodPurchaseDto(Long id, String productName, String ingredients, Long purchaseDate, String supplier, Integer kilos, BigDecimal unitPrice, Long madeBy, Integer availableKilos) {
+    public FoodPurchaseWithAvailableKilosDto(Long id, String productName, String ingredients, Long purchaseDate, String supplier, Integer kilos, BigDecimal unitPrice, Long madeBy, Integer availableKilos) {
         this.id = id;
         this.productName = productName != null ? productName.trim() : null;
         this.ingredients = ingredients;
@@ -42,7 +30,7 @@ public class FoodPurchaseDto {
         this.unitPrice = unitPrice;
         this.madeBy = madeBy;
         this.availableKilos = availableKilos;
-    }*/
+    }
 
     public Long getId() {
         return id;
@@ -52,8 +40,8 @@ public class FoodPurchaseDto {
         this.id = id;
     }
 
-    @NotNull(groups = {CreateFoodPurchaseValidation.class, UpdateFoodPurchaseValidation.class})
-    @Size(min=1, max=100, groups = {CreateFoodPurchaseValidation.class, UpdateFoodPurchaseValidation.class})
+    @NotNull(groups = {FoodPurchaseDto.CreateFoodPurchaseValidation.class, FoodPurchaseDto.UpdateFoodPurchaseValidation.class})
+    @Size(min=1, max=100, groups = {FoodPurchaseDto.CreateFoodPurchaseValidation.class, FoodPurchaseDto.UpdateFoodPurchaseValidation.class})
     public String getProductName() {
         return productName;
     }
@@ -62,7 +50,7 @@ public class FoodPurchaseDto {
         this.productName = productName;
     }
 
-    @Size(max=500, groups = {CreateFoodPurchaseValidation.class, UpdateFoodPurchaseValidation.class})
+    @Size(max=500, groups = {FoodPurchaseDto.CreateFoodPurchaseValidation.class, FoodPurchaseDto.UpdateFoodPurchaseValidation.class})
     public String getIngredients() {
         return ingredients;
     }
@@ -79,7 +67,7 @@ public class FoodPurchaseDto {
         this.purchaseDate = purchaseDate;
     }
 
-    @Size(max=100, groups = {CreateFoodPurchaseValidation.class, UpdateFoodPurchaseValidation.class})
+    @Size(max=100, groups = {FoodPurchaseDto.CreateFoodPurchaseValidation.class, FoodPurchaseDto.UpdateFoodPurchaseValidation.class})
     public String getSupplier() {
         return supplier;
     }
@@ -88,7 +76,7 @@ public class FoodPurchaseDto {
         this.supplier = supplier;
     }
 
-    @NotNull(groups = {CreateFoodPurchaseValidation.class, UpdateFoodPurchaseValidation.class})
+    @NotNull(groups = {FoodPurchaseDto.CreateFoodPurchaseValidation.class, FoodPurchaseDto.UpdateFoodPurchaseValidation.class})
     public Integer getKilos() {
         return kilos;
     }
@@ -97,7 +85,7 @@ public class FoodPurchaseDto {
         this.kilos = kilos;
     }
 
-    @NotNull(groups = {CreateFoodPurchaseValidation.class, UpdateFoodPurchaseValidation.class})
+    @NotNull(groups = {FoodPurchaseDto.CreateFoodPurchaseValidation.class, FoodPurchaseDto.UpdateFoodPurchaseValidation.class})
     public BigDecimal getUnitPrice() {
         return unitPrice;
     }
@@ -106,7 +94,7 @@ public class FoodPurchaseDto {
         this.unitPrice = unitPrice;
     }
 
-    @NotNull(groups = {CreateFoodPurchaseValidation.class})
+    @NotNull(groups = {FoodPurchaseDto.CreateFoodPurchaseValidation.class})
     public Long getMadeBy() {
         return madeBy;
     }

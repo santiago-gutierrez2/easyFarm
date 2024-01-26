@@ -65,7 +65,7 @@ const ChangePassword = () => {
     return (
         <div className="fade-in">
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
-            <div className="card bg-light border-dark">
+            <div className="card bg-light">
                 <h5 className="card-header card-title-custom ">
                     <FormattedMessage id="project.users.ChangePassword.title"/>
                 </h5>

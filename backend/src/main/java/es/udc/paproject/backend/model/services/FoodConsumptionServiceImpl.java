@@ -2,12 +2,15 @@ package es.udc.paproject.backend.model.services;
 
 import es.udc.paproject.backend.model.entities.*;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
+import es.udc.paproject.backend.rest.dtos.FoodConsumptionDTOs.StockChartDto;
+import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.FoodPurchaseConversor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +20,8 @@ public class FoodConsumptionServiceImpl implements FoodConsumptionService{
 
     @Autowired
     private FoodConsumptionDao foodConsumptionDao;
+    @Autowired
+    private FoodPurchaseDao foodPurchaseDao;
     @Autowired
     private UserService userService;
     @Autowired
@@ -92,5 +97,30 @@ public class FoodConsumptionServiceImpl implements FoodConsumptionService{
         List<FoodConsumption> foodConsumptions = foodConsumptionsSlice.getContent();
 
         return new Block<>(foodConsumptions, foodConsumptionsSlice.hasNext());
+    }
+
+    @Override
+    public List<StockChartDto> getStockChart(Long userId) throws InstanceNotFoundException {
+        Optional<User> optionalUser = userDao.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.user", userId);
+        }
+
+        User user = optionalUser.get();
+        Farm farm = user.getFarm();
+
+        // foodBatches with stock left.
+        List<FoodPurchase> foodPurchasesWithStockLeft = foodPurchaseDao.getAllFoodPurchasesWithStockLeft(farm.getId());
+
+        List<StockChartDto> stockChartDtos = new ArrayList<>();
+
+        foodPurchasesWithStockLeft.forEach(fp -> {
+            Long sumOfKilosConsumed = foodPurchaseDao.getAllKilosConsumedByFoodPurchaseId(fp.getId());
+            StockChartDto dto = new StockChartDto(FoodPurchaseConversor.toFoodPurchaseDto(fp), fp.getKilos() - sumOfKilosConsumed);
+            stockChartDtos.add(dto);
+        });
+
+        return stockChartDtos;
     }
 }

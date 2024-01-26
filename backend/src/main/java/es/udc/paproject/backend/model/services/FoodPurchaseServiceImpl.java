@@ -4,6 +4,7 @@ import es.udc.paproject.backend.model.entities.*;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.exceptions.PermissionException;
 import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.FoodPurchaseDto;
+import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.FoodPurchaseWithAvailableKilosDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
@@ -123,7 +124,7 @@ public class FoodPurchaseServiceImpl implements FoodPurchaseService{
     }
 
     @Override
-    public List<FoodPurchaseDto> getAllAvailablesFoodBatches(Long userId) throws InstanceNotFoundException {
+    public List<FoodPurchaseWithAvailableKilosDto> getAllAvailablesFoodBatches(Long userId) throws InstanceNotFoundException {
         Optional<User> optionalUser = userDao.findById(userId);
 
         if (optionalUser.isEmpty()) {
@@ -135,7 +136,7 @@ public class FoodPurchaseServiceImpl implements FoodPurchaseService{
 
         List<FoodPurchase> foodBatches = foodPurchaseDao.findFoodPurchaseByMadeByFarmIdOrderByPurchaseDateDesc(farm.getId());
 
-        List<FoodPurchaseDto> foodPurchaseDtos = foodBatches.stream().map( f -> {
+        List<FoodPurchaseWithAvailableKilosDto> foodPurchaseDtos = foodBatches.stream().map( f -> {
             List<FoodConsumption> foodConsumptions = foodConsumptionDao.findFoodConsumptionByFoodBatchId(f.getId());
 
             Integer consumedKilos = 0;
@@ -143,7 +144,7 @@ public class FoodPurchaseServiceImpl implements FoodPurchaseService{
                 consumedKilos += fc.getKilos();
             }
 
-            return new FoodPurchaseDto(f.getId(), f.getProductName(), f.getIngredients(), toMillis(f.getPurchaseDate()),
+            return new FoodPurchaseWithAvailableKilosDto(f.getId(), f.getProductName(), f.getIngredients(), toMillis(f.getPurchaseDate()),
                     f.getSupplier(), f.getKilos(), f.getUnitPrice(), f.getMadeBy().getId(), f.getKilos() - consumedKilos);
 
         }).collect(Collectors.toList());

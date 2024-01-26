@@ -10,6 +10,7 @@ import es.udc.paproject.backend.model.services.UserService;
 import es.udc.paproject.backend.rest.dtos.BlockDto;
 import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.FoodPurchaseConversor;
 import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.FoodPurchaseDto;
+import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.FoodPurchaseWithAvailableKilosDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -76,7 +77,7 @@ public class FoodPurchaseController {
     }
 
     @GetMapping("/getAvailableFoodBatches")
-    public List<FoodPurchaseDto> getAvailableFoodPurchases(@RequestAttribute Long userId) throws InstanceNotFoundException {
+    public List<FoodPurchaseWithAvailableKilosDto> getAvailableFoodPurchases(@RequestAttribute Long userId) throws InstanceNotFoundException {
         return foodPurchaseService.getAllAvailablesFoodBatches(userId);
     }
 }

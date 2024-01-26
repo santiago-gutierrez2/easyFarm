@@ -4,6 +4,7 @@ import es.udc.paproject.backend.model.entities.FoodPurchase;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.exceptions.PermissionException;
 import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.FoodPurchaseDto;
+import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.FoodPurchaseWithAvailableKilosDto;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -24,5 +25,5 @@ public interface FoodPurchaseService {
 
     List<FoodPurchase> getListOfAllFoodPurchases(Long userId) throws InstanceNotFoundException;
 
-    List<FoodPurchaseDto> getAllAvailablesFoodBatches(Long userId) throws InstanceNotFoundException;
+    List<FoodPurchaseWithAvailableKilosDto> getAllAvailablesFoodBatches(Long userId) throws InstanceNotFoundException;
 }

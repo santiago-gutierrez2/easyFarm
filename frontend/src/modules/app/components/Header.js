@@ -4,16 +4,22 @@ import {FormattedMessage} from 'react-intl';
 import "./HeaderStyle.css";
 
 import users from '../../users';
+import {useState} from "react";
 
 const Header = () => {
 
     const userName = useSelector(users.selectors.getUserName);
     const userRole = useSelector(users.selectors.getRole);
+    const [activeItem, setActiveItem] = useState(null);
+
+    const handleItemClick = (item) => {
+        setActiveItem(item);
+    };
 
     return (
 
         <nav className="navbar navbar-expand-lg navbar-dark header-custom">
-            <Link className="navbar-brand" to="/">EasyFarm</Link>
+            <Link className="navbar-brand" to="/" onClick={() => handleItemClick('null')}>EasyFarm</Link>
             <button className="navbar-toggler" type="button" 
                 data-toggle="collapse" data-target="#navbarSupportedContent" 
                 aria-controls="navbarSupportedContent" aria-expanded="false" 
@@ -26,7 +32,7 @@ const Header = () => {
                 <ul className="navbar-nav mr-auto">
                     {/* EMPLOYEES MANAGEMENT */}
                     { userRole === "ADMIN" &&
-                        <li className="nav-item dropdown">
+                        <li className={activeItem === 'Item1' ? 'nav-item active dropdown' : 'nav-item dropdown'} onClick={() => handleItemClick('Item1')}>
                             <a className="dropdown-toggle nav-link" href="/"
                                data-toggle="dropdown">
                                 <FormattedMessage id="project.employees.title"></FormattedMessage>
@@ -44,7 +50,7 @@ const Header = () => {
 
                     {/* ISSUE MANAGEMENT */}
                     { userRole === "ADMIN" &&
-                        <li className="nav-item dropdown">
+                        <li className={activeItem === 'Item2' ? 'nav-item active dropdown' : 'nav-item dropdown'} onClick={() => handleItemClick('Item2')}>
                             <a className="dropdown-toggle nav-link" href="/"
                                data-toggle="dropdown">
                                <FormattedMessage id="project.issues.title" />
@@ -62,7 +68,7 @@ const Header = () => {
 
                     {/* FOODPURCHASE MANAGEMENT */}
                     { userRole === "ADMIN" &&
-                        <li className="nav-item dropdown">
+                        <li className={activeItem === 'Item3' ? 'nav-item active dropdown' : 'nav-item dropdown'} onClick={() => handleItemClick('Item3')}>
                             <a className="dropdown-toggle nav-link" href="/"
                                 data-toggle="dropdown">
                                 <FormattedMessage id="project.foodPurchase.title"/>
@@ -80,7 +86,7 @@ const Header = () => {
 
                     {/* ANIMAL MANAGEMENT */}
                     { userRole === "ADMIN" &&
-                        <li className="nav-item dropdown">
+                        <li className={activeItem === 'Item4' ? 'nav-item active dropdown' : 'nav-item dropdown'} onClick={() => handleItemClick('Item4')}>
                             <a className="dropdown-toggle nav-link" href="/"
                                 data-toggle="dropdown">
                                 <FormattedMessage id="project.animal.title"/>
@@ -96,7 +102,7 @@ const Header = () => {
                         </li>
                     }
                     { userRole === "EMPLOYEE" &&
-                        <li className="nav-item">
+                        <li className={activeItem === 'Item4' ? 'nav-item active' : 'nav-item'} onClick={() => handleItemClick('Item4')}>
                             <Link className="nav-link" to="/animal/allAnimals">
                                 <FormattedMessage id="project.animal.seeAllAnimals"/>
                             </Link>
@@ -105,7 +111,7 @@ const Header = () => {
 
                     {/* FOOD CONSUMPTION MANAGEMENT */}
                     { userName &&
-                        <li className="nav-item dropdown">
+                        <li className={activeItem === 'Item5' ? 'nav-item active dropdown' : 'nav-item dropdown'} onClick={() => handleItemClick('Item5')}>
                             <a className="dropdown-toggle nav-link" href="/"
                                 data-toggle="dropdown">
                                 <FormattedMessage id="project.foodConsumption.title"/>
@@ -123,7 +129,7 @@ const Header = () => {
 
                     {/* WEIGHINGS MANAGEMENT */}
                     { userName &&
-                        <li className="nav-item dropdown">
+                        <li className={activeItem === 'Item6' ? 'nav-item active dropdown' : 'nav-item dropdown'} onClick={() => handleItemClick('Item6')}>
                             <a className="dropdown-toggle nav-link" href="/"
                                 data-toggle="dropdown">
                                 <FormattedMessage id="project.weighing.title"/>
@@ -141,7 +147,7 @@ const Header = () => {
 
                     {/* MILKING MANAGEMENT */}
                     {userName &&
-                        <li className="nav-item dropdown">
+                        <li className={activeItem === 'Item7' ? 'nav-item active dropdown' : 'nav-item dropdown'} onClick={() => handleItemClick('Item7')}>
                             <a className="dropdown-toggle nav-link" href="/"
                                 data-toggle="dropdown">
                                 <FormattedMessage id="project.milking.title"/>
