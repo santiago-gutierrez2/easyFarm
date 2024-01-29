@@ -13,6 +13,8 @@ import errors from "../../common/components/Errors";
 const UpdateFoodPurchase = () => {
 
     const {foodPurchaseId} = useParams();
+    const [editing, setEditing] = useState(false);
+    const [activeItem, setActiveItem] = useState('DATA');
     const user = useSelector(users.selectors.getUser);
     const history = useHistory();
     const [foodPurchase, setFoodPurchase] = useState(null);
@@ -66,6 +68,7 @@ const UpdateFoodPurchase = () => {
             updateFoodPurchase(Number(foodPurchaseId), foodPurchaseDTO,
                 () => {
                     setSuccess('Food purchase updated correctly.');
+                    setEditing(false);
                 }, errors => setBackendErrors(errors)
             );
         } else {
@@ -85,94 +88,142 @@ const UpdateFoodPurchase = () => {
     }
 
     return (
-        <div className="row justify-content-center fade-in">
-            <div className="col-sm-7 col-12">
-                <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
-                <Success message={success} onClose={() => setSuccess(null)}></Success>
-                <div className="card bg-light">
-                    <h5 className="card-header card-title-custom ">
-                        <FormattedMessage id="project.foodPurchase.update"/>
-                    </h5>
-                    <div className="card-body">
-                        <form ref={node => form = node}
-                            className="needs-validation"
-                            onSubmit={e => handleSubmit(e)}>
-                            <div className="form-group row">
-                                <label htmlFor="productName" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.foodPurchase.productName"/>
-                                </label>
-                                <div className="col-md-6">
-                                    <input type="text" id="productName" className="form-control"
-                                       value={productName}
-                                       onChange={e => setProductName(e.target.value)}
-                                       autoFocus
-                                       required/>
-                                    <div className="invalid-feedback">
-                                        <FormattedMessage id="project.global.validator.required"/>
-                                    </div>
+        <>
+
+            <ul className="nav nav-tabs" id="myTab" role="tablist">
+                <li className="nav-item" role="presentation">
+                    <button className={activeItem === "DATA" ? "nav-link active" : "nav-link "} id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                            type="button" role="tab" aria-controls="home" aria-selected="true" onClick={e => setActiveItem('DATA')}>
+                        Data
+                    </button>
+                </li>
+                <li className="nav-item" role="presentation">
+                    <button className={activeItem === "CHART" ? "nav-link active" : "nav-link "} id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                            type="button" role="tab" aria-controls="profile" aria-selected="false" onClick={e => setActiveItem('CHART')}>
+                        Stats
+                    </button>
+                </li>
+            </ul>
+
+            <div className="tab-content" id="myTabContent">
+                <div id="home" className={activeItem === "DATA" ? "tab-pane active" : "tab-pane"} role="tabpanel"
+                     aria-labelledby="home-tab">
+                    <div className="row justify-content-center fade-in mt-3">
+                        <div className="col-sm-8 col-12">
+                            <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
+                            <Success message={success} onClose={() => setSuccess(null)}></Success>
+                            <div className="card bg-light">
+                                <h5 className="card-header card-title-custom ">
+                                    <FormattedMessage id="project.foodPurchase.update"/>
+                                </h5>
+                                <div className="card-body">
+                                    <form ref={node => form = node}
+                                          className="needs-validation"
+                                          onSubmit={e => handleSubmit(e)}>
+                                        <div className="form-group row">
+                                            <label htmlFor="productName" className="col-md-3 col-form-label">
+                                                <FormattedMessage id="project.foodPurchase.productName"/>
+                                            </label>
+                                            <div className="col-md-7">
+                                                <input type="text" id="productName" className="form-control"
+                                                       disabled={!editing}
+                                                       value={productName}
+                                                       onChange={e => setProductName(e.target.value)}
+                                                       autoFocus
+                                                       required/>
+                                                <div className="invalid-feedback">
+                                                    <FormattedMessage id="project.global.validator.required"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="form-group row">
+                                            <label htmlFor="ingredients" className="col-md-3 col-form-label">
+                                                <FormattedMessage id="project.foodPurchase.ingredients"/>
+                                            </label>
+                                            <div className="col-md-7">
+                                    <textarea className="form-control" id="ingredients" rows="3" disabled={!editing}
+                                              value={ingredients}
+                                              onChange={e => setIngredients(e.target.value)}/>
+                                            </div>
+                                        </div>
+                                        <div className="form-group row">
+                                            <label htmlFor="supplier" className="col-md-3 col-form-label">
+                                                <FormattedMessage id="project.foodPurchase.supplier"/>
+                                            </label>
+                                            <div className="col-md-7">
+                                                <input type="text" id="supplier" className="form-control"
+                                                       disabled={!editing}
+                                                       value={supplier}
+                                                       onChange={e => setSupplier(e.target.value)}/>
+                                            </div>
+                                        </div>
+                                        <div className="form-group row">
+                                            <label htmlFor="kilos" className="col-md-3 col-form-label">
+                                                <FormattedMessage id="project.foodPurchase.kilos"/>
+                                            </label>
+                                            <div className="col-md-7">
+                                                <input type="number" min="1" step="1" className="form-control"
+                                                       disabled={!editing}
+                                                       value={kilos}
+                                                       pattern="[0-9]{10}"
+                                                       required
+                                                       onChange={e => setKilos(Number(e.target.value))}/>
+                                            </div>
+                                            <div className="invalid-feedback">
+                                                <FormattedMessage id="project.global.validator.integer"/>
+                                            </div>
+                                        </div>
+                                        <div className="form-group row">
+                                            <label htmlFor="unitPrice" className="col-md-3 col-form-label">
+                                                <FormattedMessage id="project.foodPurchase.unitPrice"/>
+                                            </label>
+                                            <div className="col-md-7">
+                                                <input type="number" min="0" step="0.25" className="form-control"
+                                                       disabled={!editing}
+                                                       value={unitPrice}
+                                                       required
+                                                       onChange={e => handleUnitPriceChange(e.target.value)}/>
+                                            </div>
+                                            <div className="invalid-feedback">
+                                                <FormattedMessage id="project.global.validator.required"/>
+                                            </div>
+                                        </div>
+                                        <div className="form-group row">
+                                            {editing &&
+                                                <div className="offset-md-3 col-md-4">
+                                                    <button type="submit" className="btn btn-primary">
+                                                        <FormattedMessage id="project.global.update"/>
+                                                    </button>
+                                                    <button onClick={e => setEditing(false)}
+                                                            className="btn btn-danger ml-1">
+                                                        <FormattedMessage id="project.global.buttons.cancel"/>
+                                                    </button>
+                                                </div>
+                                            }
+                                            {!editing &&
+                                                <>
+                                                    <div className="offset-md-3 col-md-2">
+                                                        <button onClick={e => setEditing(true)}
+                                                                className="btn btn-primary">
+                                                            <FormattedMessage id="project.global.edit"/>
+                                                        </button>
+                                                    </div>
+                                                </>
+                                            }
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            <div className="form-group row">
-                                <label htmlFor="ingredients" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.foodPurchase.ingredients"/>
-                                </label>
-                                <div className="col-md-6">
-                                    <textarea className="form-control" id="ingredients" rows="3"
-                                        value={ingredients}
-                                        onChange={e => setIngredients(e.target.value)}/>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <label htmlFor="supplier" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.foodPurchase.supplier"/>
-                                </label>
-                                <div className="col-md-6">
-                                    <input type="text" id="supplier" className="form-control"
-                                       value={supplier}
-                                       onChange={e => setSupplier(e.target.value)}/>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <label htmlFor="kilos" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.foodPurchase.kilos"/>
-                                </label>
-                                <div className="col-md-6">
-                                    <input type="number" min="1" step="1" className="form-control"
-                                       value={kilos}
-                                       pattern="[0-9]{10}"
-                                       required
-                                       onChange={e => setKilos(Number(e.target.value))}/>
-                                </div>
-                                <div className="invalid-feedback">
-                                    <FormattedMessage id="project.global.validator.integer"/>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <label htmlFor="unitPrice" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.foodPurchase.unitPrice"/>
-                                </label>
-                                <div className="col-md-6">
-                                    <input type="number" min="0" step="0.25" className="form-control"
-                                           value={unitPrice}
-                                           required
-                                           onChange={e => handleUnitPriceChange(e.target.value)}/>
-                                </div>
-                                <div className="invalid-feedback">
-                                    <FormattedMessage id="project.global.validator.required"/>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <div className="offset-md-3 col-md-2">
-                                    <button type="submit" className="btn btn-primary">
-                                        <FormattedMessage id="project.global.update"/>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
+                <div className={activeItem === "CHART" ? "tab-pane active" : "tab-pane"} id="profile" role="tabpanel"
+                     aria-labelledby="profile-tab">
+                    profile
+                </div>
             </div>
-        </div>
+
+        </>
     );
 }
 

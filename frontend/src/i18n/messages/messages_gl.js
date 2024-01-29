@@ -70,6 +70,7 @@ export default {
     'project.foodPurchase.kilos': 'Quilogramos',
     'project.foodPurchase.unitPrice': 'Prezo por quilo',
     'project.foodPurchase.update': 'Actualizar compra de alimento',
+    'project.foodPurchase.viewDetails': 'Ver detalles',
     'project.foodPurchase.MadeBy': 'Feita por',
     'project.foodPurchase.foodPurchasesNotFound': 'Non se atoparon rexistros de compras',
     'project.foodPurchase.purchaseDate': 'Data de compra',

@@ -123,7 +123,7 @@ const AllFoodPurchases = () => {
                             {/*<div className="row">
                               <div className="col-6">*/}
                                     <Link className="btn btn-primary" to={`/foodPurchase/${foodPurchase.id}`}>
-                                        <FormattedMessage id="project.foodPurchase.update"/>
+                                        <FormattedMessage id="project.foodPurchase.viewDetails"/>
                                     </Link>
                             {/*</div>
                           </div>*/}

@@ -35,6 +35,7 @@ export default {
     'project.global.all': 'All',
     'project.global.search': 'Search',
     'project.global.update': 'Update',
+    'project.global.edit': 'Edit',
 
     'project.users.ChangePassword.fields.confirmNewPassword': 'Confirm new password',
     'project.users.ChangePassword.fields.newPassword': 'New password',
@@ -71,6 +72,7 @@ export default {
     'project.foodPurchase.kilos': 'Kilograms',
     'project.foodPurchase.unitPrice': 'Price per kilo',
     'project.foodPurchase.update': 'Update food purchase',
+    'project.foodPurchase.viewDetails': 'View details',
     'project.foodPurchase.MadeBy': 'Made by',
     'project.foodPurchase.foodPurchasesNotFound': 'Food purchases not found',
     'project.foodPurchase.purchaseDate': 'Purchase date',
