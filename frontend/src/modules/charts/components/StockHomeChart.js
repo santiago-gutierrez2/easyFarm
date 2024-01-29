@@ -8,21 +8,40 @@ const StockHomeChart = () => {
     const [stockChartDtos, setStockChartDtos] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [backendErrors, setBackendErrors] = useState(null);
-    const option = {
+    const [showChart, setShowChart] = useState(true);
+    let optionDefault = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            },
+            valueFormatter: (value) => value + ' kg'
+        },
+        legend: {},
         xAxis: {
             type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            data: ['stock']
         },
         yAxis: {
-            type: 'value'
+            type: 'value',
+            axisLabel: {
+                formatter: '{value} kg'
+            }
         },
         series: [
-            {
-                data: [120, 200, 150, 80, 70, 110, 130],
+            /*{
+                name: 'foodPurchase 1',
+                data: [120],
                 type: 'bar'
-            }
+            },
+            {
+                name: 'foodPurchase 2',
+                data: [50],
+                type: 'bar'
+            }*/
         ]
     };
+    const [option, setOption] = useState(optionDefault);
 
     useEffect(() => {
         if (isLoading) {
@@ -30,14 +49,29 @@ const StockHomeChart = () => {
             getStockChart((stockChartData) => {
                 setStockChartDtos(stockChartData);
                 console.log(stockChartData);
+                if (stockChartData.length > 0) {
+                    setChartAttributes(stockChartData);
+                }
                 setIsLoading(false);
-                // TODO: set chart atributes
             }, error => {
                 setBackendErrors(error);
                 setIsLoading(false);
             })
         }
     }, []);
+
+    function setChartAttributes(stockChartData) {
+        stockChartData.forEach( stockData => {
+            let data = {
+                name: stockData.foodPurchaseDto.productName,
+                data: [stockData.stockLeft],
+                type: 'bar'
+            };
+            optionDefault.series.push(data);
+            setOption(optionDefault);
+            console.log(optionDefault);
+        });
+    }
 
     if (isLoading) {
         return (
@@ -50,9 +84,23 @@ const StockHomeChart = () => {
     }
 
     return (
-      <div>
-          <ReactEcharts option={option}/>
-      </div>
+        <div className="card card-chart">
+            <div className="row">
+                <div className="col-12 ml-4 mt-2 chart-title" onClick={e => setShowChart(!showChart)}>
+                    {showChart &&
+                        <h4><b>Food stock <i className="fas fa-caret-up"></i></b></h4>
+                    }
+                    {!showChart &&
+                        <h4><b>Food stock <i className="fas fa-caret-down"></i></b></h4>
+                    }
+                </div>
+            </div>
+            <div>
+                {showChart &&
+                    <ReactEcharts option={option} showLoading={isLoading} lazyUpdate={true}/>
+                }
+            </div>
+        </div>
     );
 }
 
