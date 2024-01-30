@@ -8,6 +8,7 @@ import {BounceLoader, MoonLoader} from "react-spinners";
 import {Errors, Success} from "../../common";
 import {FormattedMessage} from "react-intl";
 import errors from "../../common/components/Errors";
+import {FoodConsumptionChart} from "../../charts";
 
 
 const UpdateFoodPurchase = () => {
@@ -175,7 +176,7 @@ const UpdateFoodPurchase = () => {
                                         </div>
                                         <div className="form-group row">
                                             <label htmlFor="unitPrice" className="col-md-3 col-form-label">
-                                                <FormattedMessage id="project.foodPurchase.unitPrice"/>
+                                                <FormattedMessage id="project.foodPurchase.unitPrice"/> (€)
                                             </label>
                                             <div className="col-md-7">
                                                 <input type="number" min="0" step="0.25" className="form-control"
@@ -219,7 +220,11 @@ const UpdateFoodPurchase = () => {
                 </div>
                 <div className={activeItem === "CHART" ? "tab-pane active" : "tab-pane"} id="profile" role="tabpanel"
                      aria-labelledby="profile-tab">
-                    profile
+                    <div className="row justify-content-center">
+                        <div className="col-sm-8 col-12">
+                            <FoodConsumptionChart/>
+                        </div>
+                    </div>
                 </div>
             </div>
 

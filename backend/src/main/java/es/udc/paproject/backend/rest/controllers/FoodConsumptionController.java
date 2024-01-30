@@ -4,20 +4,17 @@ import es.udc.paproject.backend.model.entities.*;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.services.Block;
 import es.udc.paproject.backend.model.services.FoodConsumptionService;
-import es.udc.paproject.backend.model.services.FoodPurchaseService;
 import es.udc.paproject.backend.model.services.UserService;
 import es.udc.paproject.backend.rest.dtos.BlockDto;
-import es.udc.paproject.backend.rest.dtos.FoodConsumptionDTOs.FoodConsumptionChartDto;
 import es.udc.paproject.backend.rest.dtos.FoodConsumptionDTOs.FoodConsumptionConversor;
 import es.udc.paproject.backend.rest.dtos.FoodConsumptionDTOs.FoodConsumptionDto;
-import es.udc.paproject.backend.rest.dtos.FoodConsumptionDTOs.StockChartDto;
-import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.FoodPurchaseConversor;
+import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.ConsumptionChartDto;
+import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.StockChartDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -117,6 +114,11 @@ public class FoodConsumptionController {
     @GetMapping("/stockChart")
     public List<StockChartDto> getStockChart(@RequestAttribute Long userId) throws InstanceNotFoundException {
         return foodConsumptionService.getStockChart(userId);
+    }
+
+    @GetMapping("/consumptionChart/{id}")
+    public List<ConsumptionChartDto> getconsumptionchart(@RequestAttribute Long userId, @PathVariable Long id) throws InstanceNotFoundException {
+        return foodConsumptionService.getConsumptionChartData(userId, id);
     }
 
 }

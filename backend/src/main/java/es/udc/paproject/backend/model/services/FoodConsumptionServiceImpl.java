@@ -2,7 +2,8 @@ package es.udc.paproject.backend.model.services;
 
 import es.udc.paproject.backend.model.entities.*;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
-import es.udc.paproject.backend.rest.dtos.FoodConsumptionDTOs.StockChartDto;
+import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.ConsumptionChartDto;
+import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.StockChartDto;
 import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.FoodPurchaseConversor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -10,9 +11,12 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Tuple;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -122,5 +126,21 @@ public class FoodConsumptionServiceImpl implements FoodConsumptionService{
         });
 
         return stockChartDtos;
+    }
+
+    @Override
+    public List<ConsumptionChartDto> getConsumptionChartData(Long userId, Long foodBatchId) throws InstanceNotFoundException {
+
+        Optional<User> optionalUser = userDao.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.user", userId);
+        }
+
+        User user = optionalUser.get();
+        Farm farm = user.getFarm();
+
+
+        return foodConsumptionDao.getConsumptionChartData(foodBatchId);
     }
 }

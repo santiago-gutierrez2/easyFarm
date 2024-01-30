@@ -1,4 +1,4 @@
-package es.udc.paproject.backend.rest.dtos.FoodConsumptionDTOs;
+package es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs;
 
 import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.FoodPurchaseDto;
 
