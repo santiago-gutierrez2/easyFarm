@@ -5,11 +5,14 @@ import {BounceLoader, MoonLoader} from "react-spinners";
 import {Errors, Success} from "../../common";
 import {FormattedMessage} from "react-intl";
 import DatePicker from "react-datepicker";
+import {AnimalFoodConsumptionChart} from "../../charts";
 
 
 const UpdateAnimal = () => {
 
     const {animalId} = useParams();
+    const [editing, setEditing] = useState(false);
+    const [activeItem, setActiveItem] = useState('DATA');
     const [animal, setAnimal] = useState(null);
     const [name, setName] = useState('');
     const [identificationNumber, setIdentificationNumber] = useState(0);
@@ -61,6 +64,7 @@ const UpdateAnimal = () => {
             updateAnimal(animalId, animalUpdate,
                 () => {
                     setSuccess('Animal updated correctly.');
+                    setEditing(false);
                 }, errors => setBackendErrors(errors)
             );
         } else {
@@ -80,121 +84,184 @@ const UpdateAnimal = () => {
     }
 
     return (
-        <div className="row justify-content-center fade-in">
-            <div className="col-sm-7 col-12">
-                <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
-                <Success message={success} onClose={() => setSuccess(null)}/>
-                <div className="card bg-light ">
-                    <h5 className="card-header card-title-custom">
-                        <FormattedMessage id="project.animal.update"/>
-                    </h5>
-                    <div className="card-body">
-                        <form ref={node => form = node}
-                            className="needs-validation" noValidate
-                            onSubmit={event => handleSubmit(event)}>
-                            <div className="form-group row">
-                                <label htmlFor="name" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.animal.name"/>
-                                </label>
-                                <div className="col-md-6">
-                                    <input type="text" id="name" className="form-control"
-                                           value={name}
-                                           onChange={e => setName(e.target.value)}
-                                           autoFocus
-                                           required/>
-                                    <div className="invalid-feedback">
-                                        <FormattedMessage id="project.global.validator.required"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <label htmlFor="identificationNumber" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.animal.identificationNumber"/>
-                                </label>
-                                <div className="col-md-6">
-                                    <input type="number" id="identificationNumber" className="form-control"
-                                           value={identificationNumber}
-                                           pattern="[0-9]{10}"
-                                           required
-                                           onChange={e => setIdentificationNumber(Number(e.target.value))}/>
-                                </div>
-                                <div className="invalid-feedback">
-                                    <FormattedMessage id="project.global.validator.required"/>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <label htmlFor="physicalDescription" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.animal.physicalDescription"/>
-                                </label>
-                                <div className="col-md-6">
+        <>
+            <ul className="nav nav-tabs" id="myTab" role="tablist">
+                <li className="nav-item" role="presentation">
+                    <button className={activeItem === "DATA" ? "nav-link active" : "nav-link "} id="home-tab"
+                            data-bs-toggle="tab" data-bs-target="#home"
+                            type="button" role="tab" aria-controls="home" aria-selected="true"
+                            onClick={e => setActiveItem('DATA')}>
+                        Data
+                    </button>
+                </li>
+                <li className="nav-item" role="presentation">
+                    <button className={activeItem === "CHART" ? "nav-link active" : "nav-link "} id="profile-tab"
+                            data-bs-toggle="tab" data-bs-target="#profile"
+                            type="button" role="tab" aria-controls="profile" aria-selected="false"
+                            onClick={e => setActiveItem('CHART')}>
+                        Stats
+                    </button>
+                </li>
+            </ul>
+
+            <div className="tab-content" id="myTabContent">
+                <div id="home" className={activeItem === "DATA" ? "tab-pane active" : "tab-pane"} role="tabpanel">
+                    <div className="row justify-content-center fade-in mt-3">
+                        <div className="col-sm-8 col-12">
+                        <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
+                            <Success message={success} onClose={() => setSuccess(null)}/>
+                            <div className="card bg-light ">
+                                <h5 className="card-header card-title-custom">
+                                    <FormattedMessage id="project.animal.update"/>
+                                </h5>
+                                <div className="card-body">
+                                    <form ref={node => form = node}
+                                          className="needs-validation" noValidate
+                                          onSubmit={event => handleSubmit(event)}>
+                                        <div className="form-group row">
+                                            <label htmlFor="name" className="col-md-3 col-form-label">
+                                                <FormattedMessage id="project.animal.name"/>
+                                            </label>
+                                            <div className="col-md-7">
+                                                <input type="text" id="name" className="form-control"
+                                                       value={name}
+                                                       disabled={!editing}
+                                                       onChange={e => setName(e.target.value)}
+                                                       autoFocus
+                                                       required/>
+                                                <div className="invalid-feedback">
+                                                    <FormattedMessage id="project.global.validator.required"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="form-group row">
+                                            <label htmlFor="identificationNumber" className="col-md-3 col-form-label">
+                                                <FormattedMessage id="project.animal.identificationNumber"/>
+                                            </label>
+                                            <div className="col-md-7">
+                                                <input type="number" id="identificationNumber" className="form-control"
+                                                       value={identificationNumber}
+                                                       disabled={!editing}
+                                                       pattern="[0-9]{10}"
+                                                       required
+                                                       onChange={e => setIdentificationNumber(Number(e.target.value))}/>
+                                            </div>
+                                            <div className="invalid-feedback">
+                                                <FormattedMessage id="project.global.validator.required"/>
+                                            </div>
+                                        </div>
+                                        <div className="form-group row">
+                                            <label htmlFor="physicalDescription" className="col-md-3 col-form-label">
+                                                <FormattedMessage id="project.animal.physicalDescription"/>
+                                            </label>
+                                            <div className="col-md-7">
                                     <textarea className="form-control" id="physicalDescription" rows="3"
                                               value={physicalDescription}
+                                              disabled={!editing}
                                               onChange={e => setPhysicalDescription(e.target.value)}>
                                     </textarea>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <label htmlFor="birthDate" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.animal.birthDate"/>
-                                </label>
-                                <div className="col-md-6">
-                                    <DatePicker className="form-control" selected={birthDateString} onChange={(date) => setBirthDateString(date)} />
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <label htmlFor="isMale" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.animal.gender"/>
-                                </label>
-                                <div className="col-md-6">
-                                    {isMale ?
-                                        <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                                            <label id="female" className="btn btn-success" style={{zIndex: 0}}>
-                                                <input type="radio" name="male"
-                                                       id="femaleInput"
-                                                       autoComplete="off"
-                                                       onChange={e => setIsMale(false)}/>
-                                                <FormattedMessage id="project.animal.female"/>
-                                            </label>
-                                            <label id="male" className="btn btn-success active" style={{zIndex: 0}}>
-                                                <input type="radio" name="female"
-                                                       id="maleInput"
-                                                       autoComplete="off"
-                                                       onChange={e => setIsMale(true)}/>
-                                                <FormattedMessage id="project.animal.male"/>
-                                            </label>
+                                            </div>
                                         </div>
-                                    :
-                                        <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                                            <label id="female" className="btn btn-success active" style={{zIndex: 0}}>
-                                                <input type="radio" name="male"
-                                                       id="femaleInput"
-                                                       autoComplete="off"
-                                                       onChange={e => setIsMale(false)}/>
-                                                <FormattedMessage id="project.animal.female"/>
+                                        <div className="form-group row">
+                                            <label htmlFor="birthDate" className="col-md-3 col-form-label">
+                                                <FormattedMessage id="project.animal.birthDate"/>
                                             </label>
-                                            <label id="male" className="btn btn-success" style={{zIndex: 0}}>
-                                                <input type="radio" name="female"
-                                                       id="maleInput"
-                                                       autoComplete="off"
-                                                       onChange={e => setIsMale(true)}/>
-                                                <FormattedMessage id="project.animal.male"/>
-                                            </label>
+                                            <div className="col-md-7">
+                                                <DatePicker disabled={!editing} className="form-control"
+                                                            selected={birthDateString}
+                                                            onChange={(date) => setBirthDateString(date)}/>
+                                            </div>
                                         </div>
-                                    }
+                                        <div className="form-group row">
+                                            <label htmlFor="isMale" className="col-md-3 col-form-label">
+                                                <FormattedMessage id="project.animal.gender"/>
+                                            </label>
+                                            <div className="col-md-7">
+                                                {isMale ?
+                                                    <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                                                        <label id="female" className="btn btn-success"
+                                                               style={{zIndex: 0}}>
+                                                            <input type="radio" name="male"
+                                                                   id="femaleInput"
+                                                                   disabled={!editing}
+                                                                   autoComplete="off"
+                                                                   onChange={e => setIsMale(false)}/>
+                                                            <FormattedMessage id="project.animal.female"/>
+                                                        </label>
+                                                        <label id="male" className="btn btn-success active"
+                                                               style={{zIndex: 0}}>
+                                                            <input type="radio" name="female"
+                                                                   id="maleInput"
+                                                                   disabled={!editing}
+                                                                   autoComplete="off"
+                                                                   onChange={e => setIsMale(true)}/>
+                                                            <FormattedMessage id="project.animal.male"/>
+                                                        </label>
+                                                    </div>
+                                                    :
+                                                    <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                                                        <label id="female" className="btn btn-success active"
+                                                               style={{zIndex: 0}}>
+                                                            <input type="radio" name="male"
+                                                                   id="femaleInput"
+                                                                   disabled={!editing}
+                                                                   autoComplete="off"
+                                                                   onChange={e => setIsMale(false)}/>
+                                                            <FormattedMessage id="project.animal.female"/>
+                                                        </label>
+                                                        <label id="male" className="btn btn-success"
+                                                               style={{zIndex: 0}}>
+                                                            <input type="radio" name="female"
+                                                                   id="maleInput"
+                                                                   disabled={!editing}
+                                                                   autoComplete="off"
+                                                                   onChange={e => setIsMale(true)}/>
+                                                            <FormattedMessage id="project.animal.male"/>
+                                                        </label>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="form-group row">
+                                            {editing &&
+                                                <div className="offset-md-3 col-md-2">
+                                                    <button type="submit" className="btn btn-primary">
+                                                        <FormattedMessage id="project.global.update"/>
+                                                    </button>
+                                                    <button onClick={e => setEditing(false)}
+                                                            className="btn btn-danger ml-1">
+                                                        <FormattedMessage id="project.global.buttons.cancel"/>
+                                                    </button>
+                                                </div>
+                                            }
+                                            {!editing &&
+                                                <>
+                                                    <div className="offset-md-3 col-md-2">
+                                                        <button onClick={e => setEditing(true)}
+                                                                className="btn btn-primary">
+                                                            <FormattedMessage id="project.global.edit"/>
+                                                        </button>
+                                                    </div>
+                                                </>
+                                            }
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            <div className="form-group row">
-                                <div className="offset-md-3 col-md-2">
-                                    <button type="submit" className="btn btn-primary">
-                                        <FormattedMessage id="project.global.update"/>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div className={activeItem === "CHART" ? "tab-pane active" : "tab-pane"} id="profile" role="tabpanel"
+                     aria-labelledby="profile-tab">
+                    <div className="row justify-content-center">
+                        <div className="col-sm-8 col-12">
+                            <AnimalFoodConsumptionChart/>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

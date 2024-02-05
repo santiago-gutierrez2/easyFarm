@@ -3,6 +3,7 @@ package es.udc.paproject.backend.model.services;
 import es.udc.paproject.backend.model.entities.*;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.exceptions.PermissionException;
+import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.ConsumptionChartDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
@@ -22,6 +23,8 @@ public class AnimalServiceImpl implements AnimalService {
     private AnimalDao animalDao;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private FoodConsumptionDao foodConsumptionDao;
 
     @Override
     public void createAnimal(Animal animal) {
@@ -125,5 +128,19 @@ public class AnimalServiceImpl implements AnimalService {
 
         return animalsList.stream().filter(a -> !a.getIsDead()).collect(Collectors.toList());
 
+    }
+
+    @Override
+    public List<ConsumptionChartDto> getAnimalFoodConsumptionChart(Long userId, Long animalId) throws InstanceNotFoundException {
+        Optional<User> optionalUser = userDao.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.user", userId);
+        }
+
+        User user = optionalUser.get();
+        Farm farm = user.getFarm();
+
+        return foodConsumptionDao.getAnimalConsumptionChartData(animalId);
     }
 }

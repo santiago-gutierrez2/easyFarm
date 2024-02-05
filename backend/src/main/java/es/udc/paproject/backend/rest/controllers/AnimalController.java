@@ -12,6 +12,7 @@ import es.udc.paproject.backend.rest.dtos.AnimalDTOs.AnimalDto;
 import es.udc.paproject.backend.rest.dtos.AnimalDTOs.AnimalWithLabelDto;
 import es.udc.paproject.backend.rest.dtos.AnimalDTOs.NewAnimalDto;
 import es.udc.paproject.backend.rest.dtos.BlockDto;
+import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.ConsumptionChartDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -77,6 +78,11 @@ public class AnimalController {
     public List<AnimalWithLabelDto> getAnimalsWithLabel(@RequestAttribute Long userId, @RequestParam(defaultValue = "false") boolean all, @RequestParam(defaultValue = "false") boolean onlyFemale) throws InstanceNotFoundException {
         List<Animal> animalList = animalService.getAnimalsWithLabel(userId, all, onlyFemale);
         return AnimalConversor.toAnimalWithLabelDto(animalList);
+    }
+
+    @GetMapping("/animalFoodConsumptionChart/{id}")
+    public List<ConsumptionChartDto> getAnimalFoodConsumptionChart(@RequestAttribute Long userId, @PathVariable Long id) throws InstanceNotFoundException {
+        return animalService.getAnimalFoodConsumptionChart(userId, id);
     }
 
 }

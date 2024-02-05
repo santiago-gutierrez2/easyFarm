@@ -40,7 +40,7 @@ const Body = () => {
                 {loggedIn && role == 'ADMIN' && <Route exact path="/foodPurchase/:foodPurchaseId"> <UpdateFoodPurchase/></Route>}
                 {loggedIn && role == 'ADMIN' && <Route exact path="/animal/createAnimal"> <CreateAnimal/></Route>}
                 {loggedIn && <Route exact path="/animal/allAnimals"> <AllAnimals/> </Route>}
-                {loggedIn && role == 'ADMIN' && <Route exact path="/animal/:animalId"> <UpdateAnimal/> </Route>}
+                {loggedIn && <Route exact path="/animal/:animalId"> <UpdateAnimal/> </Route>}
                 {loggedIn && <Route exact path="/foodConsumption/CreateFoodConsuption"> <CreateFoodConsumtion/> </Route>}
                 {loggedIn && <Route exact path="/foodConsumption/AllFoodConsumptions"> <AllFoodConsumptions/> </Route>}
                 {loggedIn && <Route exact path="/weighing/CreateWeighing"> <CreateWeighing/> </Route>}

@@ -28,4 +28,10 @@ public interface FoodConsumptionDao extends PagingAndSortingRepository<FoodConsu
             "WHERE c.foodBatch.id = :foodBatchId " +
             "GROUP BY DATE_FORMAT(c.date, '%Y-%m-%d'), c.foodBatch ")
     List<ConsumptionChartDto> getConsumptionChartData(Long foodBatchId);
+
+    @Query("SELECT NEW es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.ConsumptionChartDto(SUM(c.kilos), DATE_FORMAT(c.date, '%Y-%m-%d'), c.foodBatch.id) " +
+            "FROM FoodConsumption c " +
+            "WHERE c.consumedBy.id = :animalId " +
+            "Group By DATE_FORMAT(c.date, '%Y-%m-%d'), c.foodBatch ")
+    List<ConsumptionChartDto> getAnimalConsumptionChartData(Long animalId);
 }

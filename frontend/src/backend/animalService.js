@@ -38,3 +38,7 @@ export const getAllAnimalsWithLabel = (all, onlyFemale, onSuccess, onErrors) => 
         appFetch('/animal/animalsWithLabel', config('GET'), onSuccess, onErrors);
     }
 }
+
+export const getAnimalFoodConsumptionChartData = (animalId, onSuccess, onErrors) => {
+    appFetch(`/animal/animalFoodConsumptionChart/${animalId}`, config('GET'), onSuccess, onErrors);
+}

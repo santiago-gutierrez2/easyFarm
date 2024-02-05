@@ -218,6 +218,7 @@ const UpdateFoodPurchase = () => {
                         </div>
                     </div>
                 </div>
+
                 <div className={activeItem === "CHART" ? "tab-pane active" : "tab-pane"} id="profile" role="tabpanel"
                      aria-labelledby="profile-tab">
                     <div className="row justify-content-center">
