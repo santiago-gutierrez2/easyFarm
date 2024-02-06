@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -77,5 +78,10 @@ public class WeighingController {
         Block<Weighing> weighingBlock = weighingService.getAllWeighings(userId, animalId, startKilos, endKilos, startDate, endDate, page, size);
 
         return new BlockDto<>(WeighingConversor.toWeighingDtos(weighingBlock.getItems()), weighingBlock.getExistMoreItems());
+    }
+
+    @GetMapping("/allWeighingByAnimalId/{id}")
+    public List<WeighingDto> getAllWeighingByAnimalId(@RequestAttribute Long userId, @PathVariable Long id) throws InstanceNotFoundException {
+        return weighingService.getAllWeighingByAnimalId(userId, id);
     }
 }

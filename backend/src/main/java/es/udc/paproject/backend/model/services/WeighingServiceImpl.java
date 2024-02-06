@@ -3,14 +3,18 @@ package es.udc.paproject.backend.model.services;
 import es.udc.paproject.backend.model.entities.*;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.exceptions.PermissionException;
+import es.udc.paproject.backend.rest.dtos.WeighingDTOs.WeighingConversor;
+import es.udc.paproject.backend.rest.dtos.WeighingDTOs.WeighingDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -20,6 +24,8 @@ public class WeighingServiceImpl implements WeighingService{
     private WeighingDao weighingDao;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private AnimalDao animalDao;
 
     @Override
     public void createWeighing(Weighing weighing) throws InstanceNotFoundException {
@@ -87,5 +93,22 @@ public class WeighingServiceImpl implements WeighingService{
 
         return new Block<>(weighingSlice.getContent(), weighingSlice.hasNext());
 
+    }
+
+    @Override
+    public List<WeighingDto> getAllWeighingByAnimalId(Long userId, Long animalId) throws InstanceNotFoundException {
+        Optional<User> optionalUser = userDao.findById(userId);
+        Optional<Animal> optionalAnimal = animalDao.findById(animalId);
+
+        if (optionalUser.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.user", userId);
+        }
+        if (optionalAnimal.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.animal", animalId);
+        }
+
+        List<Weighing> weighingsList = weighingDao.findWeighingByAnimalWeighedId(animalId);
+
+        return weighingsList.stream().map(WeighingConversor::toWeighingDto).collect(Collectors.toList());
     }
 }

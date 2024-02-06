@@ -5,7 +5,7 @@ import {BounceLoader, MoonLoader} from "react-spinners";
 import {Errors, Success} from "../../common";
 import {FormattedMessage} from "react-intl";
 import DatePicker from "react-datepicker";
-import {AnimalFoodConsumptionChart} from "../../charts";
+import {AnimalFoodConsumptionChart, AnimalWeighingChart} from "../../charts";
 
 
 const UpdateAnimal = () => {
@@ -257,6 +257,12 @@ const UpdateAnimal = () => {
                     <div className="row justify-content-center">
                         <div className="col-sm-8 col-12">
                             <AnimalFoodConsumptionChart/>
+                        </div>
+                    </div>
+
+                    <div className="row justify-content-center mt-3">
+                        <div className="col-sm-8 col-12">
+                            <AnimalWeighingChart/>
                         </div>
                     </div>
                 </div>

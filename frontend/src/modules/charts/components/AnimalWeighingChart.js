@@ -1,11 +1,11 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getAnimalFoodConsumptionChartData} from "../../../backend/animalService";
 import {MoonLoader} from "react-spinners";
 import ReactEcharts from "echarts-for-react";
+import {getAllWeighingsByAnimalId} from "../../../backend/weighingService";
 
 
-const AnimalFoodConsumptionChart = () => {
+const AnimalWeighingChart = () => {
 
     const {animalId} = useParams();
     const [showChart, setShowChart] = useState(true);
@@ -13,48 +13,44 @@ const AnimalFoodConsumptionChart = () => {
     const [backendErrors, setBackendErrors] = useState(null);
 
     let optionDefault = {
-        title: {
-            text: '',
-            left: 'center',
-            textStyle: {
-                fontSize: 12,
-            }
-        },
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-                type: 'shadow'
-            },
-            valueFormatter: (value) => value + ' kg'
-        },
-        legend: {},
-        dataZoom: [
-            {
-                show: true,
-            },
-            {
-                type: 'inside',
-                show: true
+      title: {
+          text: '',
+          left: 'center',
+          textStyle: {
+              fontSize: 12
+          }
+      },
+      tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+              type: 'shadow'
+          },
+          valueFormatter: (value) => value + ' kg'
+      },
+      legend: {},
+      dataZoom: [
+          {
+              show: true,
+          },
+          {
+              type: 'inside',
+              show: true
 
-            }
-        ],
-        xAxis: {
-            type: 'category',
-            data: [/*'10/12/2023', '11/12/2023', '12/12/2023', '13/12/2023'*/]
-        },
-        yAxis: {
-            type: 'value',
-            axisLabel: {
-                formatter: '{value} kg'
-            }
-        },
-        series: [
-            /*{
-                data: [820, 932, 901, 934, 1290, 1330, 1320],
-                type: 'line',
-                smooth: true
-            }*/
-        ]
+          }
+      ],
+      xAxis: {
+          type: 'category',
+          data: []
+      },
+      yAxis: {
+          type: 'value',
+          axisLabel: {
+              formatter: '{value} kg'
+          }
+      },
+      series: [
+
+      ]
     };
     const [option, setOption] = useState(optionDefault);
 
@@ -62,8 +58,8 @@ const AnimalFoodConsumptionChart = () => {
         const id = Number(animalId);
         if (isLoading) {
             // get chartData
-            getAnimalFoodConsumptionChartData(id, (chartData) => {
-                console.log(chartData);
+            getAllWeighingsByAnimalId(id, (weighinDtos) => {
+                console.log(weighinDtos);
                 let data = {
                     data: [],
                     type: 'line',
@@ -76,13 +72,12 @@ const AnimalFoodConsumptionChart = () => {
                     }
                 };
                 let sumKilos = 0;
-                chartData.forEach((dto) => {
+                weighinDtos.forEach((dto) => {
                     sumKilos += dto.kilos;
                     data.data.push(dto.kilos);
-                    optionDefault.xAxis.data.push(dto.consumptionDate);
+                    optionDefault.xAxis.data.push(new Date(dto.date).toISOString().substring(0,10));
                 });
                 optionDefault.series.push(data);
-                optionDefault.title.text = `Average daily consumption: ${(sumKilos/chartData.length).toFixed(2)} kg`;
                 setOption(optionDefault);
                 setIsLoading(false);
             }, errors => {
@@ -107,10 +102,10 @@ const AnimalFoodConsumptionChart = () => {
             <div className="row">
                 <div className="col-12 ml-4 mt-2 chart-title" onClick={e => setShowChart(!showChart)}>
                     {showChart &&
-                        <h4><b>Food consumption <i className="fas fa-caret-up"></i></b></h4>
+                        <h4><b>Weight evolution <i className="fas fa-caret-up"></i></b></h4>
                     }
                     {!showChart &&
-                        <h4><b>Food consumption <i className="fas fa-caret-down"></i></b></h4>
+                        <h4><b>Weight evolution <i className="fas fa-caret-down"></i></b></h4>
                     }
                 </div>
             </div>
@@ -121,4 +116,4 @@ const AnimalFoodConsumptionChart = () => {
     );
 }
 
-export default AnimalFoodConsumptionChart;
+export default AnimalWeighingChart;
