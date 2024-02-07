@@ -111,7 +111,7 @@ const AllAnimals = () => {
                           <p className="card-text">{animal.physicalDescription}</p>
                           <p className="card-text"><FormattedMessage id="project.animal.name"/>: {animal.name}</p>
                           <p className="card-text"><FormattedMessage id="project.animal.birthDate"/>: {animal.birthDate}</p>
-                          <p className="card-text"><FormattedMessage id="project.animal.gender"/>: {animal.isMale ? <FormattedMessage id="project.animal.male"/> : <FormattedMessage id="project.animal.female"/>}</p>
+                          <p className="card-text"><FormattedMessage id="project.animal.gender"/>: {animal.male ? <FormattedMessage id="project.animal.male"/> : <FormattedMessage id="project.animal.female"/>}</p>
                           { role === "ADMIN" &&
                             <Link className="btn btn-primary" to={`/animal/${animal.id}`}>
                                 <FormattedMessage id="project.animal.update"/>

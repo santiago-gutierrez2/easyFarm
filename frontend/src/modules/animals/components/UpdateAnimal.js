@@ -5,7 +5,7 @@ import {BounceLoader, MoonLoader} from "react-spinners";
 import {Errors, Success} from "../../common";
 import {FormattedMessage} from "react-intl";
 import DatePicker from "react-datepicker";
-import {AnimalFoodConsumptionChart, AnimalWeighingChart} from "../../charts";
+import {AnimalFoodConsumptionChart, AnimalMilkingChart, AnimalWeighingChart} from "../../charts";
 
 
 const UpdateAnimal = () => {
@@ -48,6 +48,15 @@ const UpdateAnimal = () => {
         }
     }, [isLoading, animal]);
 
+    function cancelUpdate() {
+        setName(animal.name);
+        setIdentificationNumber(animal.identificationNumber);
+        setBirthDateString(new Date(animal.birthDate));
+        setPhysicalDescription(animal.physicalDescription);
+        setIsDead(animal.isDead);
+        setEditing(false);
+    }
+
     const handleSubmit = event => {
         event.preventDefault();
 
@@ -62,7 +71,16 @@ const UpdateAnimal = () => {
             }
             console.log(animalUpdate);
             updateAnimal(animalId, animalUpdate,
-                () => {
+                (animalDto) => {
+                    setAnimal(animalDto);
+                    console.log(animalDto);
+                    // set state for the form
+                    setName(animalDto.name);
+                    setIdentificationNumber(animalDto.identificationNumber);
+                    setBirthDateString(new Date(animalDto.birthDate));
+                    setIsMale(animalDto.male);
+                    setPhysicalDescription(animalDto.physicalDescription);
+                    setIsDead(animalDto.isDead);
                     setSuccess('Animal updated correctly.');
                     setEditing(false);
                 }, errors => setBackendErrors(errors)
@@ -98,7 +116,7 @@ const UpdateAnimal = () => {
                     <button className={activeItem === "CHART" ? "nav-link active" : "nav-link "} id="profile-tab"
                             data-bs-toggle="tab" data-bs-target="#profile"
                             type="button" role="tab" aria-controls="profile" aria-selected="false"
-                            onClick={e => setActiveItem('CHART')}>
+                            onClick={e => {setActiveItem('CHART'); cancelUpdate();}}>
                         Stats
                     </button>
                 </li>
@@ -228,7 +246,7 @@ const UpdateAnimal = () => {
                                                     <button type="submit" className="btn btn-primary">
                                                         <FormattedMessage id="project.global.update"/>
                                                     </button>
-                                                    <button onClick={e => setEditing(false)}
+                                                    <button onClick={e => {setEditing(false); cancelUpdate();}}
                                                             className="btn btn-danger ml-1">
                                                         <FormattedMessage id="project.global.buttons.cancel"/>
                                                     </button>
@@ -260,11 +278,19 @@ const UpdateAnimal = () => {
                         </div>
                     </div>
 
-                    <div className="row justify-content-center mt-3">
+                    <div className="row justify-content-center mt-2">
                         <div className="col-sm-8 col-12">
                             <AnimalWeighingChart/>
                         </div>
                     </div>
+
+                    {!isMale &&
+                        <div className="row justify-content-center mt-2">
+                            <div className="col-sm-8 col-12">
+                                <AnimalMilkingChart/>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </>

@@ -27,3 +27,7 @@ export const getAllMilkings = ({page, animalId, startLiters, endLiters, startDat
 
     appFetch(path, config('GET'), onSuccess, onErrrors);
 }
+
+export const getAllMilkingByAnimalId = (animalId, onSuccess, onErrors) => {
+    appFetch(`/milking/allMilkingByAnimalId/${animalId}`, config('GET'), onSuccess, onErrors);
+}

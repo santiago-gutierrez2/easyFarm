@@ -25,6 +25,8 @@ public class AnimalServiceImpl implements AnimalService {
     private UserDao userDao;
     @Autowired
     private FoodConsumptionDao foodConsumptionDao;
+    @Autowired
+    private MilkingDao milkingDao;
 
     @Override
     public void createAnimal(Animal animal) {
@@ -32,7 +34,7 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public void updateAnimal(Long id, Animal newAnimal) throws InstanceNotFoundException {
+    public Animal updateAnimal(Long id, Animal newAnimal) throws InstanceNotFoundException {
         Optional<Animal> optionalAnimal = animalDao.findById(id);
 
         if (optionalAnimal.isEmpty()) {
@@ -44,10 +46,16 @@ public class AnimalServiceImpl implements AnimalService {
         animal.setIdentificationNumber(newAnimal.getIdentificationNumber());
         animal.setBirthDate(newAnimal.getBirthDate());
         animal.setPhysicalDescription(newAnimal.getPhysicalDescription());
-        animal.setIsMale(newAnimal.getIsMale());
+        if (newAnimal.getIsMale() != null) {
+            animal.setIsMale(newAnimal.getIsMale());
+            if (!newAnimal.getIsMale()) {
+                milkingDao.deleteAllByAnimalMilkedId(animal.getId());
+            }
+        }
         animal.setIsDead(newAnimal.getIsDead());
 
-        animalDao.save(animal);
+        animal = animalDao.save(animal);
+        return animal;
 
     }
 

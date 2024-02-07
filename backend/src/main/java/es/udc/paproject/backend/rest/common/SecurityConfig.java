@@ -70,6 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, "/milking/registerMilking").hasAnyRole("ADMIN", "EMPLOYEE")
 			.antMatchers(HttpMethod.GET, "/milking/AllMilkingByFarmId").hasAnyRole("ADMIN", "EMPLOYEE")
 			.antMatchers(HttpMethod.GET, "/milking/AllMilkingByFarmId").hasAnyRole("ADMIN", "EMPLOYEE")
+			.antMatchers(HttpMethod.GET, "/milking/allMilkingByAnimalId/*").hasAnyRole("ADMIN", "EMPLOYEE")
 			.antMatchers(HttpMethod.PUT, "/milking/*").hasAnyRole("ADMIN", "EMPLOYEE")
 			.antMatchers(HttpMethod.GET, "/milking/*").hasAnyRole("ADMIN", "EMPLOYEE")
 			.antMatchers(HttpMethod.DELETE, "/milking/*").hasAnyRole("ADMIN", "EMPLOYEE")

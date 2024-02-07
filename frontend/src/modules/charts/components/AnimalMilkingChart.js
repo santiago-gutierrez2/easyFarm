@@ -1,11 +1,11 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
+import {getAllMilkingByAnimalId} from "../../../backend/milkingService";
+import errors from "../../common/components/Errors";
 import {MoonLoader} from "react-spinners";
 import ReactEcharts from "echarts-for-react";
-import {getAllWeighingsByAnimalId} from "../../../backend/weighingService";
 
-
-const AnimalWeighingChart = () => {
+const AnimalMilkingChart = () => {
 
     const {animalId} = useParams();
     const [showChart, setShowChart] = useState(true);
@@ -13,44 +13,44 @@ const AnimalWeighingChart = () => {
     const [backendErrors, setBackendErrors] = useState(null);
 
     let optionDefault = {
-      title: {
-          text: '',
-          left: 'center',
-          textStyle: {
-              fontSize: 12
-          }
-      },
-      tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-              type: 'shadow'
-          },
-          valueFormatter: (value) => value + ' kg'
-      },
-      legend: {},
-      dataZoom: [
-          {
-              show: true,
-          },
-          {
-              type: 'inside',
-              show: true
+        title: {
+            text: '',
+            left: 'center',
+            textStyle: {
+                fontSize: 12
+            }
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            },
+            valueFormatter: (value) => value + ' kg'
+        },
+        legend: {},
+        dataZoom: [
+            {
+                show: true,
+            },
+            {
+                type: 'inside',
+                show: true
 
-          }
-      ],
-      xAxis: {
-          type: 'category',
-          data: []
-      },
-      yAxis: {
-          type: 'value',
-          axisLabel: {
-              formatter: '{value} kg'
-          }
-      },
-      series: [
+            }
+        ],
+        xAxis: {
+            type: 'category',
+            data: []
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+                formatter: '{value} kg'
+            }
+        },
+        series: [
 
-      ]
+        ]
     };
     const [option, setOption] = useState(optionDefault);
 
@@ -58,8 +58,8 @@ const AnimalWeighingChart = () => {
         const id = Number(animalId);
         if (isLoading) {
             // get chartData
-            getAllWeighingsByAnimalId(id, (weighinDtos) => {
-                console.log(weighinDtos);
+            getAllMilkingByAnimalId(id, (milkingDtos) => {
+                console.log(milkingDtos);
                 let data = {
                     data: [],
                     type: 'line',
@@ -71,12 +71,14 @@ const AnimalWeighingChart = () => {
                         color: '#00B63E'
                     }
                 };
-
-                weighinDtos.forEach((dto) => {
-                    data.data.push(dto.kilos);
-                    optionDefault.xAxis.data.push(new Date(dto.date).toISOString().substring(0,10));
+                let sumLiters = 0;
+                milkingDtos.forEach((dto) => {
+                    sumLiters += dto.liters;
+                    data.data.push(dto.liters);
+                    optionDefault.xAxis.data.push(dto.date);
                 });
                 optionDefault.series.push(data);
+                optionDefault.title.text = `Average daily production: ${(sumLiters/milkingDtos.length).toFixed(2)} liters`;
                 setOption(optionDefault);
                 setIsLoading(false);
             }, errors => {
@@ -101,10 +103,10 @@ const AnimalWeighingChart = () => {
             <div className="row">
                 <div className="col-12 ml-4 mt-2 chart-title" onClick={e => setShowChart(!showChart)}>
                     {showChart &&
-                        <h4><b>Weight evolution <i className="fas fa-caret-up"></i></b></h4>
+                        <h4><b>Milk production <i className="fas fa-caret-up"></i></b></h4>
                     }
                     {!showChart &&
-                        <h4><b>Weight evolution <i className="fas fa-caret-down"></i></b></h4>
+                        <h4><b>Milk production <i className="fas fa-caret-down"></i></b></h4>
                     }
                 </div>
             </div>
@@ -115,4 +117,4 @@ const AnimalWeighingChart = () => {
     );
 }
 
-export default AnimalWeighingChart;
+export default AnimalMilkingChart;

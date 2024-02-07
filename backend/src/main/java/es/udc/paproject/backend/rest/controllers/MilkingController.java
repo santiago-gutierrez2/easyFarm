@@ -11,6 +11,7 @@ import es.udc.paproject.backend.model.services.Block;
 import es.udc.paproject.backend.model.services.MilkingService;
 import es.udc.paproject.backend.model.services.UserService;
 import es.udc.paproject.backend.rest.dtos.BlockDto;
+import es.udc.paproject.backend.rest.dtos.MilkingDTOs.MilkingChartDto;
 import es.udc.paproject.backend.rest.dtos.MilkingDTOs.MilkingConversor;
 import es.udc.paproject.backend.rest.dtos.MilkingDTOs.MilkingDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -78,5 +80,8 @@ public class MilkingController {
         return new BlockDto<>(MilkingConversor.toMilkingDtos(milkingBlock.getItems()), milkingBlock.getExistMoreItems());
     }
 
-
-}
+    @GetMapping("/allMilkingByAnimalId/{id}")
+    public List<MilkingChartDto> getAllMilkingByAnimalId(@RequestAttribute Long userId, @PathVariable Long id) throws InstanceNotFoundException {
+        return milkingService.findMilkingByAnimalMilkedId(userId, id);
+    }
+ }

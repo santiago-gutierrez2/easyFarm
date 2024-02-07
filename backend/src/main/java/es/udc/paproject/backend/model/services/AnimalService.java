@@ -12,7 +12,7 @@ public interface AnimalService {
 
     void createAnimal(Animal animal);
 
-    void updateAnimal(Long id, Animal animal) throws InstanceNotFoundException;
+    Animal updateAnimal(Long id, Animal animal) throws InstanceNotFoundException;
 
     void setAnimalDead(Long userId, Long id) throws InstanceNotFoundException, PermissionException;
 

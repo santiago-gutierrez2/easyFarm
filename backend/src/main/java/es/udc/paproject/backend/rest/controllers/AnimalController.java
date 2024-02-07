@@ -45,12 +45,12 @@ public class AnimalController {
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateAnimal(@PathVariable Long id,
+    public AnimalDto updateAnimal(@PathVariable Long id,
         @Validated({NewAnimalDto.UpdateAnimalValidation.class}) @RequestBody NewAnimalDto animalDto) throws InstanceNotFoundException {
 
         Animal animal = AnimalConversor.toAnimal(animalDto);
-        animalService.updateAnimal(id, animal);
+        animal = animalService.updateAnimal(id, animal);
+        return AnimalConversor.toAnimalDto(animal);
     }
 
     @DeleteMapping("/{id}/isDead")
