@@ -25,7 +25,7 @@ const AnimalMilkingChart = () => {
             axisPointer: {
                 type: 'shadow'
             },
-            valueFormatter: (value) => value + ' kg'
+            valueFormatter: (value) => value + ' liters'
         },
         legend: {},
         dataZoom: [
@@ -45,7 +45,7 @@ const AnimalMilkingChart = () => {
         yAxis: {
             type: 'value',
             axisLabel: {
-                formatter: '{value} kg'
+                formatter: '{value} liters'
             }
         },
         series: [
