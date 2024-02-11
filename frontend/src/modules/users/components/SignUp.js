@@ -7,6 +7,7 @@ import {Errors} from '../../common';
 import {Success} from "../../common";
 import * as actions from '../actions';
 import users from "../index";
+import * as commonActions from "../../app/actions";
 
 const SignUp = () => {
 
@@ -24,6 +25,8 @@ const SignUp = () => {
     const [passwordsDoNotMatch, setPasswordsDoNotMatch] = useState(false);
     let form;
     let confirmPasswordInput;
+    // set active header item.
+    dispatch(commonActions.activeItem('Item1'));
 
     const handleSubmit = event => {
 

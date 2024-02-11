@@ -9,6 +9,7 @@ import users from "../../users";
 import {useState} from "react";
 import {getEmployees} from "../../../backend/userService";
 import {createIssue} from "../../../backend/issueService";
+import * as commonActions from "../../app/actions";
 
 const CreateIssue = () => {
 
@@ -21,7 +22,10 @@ const CreateIssue = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [backendErrors, setBackendErrors] = useState(null);
     const [success, setSuccess] = useState(null);
+    const dispatch = useDispatch();
     let form;
+    // set active header item.
+    dispatch(commonActions.activeItem('Item2'));
 
     useEffect(async () => {
         //await sleep(2000)

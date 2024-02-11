@@ -1,10 +1,11 @@
 import {useHistory} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import users from "../../users";
 import {useState} from "react";
 import {Errors, Success} from "../../common";
 import {FormattedMessage} from "react-intl";
 import {createFoodPurchase} from "../../../backend/FoodPurchaseService";
+import * as commonActions from "../../app/actions";
 
 
 const CreateFoodPurchase = () => {
@@ -18,7 +19,10 @@ const CreateFoodPurchase = () => {
     const [unitPrice, setUnitPrice] = useState(1.00);
     const [backendErrors, setBackendErrors] = useState(null);
     const [success, setSuccess] = useState(null);
+    const dispatch = useDispatch();
     let form;
+    // set active header item.
+    dispatch(commonActions.activeItem('Item3'));
 
     function handleUnitPriceChange(value) {
         setUnitPrice(Number(parseFloat(value).toFixed(2)))

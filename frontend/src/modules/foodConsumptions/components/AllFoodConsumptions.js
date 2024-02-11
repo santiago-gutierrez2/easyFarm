@@ -10,6 +10,7 @@ import { MultiSelect } from "react-multi-select-component";
 import DatePicker from "react-datepicker";
 import {Link} from "react-router-dom";
 import {Pager} from "../../common";
+import * as commonActions from '../../app/actions'
 
 const AllFoodConsumptions = () => {
 
@@ -24,6 +25,9 @@ const AllFoodConsumptions = () => {
     const foodConsumptionsSearch = useSelector(selectors.getFoodConsumptionsSearch);
     const dispatch = useDispatch();
     const [backendErrors, setBackendErrors] = useState(null);
+    
+    // set active header item.
+    dispatch(commonActions.activeItem('Item5'));
 
     useEffect(() => {
         if (isLoading) {
@@ -144,7 +148,9 @@ const AllFoodConsumptions = () => {
                             <h3><FormattedMessage id="project.foodConsumption.titleCard"/></h3>
                         </div>
                         <div className="card-body">
-                            <p className="card-text"><FormattedMessage id="project.foodConsumption.animals"/>: {getAnimalNameAndCode(foodConsumption.consumedBy)}</p>
+                            <p className="card-text">
+                                <FormattedMessage id="project.foodConsumption.animals"/>: <Link className="link" to={`/animal/${foodConsumption.consumedBy}`}>{getAnimalNameAndCode(foodConsumption.consumedBy)}</Link>
+                            </p>
                             <p className="card-text"><FormattedMessage id="project.foodConsumption.foodBatch"/>: {getFoodBatchProductName(foodConsumption.foodBatch)}</p>
                             <p className="card-text"><FormattedMessage id="project.foodConsumption.kilos"/>: {foodConsumption.kilos}</p>
                             <p className="card-text"><FormattedMessage id="project.foodConsumption.date"/>: <FormattedDate value={new Date(foodConsumption.date)}/></p>

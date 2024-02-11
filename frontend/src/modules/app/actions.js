@@ -12,3 +12,8 @@ export const error = error => ({
     type: actionTypes.ERROR,
     error
 });
+
+export const activeItem = activeItem => ({
+    type: actionTypes.ACTIVE_ITEM_UPDATED,
+    activeItem
+})

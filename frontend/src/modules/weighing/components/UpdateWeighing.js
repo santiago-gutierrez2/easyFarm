@@ -5,6 +5,8 @@ import {getWeighingById, updateWeighing} from "../../../backend/weighingService"
 import {MoonLoader} from "react-spinners";
 import {Errors, Success} from "../../common";
 import {FormattedMessage} from "react-intl";
+import {useDispatch} from "react-redux";
+import * as commonActions from "../../app/actions";
 
 const UpdateWeighing = () => {
 
@@ -17,6 +19,9 @@ const UpdateWeighing = () => {
     const [backendErrors, setBackendErrors] = useState(null);
     const [success, setSuccess] = useState(null);
     let form;
+    const dispatch = useDispatch();
+    // set active header item.
+    dispatch(commonActions.activeItem('Item6'));
 
     useEffect(() => {
         const id = Number(weighingId);

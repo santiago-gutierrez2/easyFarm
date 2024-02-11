@@ -5,6 +5,8 @@ import {getAllAnimalsWithLabel} from "../../../backend/animalService";
 import {MoonLoader} from "react-spinners";
 import {Errors, Success} from "../../common";
 import {FormattedMessage} from "react-intl";
+import {useDispatch} from "react-redux";
+import * as commonActions from "../../app/actions";
 
 
 const UpdateMilking = () => {
@@ -18,6 +20,9 @@ const UpdateMilking = () => {
     const [backendErrors, setBackendErrors] = useState(null);
     const [success, setSuccess] = useState(null);
     let form;
+    const dispatch = useDispatch();
+    // set active header item.
+    dispatch(commonActions.activeItem('Item7'));
 
     useEffect(() => {
         const id = Number(milkingId);

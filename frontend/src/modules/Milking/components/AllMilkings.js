@@ -9,6 +9,7 @@ import DatePicker from "react-datepicker";
 import milking from "../index";
 import {Link} from "react-router-dom";
 import {Pager} from "../../common";
+import * as commonActions from "../../app/actions";
 
 const AllMilkings = () => {
 
@@ -22,6 +23,8 @@ const AllMilkings = () => {
     const milkingsSearch = useSelector(selectors.getMilkingSearch);
     const dispatch = useDispatch();
     const [backendErrors, setBackendErrors] = useState(null);
+    // set active header item.
+    dispatch(commonActions.activeItem('Item7'));
 
     useEffect(() => {
         if (isLoading) {

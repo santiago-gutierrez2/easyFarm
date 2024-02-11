@@ -6,6 +6,8 @@ import {MoonLoader} from "react-spinners";
 import {Errors, Success} from "../../common";
 import {FormattedMessage} from "react-intl";
 import {createSeveralFoodConsumptions} from "../../../backend/foodConsumptionService";
+import * as commonActions from "../../app/actions";
+import {useDispatch} from "react-redux";
 
 const CreateFoodConsumption = () => {
 
@@ -17,7 +19,11 @@ const CreateFoodConsumption = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [backendErrors, setBackendErrors] = useState(null);
     const [success, setSuccess] = useState(null);
+    const dispatch = useDispatch();
     let form;
+
+    // set active header item.
+    dispatch(commonActions.activeItem('Item5'));
 
     useEffect(() => {
         if (isLoading) {

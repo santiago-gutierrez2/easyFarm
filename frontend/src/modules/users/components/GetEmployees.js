@@ -4,6 +4,8 @@ import {Errors} from "../../common";
 import {useEffect} from "react";
 import {deleteEmployee, getEmployees} from "../../../backend/userService";
 import {BounceLoader, MoonLoader, PuffLoader} from "react-spinners";
+import {useDispatch} from "react-redux";
+import * as commonActions from "../../app/actions";
 
 
 const GetEmployees = () => {
@@ -11,6 +13,9 @@ const GetEmployees = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [employees, setEmployees] = useState([]);
     const [backendErrors, setBackendErrors] = useState(null);
+    const dispatch = useDispatch();
+    // set active header item.
+    dispatch(commonActions.activeItem('Item1'));
 
     useEffect(async () => {
         if (isLoading) {

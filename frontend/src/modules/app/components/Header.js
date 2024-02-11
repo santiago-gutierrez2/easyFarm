@@ -1,19 +1,22 @@
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {FormattedMessage} from 'react-intl';
 import "./HeaderStyle.css";
-
+import * as actions from '../actions';
 import users from '../../users';
-import {useState} from "react";
+import app from '../index'
+
 
 const Header = () => {
 
     const userName = useSelector(users.selectors.getUserName);
     const userRole = useSelector(users.selectors.getRole);
-    const [activeItem, setActiveItem] = useState(null);
+    const activeItem = useSelector(app.selectors.getActiveItem);
+    const dispatch = useDispatch();
+    //const [activeItem, setActiveItem] = useState(null);
 
     const handleItemClick = (item) => {
-        setActiveItem(item);
+        dispatch(actions.activeItem(item));
     };
 
     return (

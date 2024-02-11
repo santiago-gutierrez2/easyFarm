@@ -5,6 +5,7 @@ import * as actionTypes from './actionTypes';
 const initialState = {
     error: null,
     loading: false,
+    activeItem: null
 };
 
 const error = (state = initialState.error, action) => {
@@ -41,9 +42,21 @@ const loading = (state = initialState.loading, action) => {
 
 }
 
+const activeItem = (state = initialState.activeItem, action) => {
+
+    switch (action.type) {
+        case actionTypes.ACTIVE_ITEM_UPDATED:
+            return action.activeItem;
+
+        default:
+            return state;
+    }
+}
+
 const reducer = combineReducers({
     error,
-    loading
+    loading,
+    activeItem
 });
 
 export default reducer;

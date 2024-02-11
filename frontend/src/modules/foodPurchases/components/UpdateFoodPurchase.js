@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import users from "../../users";
 import {getFoodPurchaseById, updateFoodPurchase} from "../../../backend/FoodPurchaseService";
 import {error} from "../../app/actions";
@@ -9,6 +9,7 @@ import {Errors, Success} from "../../common";
 import {FormattedMessage} from "react-intl";
 import errors from "../../common/components/Errors";
 import {FoodConsumptionChart} from "../../charts";
+import * as commonActions from "../../app/actions";
 
 
 const UpdateFoodPurchase = () => {
@@ -27,7 +28,10 @@ const UpdateFoodPurchase = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [backendErrors, setBackendErrors] = useState(null);
     const [success, setSuccess] = useState(null);
+    const dispatch = useDispatch();
     let form;
+    // set active header item.
+    dispatch(commonActions.activeItem('Item3'));
 
     useEffect(async () => {
         const id = Number(foodPurchaseId);

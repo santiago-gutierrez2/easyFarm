@@ -8,6 +8,7 @@ import {FormattedDate, FormattedMessage} from "react-intl";
 import DatePicker from "react-datepicker";
 import {Link} from "react-router-dom";
 import {Pager} from "../../common";
+import * as commonActions from "../../app/actions";
 
 const AllWeighings = () => {
 
@@ -21,6 +22,8 @@ const AllWeighings = () => {
     const weighingsSearch = useSelector(selectors.getWeighingsSearch);
     const dispatch = useDispatch();
     const [backendErrors, setBackendErrors] = useState(null);
+    // set active header item.
+    dispatch(commonActions.activeItem('Item6'));
 
     useEffect(() => {
         if (isLoading) {

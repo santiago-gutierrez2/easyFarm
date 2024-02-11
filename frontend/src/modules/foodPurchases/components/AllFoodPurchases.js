@@ -10,6 +10,7 @@ import * as actions from '../actions';
 import * as selectors from '../selectors';
 import {Link} from "react-router-dom";
 import {getEmployees} from "../../../backend/userService";
+import * as commonActions from "../../app/actions";
 
 const AllFoodPurchases = () => {
 
@@ -22,6 +23,9 @@ const AllFoodPurchases = () => {
     const foodPurchasesSearch = useSelector(selectors.getFoodPurchasesSearch);
     const dispatch = useDispatch();
     const [backendErrors, setBackendErrors] = useState(null);
+
+    // set active header item.
+    dispatch(commonActions.activeItem('Item3'));
 
     useEffect( () => {
         if (isLoading) {

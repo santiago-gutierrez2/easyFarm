@@ -4,6 +4,8 @@ import {MoonLoader} from "react-spinners";
 import {Errors, Success} from "../../common";
 import {FormattedMessage} from "react-intl";
 import {registerMilking} from "../../../backend/milkingService";
+import {useDispatch} from "react-redux";
+import * as commonActions from "../../app/actions";
 
 const CreateMilking = () => {
 
@@ -14,6 +16,9 @@ const CreateMilking = () => {
     const [backendErrors, setBackendErrors] = useState(null);
     const [success, setSuccess] = useState(null);
     let form;
+    const dispatch = useDispatch();
+    // set active header item.
+    dispatch(commonActions.activeItem('Item7'));
 
     useEffect(() => {
         if (isLoading) {

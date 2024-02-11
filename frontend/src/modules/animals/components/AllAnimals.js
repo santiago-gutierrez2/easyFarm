@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import {Link} from "react-router-dom";
 import {Pager} from "../../common";
 import users from "../../users";
+import * as commonActions from "../../app/actions";
 
 
 const AllAnimals = () => {
@@ -22,6 +23,8 @@ const AllAnimals = () => {
     const animalsSearch = useSelector(selectors.getAnimalsSearch);
     const dispatch = useDispatch();
     const [backendErrors, setBackendErrors] = useState(null);
+    // set active header item.
+    dispatch(commonActions.activeItem('Item4'));
 
     useEffect(() => {
         if (isLoading) {

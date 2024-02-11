@@ -1,11 +1,12 @@
 import {useHistory} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import users from "../../users";
 import {useState} from "react";
 import {Errors, Success} from "../../common";
 import {FormattedMessage} from "react-intl";
 import DatePicker from "react-datepicker";
 import {createAnimal} from "../../../backend/animalService";
+import * as commonActions from "../../app/actions";
 
 
 const CreateAnimal = () => {
@@ -20,6 +21,9 @@ const CreateAnimal = () => {
     const [backendErrors, setBackendErrors] = useState(null);
     const [success, setSuccess] = useState(null);
     let form;
+    const dispatch = useDispatch();
+    // set active header item.
+    dispatch(commonActions.activeItem('Item4'));
 
     const handleSubmit = event => {
         event.preventDefault();

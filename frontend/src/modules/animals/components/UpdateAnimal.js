@@ -6,6 +6,8 @@ import {Errors, Success} from "../../common";
 import {FormattedMessage} from "react-intl";
 import DatePicker from "react-datepicker";
 import {AnimalFoodConsumptionChart, AnimalMilkingChart, AnimalWeighingChart} from "../../charts";
+import {useDispatch} from "react-redux";
+import * as commonActions from "../../app/actions";
 
 
 const UpdateAnimal = () => {
@@ -24,6 +26,9 @@ const UpdateAnimal = () => {
     const [backendErrors, setBackendErrors] = useState(null);
     const [success, setSuccess] = useState(null);
     let form;
+    const dispatch = useDispatch();
+    // set active header item.
+    dispatch(commonActions.activeItem('Item4'));
 
     useEffect(() => {
         const id = Number(animalId);

@@ -11,6 +11,7 @@ import * as selectors from '../selectors';
 import {Link} from "react-router-dom";
 import "./AllIssuesStyle.css"
 import {getEmployees} from "../../../backend/userService";
+import * as commonActions from "../../app/actions";
 
 const AllIssues = () => {
 
@@ -23,6 +24,8 @@ const AllIssues = () => {
     const issuesSearch = useSelector(selectors.getIssuesSearch);
     const dispatch = useDispatch();
     const [backendErrors, setBackendErrors] = useState(null);
+    // set active header item.
+    dispatch(commonActions.activeItem('Item2'));
 
     const sleep = (milliseconds) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))

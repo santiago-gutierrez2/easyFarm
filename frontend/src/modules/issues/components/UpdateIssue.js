@@ -8,6 +8,7 @@ import {Success} from "../../common";
 import users from "../../users";
 import {useState} from "react";
 import {getIssueById, updateIssue} from "../../../backend/issueService";
+import * as commonActions from "../../app/actions";
 
 const UpdateIssue = () => {
 
@@ -21,7 +22,10 @@ const UpdateIssue = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [backendErrors, setBackendErrors] = useState(null);
     const [success, setSuccess] = useState(null);
+    const dispatch = useDispatch();
     let form;
+    // set active header item.
+    dispatch(commonActions.activeItem('Item2'));
 
     useEffect(async () => {
         const id = Number(issueId);
