@@ -13,6 +13,7 @@ import * as commonActions from "../../app/actions";
 const UpdateIssue = () => {
 
     const {issueId} = useParams();
+    const [editing, setEditing] = useState(false);
     const user = useSelector(users.selectors.getUser);
     const history = useHistory();
     const [issue, setIssue] = useState(null);
@@ -67,6 +68,7 @@ const UpdateIssue = () => {
                     setIssueName(issueDto.issueName);
                     setDescription(issueDto.description);
                     setIsDone(issueDto.done);
+                    setEditing(false);
                 }, errors => setBackendErrors(errors)
             );
         } else {
@@ -77,7 +79,7 @@ const UpdateIssue = () => {
 
     return (
         <div className="row justify-content-center fade-in">
-            <div className="col-sm-7 col-12">
+            <div className="col-sm-8 col-12">
                 <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
                 <Success message={success} onClose={() => setSuccess(null)}></Success>
                 <div className="card bg-light ">
@@ -92,9 +94,10 @@ const UpdateIssue = () => {
                                 <label htmlFor="issueName" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.issues.issueName"/>
                                 </label>
-                                <div className="col-md-6">
+                                <div className="col-md-7">
                                     <input type="text" id="issueName" className="form-control"
                                            value={issueName}
+                                           disabled={!editing}
                                            onChange={e => setIssueName(e.target.value)}
                                            autoFocus
                                            required/>
@@ -107,9 +110,10 @@ const UpdateIssue = () => {
                                 <label htmlFor="description" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.issues.description" />
                                 </label>
-                                <div className="col-md-6">
+                                <div className="col-md-7">
                                     <textarea className="form-control" id="description" rows="3"
                                               value={description}
+                                              disabled={!editing}
                                               onChange={e => setDescription(e.target.value)}/>
                                 </div>
                             </div>
@@ -117,15 +121,17 @@ const UpdateIssue = () => {
                                 <label htmlFor="isDone" className="col-md-3 col-form-label">
                                     <FormattedMessage id="project.issue.state" />
                                 </label>
-                                <div className="col-md-6">
+                                <div className="col-md-7">
                                     <div className="btn-group btn-group-toggle" data-toggle="buttons">
                                         <label className="btn btn-success active">
                                             <input type="radio" name="active" id="active" autoComplete="off" checked={!isDone}
+                                                   disabled={!editing}
                                                    onClick={e => setIsDone(false)}/>
                                             <FormattedMessage id="project.issue.active"/>
                                         </label>
                                         <label className="btn btn-success">
                                             <input type="radio" name="done" id="done" autoComplete="off" checked={isDone}
+                                                   disabled={!editing}
                                                    onClick={e => setIsDone(true)}/>
                                             <FormattedMessage id="project.issue.done" />
                                         </label>
@@ -133,11 +139,27 @@ const UpdateIssue = () => {
                                 </div>
                             </div>
                             <div className="form-group row">
-                                <div className="offset-md-3 col-md-1">
-                                    <button type="submit" className="btn btn-primary">
-                                        <FormattedMessage id="project.global.update"/>
-                                    </button>
-                                </div>
+                                {editing &&
+                                    <div className="offset-md-3 col-md-4">
+                                        <button type="submit" className="btn btn-primary">
+                                            <FormattedMessage id="project.global.update"/>
+                                        </button>
+                                        <button onClick={e => setEditing(false)}
+                                                className="btn btn-danger ml-1">
+                                            <FormattedMessage id="project.global.buttons.cancel"/>
+                                        </button>
+                                    </div>
+                                }
+                                {!editing &&
+                                    <>
+                                        <div className="offset-md-3 col-md-2">
+                                            <button onClick={e => setEditing(true)}
+                                                    className="btn btn-primary">
+                                                <FormattedMessage id="project.global.edit"/>
+                                            </button>
+                                        </div>
+                                    </>
+                                }
                             </div>
                         </form>
                     </div>

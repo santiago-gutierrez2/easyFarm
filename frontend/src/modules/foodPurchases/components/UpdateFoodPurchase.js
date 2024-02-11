@@ -146,7 +146,7 @@ const UpdateFoodPurchase = () => {
                                                 <FormattedMessage id="project.foodPurchase.ingredients"/>
                                             </label>
                                             <div className="col-md-7">
-                                    <textarea className="form-control" id="ingredients" rows="3" disabled={!editing}
+                                            <textarea className="form-control" id="ingredients" rows="3" disabled={!editing}
                                               value={ingredients}
                                               onChange={e => setIngredients(e.target.value)}/>
                                             </div>
