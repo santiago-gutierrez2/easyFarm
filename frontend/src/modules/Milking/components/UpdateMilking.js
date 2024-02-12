@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getMilkingById, updateMilking} from "../../../backend/milkingService";
 import {getAllAnimalsWithLabel} from "../../../backend/animalService";
@@ -12,6 +12,7 @@ import * as commonActions from "../../app/actions";
 const UpdateMilking = () => {
 
     const {milkingId} = useParams();
+    const [editing, setEditing] = useState(false);
     const [milking, setMilking] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [animalSelected, setAnimalSelected] = useState('');
@@ -52,6 +53,19 @@ const UpdateMilking = () => {
         }
     }, [isLoading, milking]);
 
+    function cancelUpdate() {
+        setLiters(milking.liters);
+        setEditing(false);
+    }
+
+    function getAnimaLabel(animalId) {
+        for (let animal of animals) {
+            if (animal.value === animalId) {
+                return animal.label;
+            }
+        }
+    }
+
     const handleSubmit = event => {
         event.preventDefault();
 
@@ -62,7 +76,11 @@ const UpdateMilking = () => {
             };
             updateMilking(Number(milkingId), milkingDTO,
                 () => {
+                    var newMilking = {...milking};
+                    newMilking.liters = liters;
+                    setMilking(newMilking);
                     setSuccess('Milking updated correctly');
+                    setEditing(false);
                 }, errors => {
                     setBackendErrors(errors);
                 }
@@ -100,14 +118,12 @@ const UpdateMilking = () => {
                               <label htmlFor="animal" className="col-md-3 col-form-label">
                                   <FormattedMessage id="project.milking.animal"/>
                               </label>
-                              <div className="col-md-6">
-                                  <select id="animal" className="form-control" required
-                                          value={animalSelected}
-                                          disabled>
-                                      {animals && animals.map(a =>
-                                          <option key={a.value} value={a.value}>{a.label}</option>
-                                      )}
-                                  </select>
+                              <div className="col-md-7">
+                                  <p style={{marginTop: '8px'}}>
+                                      <Link className="link" to={`/animal/${animalSelected}`}>
+                                          {getAnimaLabel(animalSelected)}
+                                      </Link>
+                                  </p>
                                   <div className="invalid-feedback">
                                       <FormattedMessage id="project.global.validator.required"></FormattedMessage>
                                   </div>
@@ -121,6 +137,7 @@ const UpdateMilking = () => {
                                   <input type="number" min="1"
                                          value={liters}
                                          required
+                                         disabled={!editing}
                                          id="liters"
                                          className="form-control"
                                          onChange={e => setLiters(Number(e.target.value))}/>
@@ -130,11 +147,27 @@ const UpdateMilking = () => {
                               </div>
                           </div>
                           <div className="form-group row">
-                              <div className="offset-md-3 col-md-2">
-                                  <button type="submit" className="btn btn-primary">
-                                      <FormattedMessage id="project.global.update"/>
-                                  </button>
-                              </div>
+                              {editing &&
+                                  <div className="offset-md-3 col-md-3">
+                                      <button type="submit" className="btn btn-primary">
+                                          <FormattedMessage id="project.global.update"/>
+                                      </button>
+                                      <button onClick={e => {setEditing(false);cancelUpdate();}}
+                                          className="btn btn-danger ml-1">
+                                          <FormattedMessage id="project.global.buttons.cancel"/>
+                                      </button>
+                                  </div>
+                              }
+                              {!editing &&
+                                  <>
+                                      <div className="offset-md-3 col-md-2">
+                                          <button onClick={e => setEditing(true)}
+                                                  className="btn btn-primary">
+                                              <FormattedMessage id="project.global.edit"/>
+                                          </button>
+                                      </div>
+                                  </>
+                              }
                           </div>
                       </form>
                   </div>

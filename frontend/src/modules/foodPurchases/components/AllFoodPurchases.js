@@ -103,7 +103,7 @@ const AllFoodPurchases = () => {
             }
             {foodPurchasesSearch.result.items.map(foodPurchase => {
                 return (
-                    <div key={foodPurchase.id} className="card mt-2">
+                    <div key={foodPurchase.id} className="card mt-2 bg-light">
                         <div className="card-header container card-title-custom">
                             <div className="row">
                                 <div className="col-xl-10 col-7">

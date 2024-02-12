@@ -127,7 +127,7 @@ const AllIssues = () => {
           }
           {issuesSearch.result.items.map(issue => {
               return (
-                  <div key={issue.id} className="card mt-2">
+                  <div key={issue.id} className="card mt-2 bg-light">
                       <div className="card-header container card-title-custom">
                         <div className="row">
                             <div className="col-xl-10 col-7">

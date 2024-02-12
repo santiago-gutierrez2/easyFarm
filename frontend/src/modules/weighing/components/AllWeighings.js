@@ -126,7 +126,7 @@ const AllWeighings = () => {
           }
           {weighingsSearch.result.items.map(weighing => {
               return (
-                  <div key={weighing.id} className="card mt-2">
+                  <div key={weighing.id} className="card mt-2 bg-light">
                       <div className="card-header container card-title-custom">
                           <h3>{getAnimalNameAndCode(weighing.animalWeighed)}</h3>
                       </div>

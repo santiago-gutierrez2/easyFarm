@@ -127,7 +127,7 @@ const AllMilkings = () => {
           }
           {milkingsSearch.result.items.map(milk => {
               return (
-                <div key={milk.id} className="card mt-2">
+                <div key={milk.id} className="card mt-2 bg-light">
                     <div className="card-header container card-title-custom">
                         <h3>{getAnimalNameAndCode(milk.animalMilked)}</h3>
                     </div>

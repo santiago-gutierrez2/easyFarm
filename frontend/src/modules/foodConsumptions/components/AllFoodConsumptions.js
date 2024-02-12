@@ -25,7 +25,7 @@ const AllFoodConsumptions = () => {
     const foodConsumptionsSearch = useSelector(selectors.getFoodConsumptionsSearch);
     const dispatch = useDispatch();
     const [backendErrors, setBackendErrors] = useState(null);
-    
+
     // set active header item.
     dispatch(commonActions.activeItem('Item5'));
 
@@ -143,7 +143,7 @@ const AllFoodConsumptions = () => {
             }
             {foodConsumptionsSearch.result.items.map(foodConsumption => {
                 return (
-                    <div key={foodConsumption.id} className="card mt-2">
+                    <div key={foodConsumption.id} className="card mt-2 bg-light">
                         <div className="card-header container card-title-custom">
                             <h3><FormattedMessage id="project.foodConsumption.titleCard"/></h3>
                         </div>

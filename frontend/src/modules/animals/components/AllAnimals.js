@@ -102,7 +102,7 @@ const AllAnimals = () => {
           }
           {animalsSearch.result.items.map(animal => {
               return (
-                  <div key={animal.id} className="card mt-2">
+                  <div key={animal.id} className="card mt-2 bg-light">
                       <div className="container card-header card-title-custom">
                           <div className="row">
                               <div className="col-xl-10 col-7">
