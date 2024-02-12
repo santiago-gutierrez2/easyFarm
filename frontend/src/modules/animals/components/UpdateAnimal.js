@@ -108,30 +108,45 @@ const UpdateAnimal = () => {
 
     return (
         <>
-            <ul className="nav nav-tabs" id="myTab" role="tablist">
-                <li className="nav-item" role="presentation">
-                    <button className={activeItem === "DATA" ? "nav-link active" : "nav-link "} id="home-tab"
-                            data-bs-toggle="tab" data-bs-target="#home"
-                            type="button" role="tab" aria-controls="home" aria-selected="true"
-                            onClick={e => setActiveItem('DATA')}>
-                        Data
-                    </button>
-                </li>
-                <li className="nav-item" role="presentation">
-                    <button className={activeItem === "CHART" ? "nav-link active" : "nav-link "} id="profile-tab"
-                            data-bs-toggle="tab" data-bs-target="#profile"
-                            type="button" role="tab" aria-controls="profile" aria-selected="false"
-                            onClick={e => {setActiveItem('CHART'); cancelUpdate();}}>
-                        Stats
-                    </button>
-                </li>
-            </ul>
+            <div className="row justify-content-center">
+                <ul className="nav nav-tabs col-sm-8 col-12" id="myTab" role="tablist">
+                    <li className="nav-item" role="presentation">
+                        <button className={activeItem === "DATA" ? "nav-link active" : "nav-link "} id="home-tab"
+                                data-bs-toggle="tab" data-bs-target="#home"
+                                type="button" role="tab" aria-controls="home" aria-selected="true"
+                                onClick={e => setActiveItem('DATA')}>
+                            {activeItem === 'DATA' &&
+                                <b>Data</b>
+                            }
+                            {activeItem !== 'DATA' &&
+                                <span>Data</span>
+                            }
+                        </button>
+                    </li>
+                    <li className="nav-item" role="presentation">
+                        <button className={activeItem === "CHART" ? "nav-link active" : "nav-link "} id="profile-tab"
+                                data-bs-toggle="tab" data-bs-target="#profile"
+                                type="button" role="tab" aria-controls="profile" aria-selected="false"
+                                onClick={e => {
+                                    setActiveItem('CHART');
+                                    cancelUpdate();
+                                }}>
+                            {activeItem === 'CHART' &&
+                                <b>Stats</b>
+                            }
+                            {activeItem !== 'CHART' &&
+                                <span>Stats</span>
+                            }
+                        </button>
+                    </li>
+                </ul>
+            </div>
 
             <div className="tab-content" id="myTabContent">
                 <div id="home" className={activeItem === "DATA" ? "tab-pane active" : "tab-pane"} role="tabpanel">
                     <div className="row justify-content-center fade-in mt-3">
                         <div className="col-sm-8 col-12">
-                        <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
+                            <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
                             <Success message={success} onClose={() => setSuccess(null)}/>
                             <div className="card bg-light ">
                                 <h5 className="card-header card-title-custom">
