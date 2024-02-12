@@ -10,7 +10,10 @@ import { MultiSelect } from "react-multi-select-component";
 import DatePicker from "react-datepicker";
 import {Link} from "react-router-dom";
 import {Pager} from "../../common";
-import * as commonActions from '../../app/actions'
+import * as commonActions from '../../app/actions';
+import Modal from 'react-bootstrap/Modal';
+import {Button} from "react-bootstrap";
+import {deleteFoodConsumption} from "../../../backend/foodConsumptionService";
 
 const AllFoodConsumptions = () => {
 
@@ -25,6 +28,9 @@ const AllFoodConsumptions = () => {
     const foodConsumptionsSearch = useSelector(selectors.getFoodConsumptionsSearch);
     const dispatch = useDispatch();
     const [backendErrors, setBackendErrors] = useState(null);
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     // set active header item.
     dispatch(commonActions.activeItem('Item5'));
@@ -77,6 +83,14 @@ const AllFoodConsumptions = () => {
                 setBackendErrors(errors);
             })
         );
+    }
+
+    function handleDelete(foodConsumptionId) {
+        deleteFoodConsumption(foodConsumptionId, () => {
+            console.log('Borrado con exito');
+            setShow(false);
+            setIsLoading(true);
+        }, errors => setBackendErrors(errors))
     }
 
     function getAnimalNameAndCode(animalId) {
@@ -154,9 +168,23 @@ const AllFoodConsumptions = () => {
                             <p className="card-text"><FormattedMessage id="project.foodConsumption.foodBatch"/>: {getFoodBatchProductName(foodConsumption.foodBatch)}</p>
                             <p className="card-text"><FormattedMessage id="project.foodConsumption.kilos"/>: {foodConsumption.kilos}</p>
                             <p className="card-text"><FormattedMessage id="project.foodConsumption.date"/>: <FormattedDate value={new Date(foodConsumption.date)}/></p>
-                            <Link className="btn btn-primary" to={`/foodConsumption/${foodConsumption.id}`}>
-                                <FormattedMessage id="project.foodConsumption.update"/>
-                            </Link>
+                            <button className="btn btn-danger" onClick={() => handleShow()}>
+                                <FormattedMessage id="project.foodConsumption.delete"/> <i className="fas fa-trash"></i>
+                            </button>
+                            <Modal show={show} onHide={handleClose}>
+                                <Modal.Header>
+                                    <Modal.Title>Deleting food consumption</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>Are you sure to delete this consumption?</Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={handleClose}>
+                                        Cancel
+                                    </Button>
+                                    <Button variant="danger" onClick={() => handleDelete(foodConsumption.id)}>
+                                        Delete
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
                         </div>
                     </div>
                 );

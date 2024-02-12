@@ -10,6 +10,10 @@ export const createSeveralFoodConsumptions = (foodConsumptionList, onSuccess, on
         onSuccess, onErrors);
 }
 
+export const deleteFoodConsumption = (foodConsumptionId, onSuccess, onErrors) => {
+    appFetch(`/foodConsumption/${foodConsumptionId}`, config('DELETE'), onSuccess, onErrors);
+}
+
 export const getAllFoodConsumptions = ({page, animals, foodBatch, startDate, endDate}, onSuccess, onErrors) => {
     let path = `/foodConsumption/allFoodConsumptions?page=${page}&size=5`;
 

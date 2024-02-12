@@ -101,6 +101,7 @@ export default {
     'project.foodConsumption.update': 'Update food consumption',
     'project.foodConsumption.list': 'List of food consumptions',
     'project.foodConsumption.foodConsumptionNotFound': 'Food consumptions not found',
+    'project.foodConsumption.delete': 'Delete',
 
     'project.weighing.title': 'Weighings',
     'project.weighing.create': 'Register new weighing',

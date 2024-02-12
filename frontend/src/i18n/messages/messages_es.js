@@ -97,6 +97,7 @@ export default {
     'project.foodConsumption.update': 'Actualizar consumición',
     'project.foodConsumption.list': 'Listado de consumiciones',
     'project.foodConsumption.kilos': 'Kilos consumidos',
+    'project.foodConsumption.delete': 'Borrar',
 
     'project.weighing.title': 'Pesajes',
     'project.weighing.create': 'Registrar nuevo pesaje',
