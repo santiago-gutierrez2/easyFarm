@@ -6,6 +6,9 @@ import {deleteEmployee, getEmployees} from "../../../backend/userService";
 import {BounceLoader, MoonLoader, PuffLoader} from "react-spinners";
 import {useDispatch} from "react-redux";
 import * as commonActions from "../../app/actions";
+import {useHistory} from "react-router-dom";
+import Modal from "react-bootstrap/Modal";
+import {Button} from "react-bootstrap";
 
 
 const GetEmployees = () => {
@@ -14,6 +17,10 @@ const GetEmployees = () => {
     const [employees, setEmployees] = useState([]);
     const [backendErrors, setBackendErrors] = useState(null);
     const dispatch = useDispatch();
+    const [show, setShow] = useState(false);
+    const history = useHistory();
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     // set active header item.
     dispatch(commonActions.activeItem('Item1'));
 
@@ -31,7 +38,7 @@ const GetEmployees = () => {
         }
     }, [isLoading, employees]);
 
-    function handleDelete(event, employee) {
+    function handleDelete(employee) {
         console.log(employee);
         setIsLoading(true);
         deleteEmployee(employee.id,
@@ -79,9 +86,23 @@ const GetEmployees = () => {
                                     <td scope="row">{employee.lastName}</td>
                                     <td scope="row">{employee.email}</td>
                                     <td scope="row">
-                                        <button className="btn btn-danger" title="Delete" onClick={event => handleDelete(event, employee)}>
-                                            <i className="fas fa-trash"></i>
+                                        <button className="btn btn-danger" title="Delete" onClick={() => handleShow()}>
+                                            Delete <i className="fas fa-trash"></i>
                                         </button>
+                                        <Modal show={show} onHide={handleClose}>
+                                            <Modal.Header>
+                                                <Modal.Title>Delete employee</Modal.Title>
+                                            </Modal.Header>
+                                            <Modal.Body>Are you sure to delete this employee? deleting <b>wont affect</b> the data related to this employee</Modal.Body>
+                                            <Modal.Footer>
+                                                <Button variant="secondary" onClick={handleClose}>
+                                                    Cancel
+                                                </Button>
+                                                <Button variant="danger" onClick={() => handleDelete(employee)}>
+                                                    Delete
+                                                </Button>
+                                            </Modal.Footer>
+                                        </Modal>
                                     </td>
                                 </tr>
                             )
