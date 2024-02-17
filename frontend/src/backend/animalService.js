@@ -15,6 +15,11 @@ export const getAnimalById = (animalId, onSuccess, onErrors) => {
         onSuccess, onErrors);
 }
 
+export const deleteAnimal = (animalId, onSuccess, onErrors) => {
+    appFetch(`/animal/${animalId}/isDead`, config('DELETE'),
+        onSuccess, onErrors);
+}
+
 export const getAllAnimals = ({page, name, identificationNumber, startDate, endDate, isMale}, onSuccess, onErrors) => {
     let path = `/animal/allAnimals?page=${page}&size=5`;
 

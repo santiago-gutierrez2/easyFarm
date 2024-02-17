@@ -15,6 +15,7 @@ const isJson = response => {
 
 const handleOkResponse = (response, onSuccess) => {
 
+
     if (!response.ok) {
         return false;
     }

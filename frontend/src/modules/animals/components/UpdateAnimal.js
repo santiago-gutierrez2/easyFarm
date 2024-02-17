@@ -1,6 +1,6 @@
-import {useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getAnimalById, updateAnimal} from "../../../backend/animalService";
+import {deleteAnimal, getAnimalById, updateAnimal} from "../../../backend/animalService";
 import {BounceLoader, MoonLoader} from "react-spinners";
 import {Errors, Success} from "../../common";
 import {FormattedMessage} from "react-intl";
@@ -9,11 +9,15 @@ import {AnimalFoodConsumptionChart, AnimalMilkingChart, AnimalWeighingChart} fro
 import {useDispatch, useSelector} from "react-redux";
 import * as commonActions from "../../app/actions";
 import users from "../../users";
+import Modal from "react-bootstrap/Modal";
+import {Button} from "react-bootstrap";
+import errors from "../../common/components/Errors";
 
 
 const UpdateAnimal = () => {
 
     const {animalId} = useParams();
+    const history = useHistory();
     const role = useSelector(users.selectors.getRole);
     const [editing, setEditing] = useState(false);
     const [activeItem, setActiveItem] = useState('DATA');
@@ -28,6 +32,9 @@ const UpdateAnimal = () => {
     const [backendErrors, setBackendErrors] = useState(null);
     const [success, setSuccess] = useState(null);
     let form;
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     const dispatch = useDispatch();
     // set active header item.
     dispatch(commonActions.activeItem('Item4'));
@@ -74,7 +81,7 @@ const UpdateAnimal = () => {
                 birthDateString: encodeURIComponent(birthDateString.toISOString().substring(0,10)),
                 isMale: isMale,
                 physicalDescription: physicalDescription != null ? physicalDescription.trim() : null,
-                isDead: false
+                isDead: animal.dead
             }
             console.log(animalUpdate);
             updateAnimal(animalId, animalUpdate,
@@ -96,6 +103,36 @@ const UpdateAnimal = () => {
             setBackendErrors(null);
             form.classList.add('war-validated');
         }
+    }
+
+    function handleDelete(animalId) {
+        deleteAnimal(animalId, () => {
+            console.log('se borro');
+            setShow(false);
+            setIsLoading(true);
+            history.push("/animal/allAnimals");
+        }, errors => {
+            setShow(false);
+            setBackendErrors(errors);
+        })
+    }
+
+    function setAnimalAvailable() {
+        console.log('set animal available');
+        let animalUpdate = {
+            name: name.trim(),
+            identificationNumber: identificationNumber,
+            birthDateString: encodeURIComponent(birthDateString.toISOString().substring(0,10)),
+            isMale: isMale,
+            physicalDescription: physicalDescription != null ? physicalDescription.trim() : null,
+            isDead: false
+        }
+        updateAnimal(animalId, animalUpdate, (animalDto) => {
+            setAnimal(animalDto);
+            console.log(animalDto);
+            setSuccess('Animal updated correctly.');
+            setEditing(false);
+        }, errors => setBackendErrors(errors));
     }
 
     if (isLoading) {
@@ -151,11 +188,26 @@ const UpdateAnimal = () => {
                             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
                             <Success message={success} onClose={() => setSuccess(null)}/>
                             <div className="card bg-light ">
-                                <h5 className="card-header card-title-custom">
-                                    <FormattedMessage id="project.animal.update"/>
-                                </h5>
+                                <div className="card-header card-title-custom">
+                                    <div className="row">
+                                        <div className="col-xl-10 col-7">
+                                            <h5>
+                                                <FormattedMessage id="project.animal.update"/>
+                                            </h5>
+                                        </div>
+                                        <div className="col-xl-2 col-5 align-self-center">
+                                            <h3>
+                                                {animal.dead &&
+                                                    <span className="badge badge-danger float-right">
+                                                        Unavailable
+                                                    </span>
+                                                }
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="card-body">
-                                    <form ref={node => form = node}
+                                <form ref={node => form = node}
                                           className="needs-validation" noValidate
                                           onSubmit={event => handleSubmit(event)}>
                                         <div className="form-group row">
@@ -274,14 +326,41 @@ const UpdateAnimal = () => {
                                                     </button>
                                                 </div>
                                             }
-                                            {!editing && role === "ADMIN" &&
+                                            {!editing && role === "ADMIN" && !animal.dead &&
                                                 <>
-                                                    <div className="offset-md-3 col-md-2">
+                                                    <div className="offset-md-3 col-md-3">
                                                         <button onClick={e => setEditing(true)}
                                                                 className="btn btn-primary">
-                                                            <FormattedMessage id="project.global.edit"/>
+                                                            <FormattedMessage id="project.global.edit"/> <i className="fas fa-pen"></i>
                                                         </button>
+                                                        <button type="button" className="btn btn-danger ml-1" onClick={() => handleShow()}>
+                                                            Set unavailable
+                                                        </button>
+
+                                                        <Modal show={show} onHide={handleClose}>
+                                                            <Modal.Header>
+                                                                <Modal.Title>Set unavailable livestock</Modal.Title>
+                                                            </Modal.Header>
+                                                            <Modal.Body>Are you sure to set unavailable this animal? it <b>wont affect</b> the rest of the data related to this animal</Modal.Body>
+                                                            <Modal.Footer>
+                                                                <Button variant="secondary" onClick={handleClose}>
+                                                                    Cancel
+                                                                </Button>
+                                                                <Button variant="danger" onClick={() => handleDelete(animal.id)}>
+                                                                    Set Unavailable
+                                                                </Button>
+                                                            </Modal.Footer>
+                                                        </Modal>
                                                     </div>
+                                                </>
+                                            }
+                                            {!editing && role === "ADMIN" && animal.dead &&
+                                                <>
+                                                <div className="offset-md-3 col-md-2">
+                                                    <button type="button" className="btn btn-primary" onClick={() => setAnimalAvailable(animalId)}>
+                                                        Set animal available
+                                                    </button>
+                                                </div>
                                                 </>
                                             }
                                         </div>

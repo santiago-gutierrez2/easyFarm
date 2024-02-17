@@ -37,6 +37,7 @@ export default {
     'project.global.update': 'Update',
     'project.global.edit': 'Edit',
     'project.global.seeDetails': 'See details',
+    'project.global.delete': 'Delete',
 
     'project.users.ChangePassword.fields.confirmNewPassword': 'Confirm new password',
     'project.users.ChangePassword.fields.newPassword': 'New password',

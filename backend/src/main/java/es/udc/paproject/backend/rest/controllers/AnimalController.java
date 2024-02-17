@@ -54,6 +54,7 @@ public class AnimalController {
     }
 
     @DeleteMapping("/{id}/isDead")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void setAnimalDead(@RequestAttribute Long userId, @PathVariable Long id) throws InstanceNotFoundException, PermissionException{
         animalService.setAnimalDead(userId, id);
     }
