@@ -61,6 +61,7 @@ public class IssueController {
     }
 
     @DeleteMapping("/{id}/deleteIssue")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteIssue(@RequestAttribute Long userId, @PathVariable Long id) throws InstanceNotFoundException, PermissionException{
         issueService.deleteIssue(userId, id);
     }

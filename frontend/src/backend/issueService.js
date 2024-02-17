@@ -14,6 +14,10 @@ export const getIssueById = (issueId, onSuccess, onErrors) => {
     appFetch(`/issues/${issueId}`, config('GET'), onSuccess, onErrors);
 }
 
+export const deleteIssue = (issueId, onSuccess, onErrors) => {
+    appFetch(`/issues/${issueId}/deleteIssue`, config('DELETE'), onSuccess, onErrors);
+}
+
 export const getAllIssues = ({page, issueName, startDate, endDate, isDone}, onSuccess, onErrors) => {
 
     let path = `/issues/allIssues?page=${page}&size=5`;

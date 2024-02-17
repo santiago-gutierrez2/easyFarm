@@ -7,15 +7,16 @@ import {Errors} from '../../common';
 import {Success} from "../../common";
 import users from "../../users";
 import {useState} from "react";
-import {getIssueById, updateIssue} from "../../../backend/issueService";
+import {deleteIssue, getIssueById, updateIssue} from "../../../backend/issueService";
 import * as commonActions from "../../app/actions";
+import Modal from "react-bootstrap/Modal";
+import {Button} from "react-bootstrap";
 
 const UpdateIssue = () => {
 
     const {issueId} = useParams();
     const [editing, setEditing] = useState(false);
     const user = useSelector(users.selectors.getUser);
-    const history = useHistory();
     const [issue, setIssue] = useState(null);
     const [issueName, setIssueName] = useState('');
     const [description, setDescription] = useState('');
@@ -24,6 +25,10 @@ const UpdateIssue = () => {
     const [backendErrors, setBackendErrors] = useState(null);
     const [success, setSuccess] = useState(null);
     const dispatch = useDispatch();
+    const [show, setShow] = useState(false);
+    const history = useHistory();
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     let form;
     // set active header item.
     dispatch(commonActions.activeItem('Item2'));
@@ -75,6 +80,17 @@ const UpdateIssue = () => {
             setBackendErrors(null);
             form.classList.add('was-validated');
         }
+    }
+
+    function handleDelete(issueId) {
+        deleteIssue(issueId, () => {
+            console.log('deleted issue correctly');
+            setShow(false);
+            history.push('/issues/SeeAllIssues');
+        }, errors => {
+            setShow(false);
+            setBackendErrors(errors);
+        });
     }
 
     return (
@@ -152,11 +168,29 @@ const UpdateIssue = () => {
                                 }
                                 {!editing &&
                                     <>
-                                        <div className="offset-md-3 col-md-2">
+                                        <div className="offset-md-3 col-md-3">
                                             <button onClick={e => setEditing(true)}
                                                     className="btn btn-primary">
-                                                <FormattedMessage id="project.global.edit"/>
+                                                <FormattedMessage id="project.global.edit"/> <i
+                                                className="fas fa-pen"></i>
                                             </button>
+                                            <button type="button" className="btn btn-danger ml-1" onClick={() => handleShow()}>
+                                                <FormattedMessage id="project.global.delete"/> <i className="fas fa-trash"></i>
+                                            </button>
+                                            <Modal show={show} onHide={handleClose}>
+                                                <Modal.Header>
+                                                    <Modal.Title>Delete issue</Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>Are you sure to delete this issue?</Modal.Body>
+                                                <Modal.Footer>
+                                                    <Button variant="secondary" onClick={handleClose}>
+                                                        Cancel
+                                                    </Button>
+                                                    <Button variant="danger" onClick={() => handleDelete(issue.id)}>
+                                                        Delete
+                                                    </Button>
+                                                </Modal.Footer>
+                                            </Modal>
                                         </div>
                                     </>
                                 }

@@ -110,7 +110,7 @@ const UpdateAnimal = () => {
             console.log('se borro');
             setShow(false);
             setIsLoading(true);
-            history.push("/animal/allAnimals");
+            //history.push("/animal/allAnimals");
         }, errors => {
             setShow(false);
             setBackendErrors(errors);
