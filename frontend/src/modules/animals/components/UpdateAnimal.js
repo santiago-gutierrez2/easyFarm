@@ -6,13 +6,15 @@ import {Errors, Success} from "../../common";
 import {FormattedMessage} from "react-intl";
 import DatePicker from "react-datepicker";
 import {AnimalFoodConsumptionChart, AnimalMilkingChart, AnimalWeighingChart} from "../../charts";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import * as commonActions from "../../app/actions";
+import users from "../../users";
 
 
 const UpdateAnimal = () => {
 
     const {animalId} = useParams();
+    const role = useSelector(users.selectors.getRole);
     const [editing, setEditing] = useState(false);
     const [activeItem, setActiveItem] = useState('DATA');
     const [animal, setAnimal] = useState(null);
@@ -272,7 +274,7 @@ const UpdateAnimal = () => {
                                                     </button>
                                                 </div>
                                             }
-                                            {!editing &&
+                                            {!editing && role === "ADMIN" &&
                                                 <>
                                                     <div className="offset-md-3 col-md-2">
                                                         <button onClick={e => setEditing(true)}

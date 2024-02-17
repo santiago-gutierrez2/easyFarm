@@ -134,7 +134,7 @@ const AllWeighings = () => {
                           <p className="card-text"><FormattedMessage id="project.weighing.kilos"/>: {weighing.kilos}</p>
                           <p className="card-text"><FormattedMessage id="project.weighing.date"/>: <FormattedDate value={new Date(weighing.date)}/></p>
                           <Link className="btn btn-primary" to={`/weighing/${weighing.id}`}>
-                              <FormattedMessage id="project.weighing.update"/>
+                              <FormattedMessage id="project.global.seeDetails"/>
                           </Link>
                       </div>
                   </div>

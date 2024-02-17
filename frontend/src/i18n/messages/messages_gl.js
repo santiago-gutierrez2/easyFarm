@@ -34,6 +34,7 @@ export default {
     'project.global.all': 'Todos',
     'project.global.search': 'Buscar',
     'project.global.update': 'Actualizar',
+    'project.global.seeDetails': 'Ver detalles',
 
     'project.users.ChangePassword.fields.confirmNewPassword': 'Confirmar contrasinal nova',
     'project.users.ChangePassword.fields.newPassword': 'Contrasinal nova',

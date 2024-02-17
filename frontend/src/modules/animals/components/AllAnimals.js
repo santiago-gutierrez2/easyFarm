@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import * as selectors from "../selectors";
 import * as actions from "../actions";
 import {MoonLoader, PuffLoader} from "react-spinners";
-import {FormattedMessage} from "react-intl";
+import {FormattedDate, FormattedMessage} from "react-intl";
 import DatePicker from "react-datepicker";
 import {Link} from "react-router-dom";
 import {Pager} from "../../common";
@@ -113,11 +113,11 @@ const AllAnimals = () => {
                       <div className="card-body">
                           <p className="card-text">{animal.physicalDescription}</p>
                           <p className="card-text"><FormattedMessage id="project.animal.name"/>: {animal.name}</p>
-                          <p className="card-text"><FormattedMessage id="project.animal.birthDate"/>: {animal.birthDate}</p>
+                          <p className="card-text"><FormattedMessage id="project.animal.birthDate"/>: <FormattedDate value={new Date(animal.birthDate)} /></p>
                           <p className="card-text"><FormattedMessage id="project.animal.gender"/>: {animal.male ? <FormattedMessage id="project.animal.male"/> : <FormattedMessage id="project.animal.female"/>}</p>
-                          { role === "ADMIN" &&
+                          {
                             <Link className="btn btn-primary" to={`/animal/${animal.id}`}>
-                                <FormattedMessage id="project.animal.update"/>
+                                <FormattedMessage id="project.global.seeDetails"/>
                             </Link>
                           }
                       </div>

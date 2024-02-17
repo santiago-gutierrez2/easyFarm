@@ -135,7 +135,7 @@ const AllMilkings = () => {
                         <p className="card-text"><FormattedMessage id="project.milking.liters"/>: {milk.liters}</p>
                         <p className="card-text"><FormattedMessage id="project.milking.date"/>: <FormattedDate value={new Date(milk.date)}/></p>
                         <Link className="btn btn-primary" to={`/milking/${milk.id}`}>
-                            <FormattedMessage id="project.milking.update"/>
+                            <FormattedMessage id="project.global.seeDetails"/>
                         </Link>
                     </div>
                 </div>

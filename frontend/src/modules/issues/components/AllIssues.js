@@ -153,7 +153,7 @@ const AllIssues = () => {
                           {/*<div className="row">
                               <div className="col-6">*/}
                                   <Link className="btn btn-primary" to={`/issues/${issue.id}`}>
-                                      <FormattedMessage id="project.issues.update"/>
+                                      <FormattedMessage id="project.global.seeDetails"/>
                                   </Link>
                               {/*</div>
                           </div>*/}
