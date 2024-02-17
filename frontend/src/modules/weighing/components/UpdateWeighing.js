@@ -1,12 +1,14 @@
-import {Link, useParams} from "react-router-dom";
+import {Link, useHistory, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getAllAnimalsWithLabel} from "../../../backend/animalService";
-import {getWeighingById, updateWeighing} from "../../../backend/weighingService";
+import {deleteWeighing, getWeighingById, updateWeighing} from "../../../backend/weighingService";
 import {MoonLoader} from "react-spinners";
 import {Errors, Success} from "../../common";
 import {FormattedMessage} from "react-intl";
 import {useDispatch} from "react-redux";
 import * as commonActions from "../../app/actions";
+import Modal from "react-bootstrap/Modal";
+import {Button} from "react-bootstrap";
 
 const UpdateWeighing = () => {
 
@@ -19,6 +21,10 @@ const UpdateWeighing = () => {
     const [kilos, setKilos] = useState(1);
     const [backendErrors, setBackendErrors] = useState(null);
     const [success, setSuccess] = useState(null);
+    const [show, setShow] = useState(false);
+    const history = useHistory();
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     let form;
     const dispatch = useDispatch();
     // set active header item.
@@ -90,6 +96,17 @@ const UpdateWeighing = () => {
         }
     }
 
+    function handleDelete(weighingId) {
+        deleteWeighing(weighingId, () => {
+            console.log('deleted weighing correctly');
+            setShow(false);
+            history.push('/weighing/AllWeighings');
+        }, errors => {
+            setShow(false);
+            setBackendErrors(errors);
+        })
+    }
+
     if (isLoading) {
         return (
             <div className="row justify-content-center">
@@ -159,11 +176,30 @@ const UpdateWeighing = () => {
                                 }
                                 {!editing &&
                                     <>
-                                        <div className="offset-md-3 col-md-2">
+                                        <div className="offset-md-3 col-md-3">
                                             <button onClick={e => setEditing(true)}
                                                     className="btn btn-primary">
-                                                <FormattedMessage id="project.global.edit"/>
+                                                <FormattedMessage id="project.global.edit"/> <i
+                                                className="fas fa-pen"></i>
                                             </button>
+                                            <button type="button" className="btn btn-danger ml-1" onClick={() => handleShow()}>
+                                                <FormattedMessage id="project.global.delete"/> <i
+                                                className="fas fa-trash"></i>
+                                            </button>
+                                            <Modal show={show} onHide={handleClose}>
+                                                <Modal.Header>
+                                                    <Modal.Title>Delete Weighing</Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>Are you sure to delete this weighing?</Modal.Body>
+                                                <Modal.Footer>
+                                                    <Button variant="secondary" onClick={handleClose}>
+                                                        Cancel
+                                                    </Button>
+                                                    <Button variant="danger" onClick={() => handleDelete(weighingId)}>
+                                                        Delete
+                                                    </Button>
+                                                </Modal.Footer>
+                                            </Modal>
                                         </div>
                                     </>
                                 }
