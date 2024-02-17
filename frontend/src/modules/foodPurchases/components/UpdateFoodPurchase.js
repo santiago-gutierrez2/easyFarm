@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import users from "../../users";
-import {getFoodPurchaseById, updateFoodPurchase} from "../../../backend/FoodPurchaseService";
+import {deleteFoodPurchase, getFoodPurchaseById, updateFoodPurchase} from "../../../backend/FoodPurchaseService";
 import {error} from "../../app/actions";
 import {BounceLoader, MoonLoader} from "react-spinners";
 import {Errors, Success} from "../../common";
@@ -10,6 +10,8 @@ import {FormattedMessage} from "react-intl";
 import errors from "../../common/components/Errors";
 import {FoodConsumptionChart} from "../../charts";
 import * as commonActions from "../../app/actions";
+import Modal from "react-bootstrap/Modal";
+import {Button} from "react-bootstrap";
 
 
 const UpdateFoodPurchase = () => {
@@ -18,7 +20,6 @@ const UpdateFoodPurchase = () => {
     const [editing, setEditing] = useState(false);
     const [activeItem, setActiveItem] = useState('DATA');
     const user = useSelector(users.selectors.getUser);
-    const history = useHistory();
     const [foodPurchase, setFoodPurchase] = useState(null);
     const [productName, setProductName] = useState('');
     const [ingredients, setIngredients] = useState('');
@@ -29,6 +30,10 @@ const UpdateFoodPurchase = () => {
     const [backendErrors, setBackendErrors] = useState(null);
     const [success, setSuccess] = useState(null);
     const dispatch = useDispatch();
+    const [show, setShow] = useState(false);
+    const history = useHistory();
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     let form;
     // set active header item.
     dispatch(commonActions.activeItem('Item3'));
@@ -90,6 +95,16 @@ const UpdateFoodPurchase = () => {
                 </div>
             </div>
         );
+    }
+
+    function handleDelete(foodPurchaseId) {
+        deleteFoodPurchase(foodPurchaseId, () => {
+            setShow(false);
+            history.push('/foodPurchase/allFoodPurchases');
+        }, errors => {
+            setShow(false);
+            setBackendErrors(errors);
+        })
     }
 
     return (
@@ -225,8 +240,27 @@ const UpdateFoodPurchase = () => {
                                                     <div className="offset-md-3 col-md-2">
                                                         <button onClick={e => setEditing(true)}
                                                                 className="btn btn-primary">
-                                                            <FormattedMessage id="project.global.edit"/>
+                                                            <FormattedMessage id="project.global.edit"/> <i
+                                                            className="fas fa-pen"></i>
                                                         </button>
+                                                        <button type="button" className="btn btn-danger ml-1" onClick={() => handleShow()}>
+                                                            <FormattedMessage id="project.global.delete"/> <i
+                                                            className="fas fa-trash"></i>
+                                                        </button>
+                                                        <Modal show={show} onHide={handleClose}>
+                                                            <Modal.Header>
+                                                                <Modal.Title>Delete Food purchase</Modal.Title>
+                                                            </Modal.Header>
+                                                            <Modal.Body>Are you sure to delete this food purchase? <b>all food consumptions made from this batch will be deleted</b> as well</Modal.Body>
+                                                            <Modal.Footer>
+                                                                <Button variant="secondary" onClick={handleClose}>
+                                                                    Cancel
+                                                                </Button>
+                                                                <Button variant="danger" onClick={() => handleDelete(foodPurchaseId)}>
+                                                                    Delete
+                                                                </Button>
+                                                            </Modal.Footer>
+                                                        </Modal>
                                                     </div>
                                                 </>
                                             }

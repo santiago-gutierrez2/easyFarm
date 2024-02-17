@@ -1,6 +1,7 @@
 package es.udc.paproject.backend.model.services;
 
 import es.udc.paproject.backend.model.entities.*;
+import es.udc.paproject.backend.model.exceptions.IncorrectKilosValueException;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.exceptions.PermissionException;
 import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.FoodPurchaseDto;
@@ -38,7 +39,7 @@ public class FoodPurchaseServiceImpl implements FoodPurchaseService{
 
     @Override
     public FoodPurchase updateFoodPurchase(Long id, String productName, String ingredients, String supplier,
-       Integer kilos, BigDecimal unitPrice) throws InstanceNotFoundException {
+       Integer kilos, BigDecimal unitPrice) throws InstanceNotFoundException, IncorrectKilosValueException {
         Optional<FoodPurchase> optionalFoodPurchase = foodPurchaseDao.findById(id);
 
         if (optionalFoodPurchase.isEmpty()) {
@@ -46,6 +47,18 @@ public class FoodPurchaseServiceImpl implements FoodPurchaseService{
         }
 
         FoodPurchase foodPurchase = optionalFoodPurchase.get();
+
+        List<FoodConsumption> foodConsumptions = foodConsumptionDao.findFoodConsumptionByFoodBatchIdOrderByDateDesc(foodPurchase.getId());
+
+        Integer sumKilos = 0;
+        for (FoodConsumption fc : foodConsumptions){
+            sumKilos += fc.getKilos();
+        }
+
+        if (kilos < sumKilos) {
+            throw new IncorrectKilosValueException(sumKilos);
+        }
+
         foodPurchase.setProductName(productName); // not null
         foodPurchase.setIngredients(ingredients);
         foodPurchase.setSupplier(supplier);

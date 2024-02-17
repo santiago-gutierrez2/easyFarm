@@ -14,6 +14,10 @@ export const getFoodPurchaseById = (foodPurchaseId, onSuccess, onErrors) => {
     appFetch(`/foodPurchase/${foodPurchaseId}`, config('GET'), onSuccess, onErrors);
 }
 
+export const deleteFoodPurchase = (foodPurchaseId, onSuccess, onErrors) => {
+    appFetch(`/foodPurchase/${foodPurchaseId}/deleteFoodPurchase`, config('DELETE'), onSuccess, onErrors);
+}
+
 export const getAllFoodPurchases = ({page, productName, supplier, startDate, endDate}, onSuccess, onErrors) => {
     let path = `/foodPurchase/allFoodPurchases?page=${page}&size=5`;
 

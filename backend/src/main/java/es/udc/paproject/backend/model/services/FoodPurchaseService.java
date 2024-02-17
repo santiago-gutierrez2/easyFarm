@@ -1,6 +1,7 @@
 package es.udc.paproject.backend.model.services;
 
 import es.udc.paproject.backend.model.entities.FoodPurchase;
+import es.udc.paproject.backend.model.exceptions.IncorrectKilosValueException;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.exceptions.PermissionException;
 import es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.FoodPurchaseDto;
@@ -14,7 +15,7 @@ public interface FoodPurchaseService {
     void createFoodPurchase(FoodPurchase foodPurchase);
 
     FoodPurchase updateFoodPurchase(Long id, String productName, String ingredients, String supplier, Integer kilos,
-                                    BigDecimal unitPrice) throws InstanceNotFoundException;
+                                    BigDecimal unitPrice) throws InstanceNotFoundException, IncorrectKilosValueException;
 
     void deleteFoodPurchase(Long userId, Long id) throws InstanceNotFoundException, PermissionException;
 
