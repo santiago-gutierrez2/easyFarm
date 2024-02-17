@@ -57,6 +57,11 @@ public class UserServiceImpl implements UserService {
 		if (!passwordEncoder.matches(password, user.get().getPassword())) {
 			throw new IncorrectLoginException(userName, password);
 		}
+
+		User u = user.get();
+		if (u.getIsEliminated()) {
+			throw new IncorrectLoginException(userName, password);
+		}
 		
 		return user.get();
 		
