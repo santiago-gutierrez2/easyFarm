@@ -22,7 +22,7 @@ const Header = () => {
     return (
 
         <nav className="navbar navbar-expand-lg navbar-dark header-custom">
-            <Link className="navbar-brand" to="/" onClick={() => handleItemClick('null')}>EasyFarm</Link>
+            <Link className="navbar-brand" to="/" onClick={() => handleItemClick('EasyFarm')}>EasyFarm</Link>
             <button className="navbar-toggler" type="button" 
                 data-toggle="collapse" data-target="#navbarSupportedContent" 
                 aria-controls="navbarSupportedContent" aria-expanded="false" 
@@ -35,9 +35,9 @@ const Header = () => {
                 <ul className="navbar-nav mr-auto">
                     {/* EMPLOYEES MANAGEMENT */}
                     { userRole === "ADMIN" &&
-                        <li className={activeItem === 'Item1' ? 'nav-item active dropdown' : 'nav-item dropdown'} onClick={() => handleItemClick('Item1')}>
+                        <li className="nav-item dropdown">
                             <a className="dropdown-toggle nav-link" href="/"
-                               data-toggle="dropdown">
+                               data-toggle="dropdown" style={{color: activeItem === 'Item1' ? '#fff' : ''}}>
                                 <FormattedMessage id="project.employees.title"></FormattedMessage>
                             </a>
                             <div className="dropdown-menu dropdown-menu-right">
@@ -53,9 +53,9 @@ const Header = () => {
 
                     {/* ISSUE MANAGEMENT */}
                     { userRole === "ADMIN" &&
-                        <li className={activeItem === 'Item2' ? 'nav-item active dropdown' : 'nav-item dropdown'} onClick={() => handleItemClick('Item2')}>
+                        <li className="nav-item dropdown">
                             <a className="dropdown-toggle nav-link" href="/"
-                               data-toggle="dropdown">
+                               data-toggle="dropdown" style={{color: activeItem === 'Item2' ? '#fff' : ''}}>
                                <FormattedMessage id="project.issues.title" />
                             </a>
                             <div className="dropdown-menu dropdown-menu-right">
@@ -71,9 +71,9 @@ const Header = () => {
 
                     {/* FOODPURCHASE MANAGEMENT */}
                     { userRole === "ADMIN" &&
-                        <li className={activeItem === 'Item3' ? 'nav-item active dropdown' : 'nav-item dropdown'} onClick={() => handleItemClick('Item3')}>
+                        <li  className="nav-item dropdown">
                             <a className="dropdown-toggle nav-link" href="/"
-                                data-toggle="dropdown">
+                                data-toggle="dropdown" style={{color: activeItem === 'Item3' ? '#fff' : ''}}>
                                 <FormattedMessage id="project.foodPurchase.title"/>
                             </a>
                             <div className="dropdown-menu dropdown-menu-right">
@@ -89,9 +89,9 @@ const Header = () => {
 
                     {/* ANIMAL MANAGEMENT */}
                     { userRole === "ADMIN" &&
-                        <li className={activeItem === 'Item4' ? 'nav-item active dropdown' : 'nav-item dropdown'} onClick={() => handleItemClick('Item4')}>
+                        <li  className="nav-item dropdown">
                             <a className="dropdown-toggle nav-link" href="/"
-                                data-toggle="dropdown">
+                                data-toggle="dropdown" style={{color: activeItem === 'Item4' ? '#fff' : ''}}>
                                 <FormattedMessage id="project.animal.title"/>
                             </a>
                             <div className="dropdown-menu dropdown-menu-right">
@@ -105,7 +105,7 @@ const Header = () => {
                         </li>
                     }
                     { userRole === "EMPLOYEE" &&
-                        <li className={activeItem === 'Item4' ? 'nav-item active' : 'nav-item'} onClick={() => handleItemClick('Item4')}>
+                        <li className={activeItem === 'Item4' ? 'nav-item active' : 'nav-item'} >
                             <Link className="nav-link" to="/animal/allAnimals">
                                 <FormattedMessage id="project.animal.seeAllAnimals"/>
                             </Link>
@@ -114,9 +114,9 @@ const Header = () => {
 
                     {/* FOOD CONSUMPTION MANAGEMENT */}
                     { userName &&
-                        <li className={activeItem === 'Item5' ? 'nav-item active dropdown' : 'nav-item dropdown'} onClick={() => handleItemClick('Item5')}>
+                        <li  className="nav-item dropdown">
                             <a className="dropdown-toggle nav-link" href="/"
-                                data-toggle="dropdown">
+                                data-toggle="dropdown" style={{color: activeItem === 'Item5' ? '#fff' : ''}}>
                                 <FormattedMessage id="project.foodConsumption.title"/>
                             </a>
                             <div className="dropdown-menu dropdown-menu-right">
@@ -132,9 +132,9 @@ const Header = () => {
 
                     {/* WEIGHINGS MANAGEMENT */}
                     { userName &&
-                        <li className={activeItem === 'Item6' ? 'nav-item active dropdown' : 'nav-item dropdown'} onClick={() => handleItemClick('Item6')}>
+                        <li  className="nav-item dropdown">
                             <a className="dropdown-toggle nav-link" href="/"
-                                data-toggle="dropdown">
+                                data-toggle="dropdown" style={{color: activeItem === 'Item6' ? '#fff' : ''}}>
                                 <FormattedMessage id="project.weighing.title"/>
                             </a>
                             <div className="dropdown-menu dropdown-menu-right">
@@ -150,9 +150,9 @@ const Header = () => {
 
                     {/* MILKING MANAGEMENT */}
                     {userName &&
-                        <li className={activeItem === 'Item7' ? 'nav-item active dropdown' : 'nav-item dropdown'} onClick={() => handleItemClick('Item7')}>
+                        <li className="nav-item dropdown">
                             <a className="dropdown-toggle nav-link" href="/"
-                                data-toggle="dropdown">
+                                data-toggle="dropdown" style={{color: activeItem === 'Item7' ? '#fff' : ''}}>
                                 <FormattedMessage id="project.milking.title"/>
                             </a>
                             <div className="dropdown-menu dropdown-menu-right">
