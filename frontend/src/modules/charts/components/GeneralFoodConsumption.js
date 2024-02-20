@@ -1,18 +1,22 @@
-import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getAnimalFoodConsumptionChartData} from "../../../backend/animalService";
+import {getGeneralConsumptionChart} from "../../../backend/foodConsumptionService";
 import {MoonLoader} from "react-spinners";
 import ReactEcharts from "echarts-for-react";
 
+const GeneralFoodConsumption = () => {
 
-const AnimalFoodConsumptionChart = () => {
-
-    const {animalId} = useParams();
-    const [showChart, setShowChart] = useState(true);
+    const [stockChartDtos, setStockChartDtos] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [backendErrors, setBackendErrors] = useState(null);
-
+    const [showChart, setShowChart] = useState(true);
     let optionDefault = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            },
+            valueFormatter: (value) => value + ' kg'
+        },
         title: {
             text: '',
             left: 'center',
@@ -21,18 +25,11 @@ const AnimalFoodConsumptionChart = () => {
             }
         },
         toolbox: {
-          feature: {
-              dataView: { show: true, readOnly: true },
-              magicType: { show: true, type: ['line', 'bar'] },
-              restore: { show: true },
-          }
-        },
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-                type: 'shadow'
-            },
-            valueFormatter: (value) => value + ' kg'
+            feature: {
+                dataView: { show: true, readOnly: true },
+                magicType: { show: true, type: ['line', 'bar'] },
+                restore: { show: true },
+            }
         },
         legend: {},
         dataZoom: [
@@ -42,12 +39,11 @@ const AnimalFoodConsumptionChart = () => {
             {
                 type: 'inside',
                 show: true
-
             }
         ],
         xAxis: {
             type: 'category',
-            data: [/*'10/12/2023', '11/12/2023', '12/12/2023', '13/12/2023'*/]
+            data: []
         },
         yAxis: {
             type: 'value',
@@ -55,21 +51,14 @@ const AnimalFoodConsumptionChart = () => {
                 formatter: '{value} kg'
             }
         },
-        series: [
-            /*{
-                data: [820, 932, 901, 934, 1290, 1330, 1320],
-                type: 'line',
-                smooth: true
-            }*/
-        ]
+        series: []
     };
     const [option, setOption] = useState(optionDefault);
 
     useEffect(() => {
-        const id = Number(animalId);
-        if (isLoading) {
-            // get chartData
-            getAnimalFoodConsumptionChartData(id, (chartData) => {
+        if(isLoading) {
+            // get chart data
+            getGeneralConsumptionChart((chartData) => {
                 console.log(chartData);
                 let data = {
                     data: [],
@@ -81,7 +70,7 @@ const AnimalFoodConsumptionChart = () => {
                     lineStyle: {
                         color: '#00B63E'
                     }
-                };
+                }
                 let sumKilos = 0;
                 chartData.forEach((dto) => {
                     sumKilos += dto.kilos;
@@ -110,22 +99,22 @@ const AnimalFoodConsumptionChart = () => {
     }
 
     return (
-        <div className="card card-chart mt-3">
-            <div className="row">
-                <div className="col-12 ml-4 mt-2 chart-title" onClick={e => setShowChart(!showChart)}>
-                    {showChart &&
-                        <h4><b>Food consumption <i className="fas fa-caret-up"></i></b></h4>
-                    }
-                    {!showChart &&
-                        <h4><b>Food consumption <i className="fas fa-caret-down"></i></b></h4>
-                    }
-                </div>
-            </div>
-            {showChart &&
-                <ReactEcharts option={option} lazyUpdate={true}/>
-            }
-        </div>
+      <div className="card card-chart mt-3">
+          <div className="row">
+              <div className="col-12 ml-4 mt-2 chart-title" onClick={e => setShowChart(!showChart)}>
+                  {showChart &&
+                      <h4><b>Daily food consumption <i className="fas fa-caret-up"></i></b></h4>
+                  }
+                  {!showChart &&
+                      <h4><b>Daily food consumption <i className="fas fa-caret-down"></i></b></h4>
+                  }
+              </div>
+          </div>
+          {showChart &&
+              <ReactEcharts option={option} lazyUpdate={true}/>
+          }
+      </div>
     );
 }
 
-export default AnimalFoodConsumptionChart;
+export default GeneralFoodConsumption;

@@ -27,5 +27,5 @@ public interface FoodConsumptionService {
 
     List<ConsumptionChartDto> getConsumptionChartData(Long userId, Long foodBatchId) throws InstanceNotFoundException;
 
-
+    List<ConsumptionChartDto> getGeneralConsumptionChartData(Long userId) throws InstanceNotFoundException;
 }

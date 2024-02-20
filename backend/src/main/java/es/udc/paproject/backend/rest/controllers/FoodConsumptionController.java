@@ -121,4 +121,9 @@ public class FoodConsumptionController {
         return foodConsumptionService.getConsumptionChartData(userId, id);
     }
 
+    @GetMapping("/generalFoodConsumptionChart")
+    public List<ConsumptionChartDto> getGeneralConsumptionChart(@RequestAttribute Long userId) throws InstanceNotFoundException {
+        return foodConsumptionService.getGeneralConsumptionChartData(userId);
+    }
+
 }

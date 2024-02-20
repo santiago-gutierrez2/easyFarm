@@ -65,7 +65,8 @@ const StockHomeChart = () => {
             let data = {
                 name: stockData.foodPurchaseDto.productName,
                 data: [stockData.stockLeft],
-                type: 'bar'
+                type: 'bar',
+                barMaxWidth: 250
             };
             optionDefault.series.push(data);
             setOption(optionDefault);

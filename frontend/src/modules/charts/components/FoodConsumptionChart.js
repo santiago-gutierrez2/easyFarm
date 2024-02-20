@@ -22,6 +22,13 @@ const FoodConsumptionChart = () => {
             },
             valueFormatter: (value) => value + ' kg'
         },
+        toolbox: {
+            feature: {
+                dataView: { show: true, readOnly: true },
+                magicType: { show: true, type: ['line', 'bar'] },
+                restore: { show: true },
+            }
+        },
         legend: {},
         dataZoom: [
             {
@@ -62,7 +69,13 @@ const FoodConsumptionChart = () => {
                 let data = {
                     data: [],
                     type: 'line',
-                    smooth: true
+                    smooth: true,
+                    itemStyle: {
+                        color: '#fc5858'
+                    },
+                    lineStyle: {
+                        color: '#00B63E'
+                    }
                 };
                 chartData.forEach(dto => {
                     data.data.push(dto.kilos);

@@ -111,9 +111,9 @@ const AllMilkings = () => {
               </div>
               <div className="col-sm-3">
                   <label className="col-form-label"><FormattedMessage id="project.milking.litersRange"/></label>
-                  <input type="number" min="1" value={startLiters} className="form-control"
+                  <input type="number" min="1" value={startLiters} className="form-control" placeholder="min"
                          onChange={e => setStartLiters(e.target.value)}/>
-                  <input type="number" min="1" value={endLiters} className="form-control mt-1"
+                  <input type="number" min="1" value={endLiters} className="form-control mt-1" placeholder="max"
                          onChange={e => setEndLiters(e.target.value)}/>
               </div>
               <div className="col-sm-2 text-center">

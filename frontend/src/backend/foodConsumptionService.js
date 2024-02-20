@@ -39,3 +39,7 @@ export const getStockChart = (onSuccess, onErrors) => {
 export const getFoodConsumptionChartData = (foodBatchId, onSuccess, onErrors) => {
     appFetch(`/foodConsumption/consumptionChart/${foodBatchId}`, config('GET'), onSuccess, onErrors);
 }
+
+export const getGeneralConsumptionChart = (onSuccess, onErrors) => {
+    appFetch('/foodConsumption/generalFoodConsumptionChart', config('GET'), onSuccess, onErrors);
+}

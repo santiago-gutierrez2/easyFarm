@@ -143,4 +143,18 @@ public class FoodConsumptionServiceImpl implements FoodConsumptionService{
 
         return foodConsumptionDao.getConsumptionChartData(foodBatchId);
     }
+
+    @Override
+    public List<ConsumptionChartDto> getGeneralConsumptionChartData(Long userId) throws InstanceNotFoundException {
+        Optional<User> optionalUser = userDao.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.user", userId);
+        }
+
+        User user = optionalUser.get();
+        Farm farm = user.getFarm();
+
+        return foodConsumptionDao.getGeneralConsumptionChart(farm.getId());
+    }
 }

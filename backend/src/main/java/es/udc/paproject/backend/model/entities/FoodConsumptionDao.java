@@ -16,13 +16,6 @@ public interface FoodConsumptionDao extends PagingAndSortingRepository<FoodConsu
 
     List<FoodConsumption> findFoodConsumptionByFoodBatchIdOrderByDateDesc(Long foodBatchId);
 
-    /*@Query("SELECT SUM(c.kilos) as kilos, FUNCTION('trunc', c.date, 'DAY') as consumptionDate, c.foodBatch.id as foodBatchId " +
-            "FROM FoodConsumption c " +
-            *//*"JOIN FoodPurchase fp on fp.id = c.foodBatch.id "+*//*
-            "Where c.foodBatch.id = :foodBatchId " +
-            "GROUP BY FUNCTION('trunc', c.date, 'DAY'), c.foodBatch.id")
-    List<Tuple> getConsumptionChartData(Long foodBatchId);*/
-
     @Query("SELECT NEW es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.ConsumptionChartDto(SUM(c.kilos), DATE_FORMAT(c.date, '%Y-%m-%d'), c.foodBatch.id) " +
             "FROM FoodConsumption c " +
             "WHERE c.foodBatch.id = :foodBatchId " +
@@ -34,4 +27,12 @@ public interface FoodConsumptionDao extends PagingAndSortingRepository<FoodConsu
             "WHERE c.consumedBy.id = :animalId " +
             "Group By DATE_FORMAT(c.date, '%Y-%m-%d'), c.foodBatch ")
     List<ConsumptionChartDto> getAnimalConsumptionChartData(Long animalId);
+
+    @Query("SELECT NEW es.udc.paproject.backend.rest.dtos.FoodPurchaseDTOs.ConsumptionChartDto(SUM(c.kilos), DATE_FORMAT(c.date, '%Y-%m-%d'), f.id) " +
+            "FROM FoodConsumption c " +
+            "Left join Animal a on a.id = c.consumedBy.id " +
+            "Left join Farm f on f.id = a.belongsTo.id " +
+            "Where f.id = :farmId " +
+            "GROUP BY DATE_FORMAT(c.date, '%Y-%m-%d'), f.id ")
+    List<ConsumptionChartDto> getGeneralConsumptionChart(long farmId);
 }

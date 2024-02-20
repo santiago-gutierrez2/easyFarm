@@ -110,9 +110,9 @@ const AllWeighings = () => {
               </div>
               <div className="col-sm-3">
                   <label className="col-form-label"><FormattedMessage id="project.weighing.kilosRange"/></label>
-                  <input type="number" min="1" value={startKilos} className="form-control"
+                  <input type="number" min="1" value={startKilos} className="form-control" placeholder="min"
                          onChange={e => setStartKilos(e.target.value)}/>
-                  <input type="number" min="1" value={endKilos} className="form-control mt-1"
+                  <input type="number" min="1" value={endKilos} className="form-control mt-1" placeholder="max"
                          onChange={e => setEndKilos(e.target.value)}/>
               </div>
               <div className="col-sm-2 text-center">

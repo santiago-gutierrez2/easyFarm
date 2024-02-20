@@ -20,6 +20,13 @@ const AnimalMilkingChart = () => {
                 fontSize: 12
             }
         },
+        toolbox: {
+            feature: {
+                dataView: { show: true, readOnly: true },
+                magicType: { show: true, type: ['line', 'bar'] },
+                restore: { show: true },
+            }
+        },
         tooltip: {
             trigger: 'axis',
             axisPointer: {
