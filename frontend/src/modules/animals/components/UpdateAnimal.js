@@ -11,7 +11,7 @@ import * as commonActions from "../../app/actions";
 import users from "../../users";
 import Modal from "react-bootstrap/Modal";
 import {Button} from "react-bootstrap";
-import errors from "../../common/components/Errors";
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
 
 
 const UpdateAnimal = () => {
@@ -147,6 +147,11 @@ const UpdateAnimal = () => {
 
     return (
         <>
+            <Breadcrumb>
+                <Breadcrumb.Item href="/">Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item href="/animal/allAnimals">Livestock list</Breadcrumb.Item>
+                <Breadcrumb.Item active>{animal.name}-{animal.identificationNumber}</Breadcrumb.Item>
+            </Breadcrumb>
             <div className="row justify-content-center">
                 <ul className="nav nav-tabs col-sm-8 col-12" id="myTab" role="tablist">
                     <li className="nav-item" role="presentation">

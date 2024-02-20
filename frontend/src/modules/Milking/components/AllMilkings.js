@@ -10,6 +10,7 @@ import milking from "../index";
 import {Link} from "react-router-dom";
 import {Pager} from "../../common";
 import * as commonActions from "../../app/actions";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 
 const AllMilkings = () => {
 
@@ -91,71 +92,83 @@ const AllMilkings = () => {
     }
 
     return (
-      <div className="container">
-          <div className="row mb-3">
-              <div className="col-sm-4">
-                  <label className="col-form-label"><FormattedMessage id="project.milking.animal"/></label>
-                  <select className="form-control" id="animal"
-                        value={animalSelected}
-                        onChange={e => setAnimalSelected(e.target.value)}>
-                      <option key={0} value="0">-- All options --</option>
-                      {animalsOptions && animalsOptions.map(a =>
-                      <option key={a.value} value={a.value}>{a.label}</option>
-                      )}
-                  </select>
-              </div>
-              <div className="col-sm-3">
-                  <label className="col-form-label"><FormattedMessage id="project.milking.date"/></label>
-                  <DatePicker className="form-control" selected={startDate} onChange={(date) => setStartDate(date)} />
-                  <DatePicker className="form-control mt-1" selected={endDate} onChange={(date) => setEndDate(date)} />
-              </div>
-              <div className="col-sm-3">
-                  <label className="col-form-label"><FormattedMessage id="project.milking.litersRange"/></label>
-                  <input type="number" min="1" value={startLiters} className="form-control" placeholder="min"
-                         onChange={e => setStartLiters(e.target.value)}/>
-                  <input type="number" min="1" value={endLiters} className="form-control mt-1" placeholder="max"
-                         onChange={e => setEndLiters(e.target.value)}/>
-              </div>
-              <div className="col-sm-2 text-center">
-                  <button className="btn btn-primary" style={{marginTop: '37px'}} onClick={e => handleFilter()}><FormattedMessage id="project.global.search"/></button>
-              </div>
-          </div>
-          {milkingsSearch.result.items.length === 0 &&
-                <div className="alert alert-danger" role="alert">
-                    <FormattedMessage id="project.milking.milkingNotFound"/>
-                </div>
-          }
-          {milkingsSearch.result.items.map(milk => {
-              return (
-                <div key={milk.id} className="card mt-2 bg-light">
-                    <div className="card-header container card-title-custom">
-                        <h3>{getAnimalNameAndCode(milk.animalMilked)}</h3>
+        <>
+            <Breadcrumb>
+                <Breadcrumb.Item href="/">Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item active>Milkings list</Breadcrumb.Item>
+            </Breadcrumb>
+            <div className="container">
+                <div className="row mb-3">
+                    <div className="col-sm-4">
+                        <label className="col-form-label"><FormattedMessage id="project.milking.animal"/></label>
+                        <select className="form-control" id="animal"
+                                value={animalSelected}
+                                onChange={e => setAnimalSelected(e.target.value)}>
+                            <option key={0} value="0">-- All options --</option>
+                            {animalsOptions && animalsOptions.map(a =>
+                                <option key={a.value} value={a.value}>{a.label}</option>
+                            )}
+                        </select>
                     </div>
-                    <div className="card-body">
-                        <p className="card-text"><FormattedMessage id="project.milking.liters"/>: {milk.liters}</p>
-                        <p className="card-text"><FormattedMessage id="project.milking.date"/>: <FormattedDate value={new Date(milk.date)}/></p>
-                        <Link className="btn btn-primary" to={`/milking/${milk.id}`}>
-                            <FormattedMessage id="project.global.seeDetails"/>
-                        </Link>
+                    <div className="col-sm-3">
+                        <label className="col-form-label"><FormattedMessage id="project.milking.date"/></label>
+                        <DatePicker className="form-control" selected={startDate}
+                                    onChange={(date) => setStartDate(date)}/>
+                        <DatePicker className="form-control mt-1" selected={endDate}
+                                    onChange={(date) => setEndDate(date)}/>
+                    </div>
+                    <div className="col-sm-3">
+                        <label className="col-form-label"><FormattedMessage id="project.milking.litersRange"/></label>
+                        <input type="number" min="1" value={startLiters} className="form-control" placeholder="min"
+                               onChange={e => setStartLiters(e.target.value)}/>
+                        <input type="number" min="1" value={endLiters} className="form-control mt-1" placeholder="max"
+                               onChange={e => setEndLiters(e.target.value)}/>
+                    </div>
+                    <div className="col-sm-2 text-center">
+                        <button className="btn btn-primary" style={{marginTop: '37px'}} onClick={e => handleFilter()}>
+                            <FormattedMessage id="project.global.search"/></button>
                     </div>
                 </div>
-              );
-          })}
-          <div className="row mt-4">
-              <div className="col-12">
-                  <Pager
-                      back={{
-                          enabled: milkingsSearch.criteria.page >= 1,
-                          onClick: () => dispatch(actions.previousGetAllMilkings(milkingsSearch.criteria))
-                      }}
-                      next={{
-                          enabled: milkingsSearch.result.existMoreItems,
-                          onClick: () => dispatch(actions.nextGetAllMilkings(milkingsSearch.criteria))
-                      }}
-                  />
-              </div>
-          </div>
-      </div>
+                {milkingsSearch.result.items.length === 0 &&
+                    <div className="alert alert-danger" role="alert">
+                        <FormattedMessage id="project.milking.milkingNotFound"/>
+                    </div>
+                }
+                {milkingsSearch.result.items.map(milk => {
+                    return (
+                        <div key={milk.id} className="card mt-2 bg-light">
+                            <div className="card-header container card-title-custom">
+                                <h3>{getAnimalNameAndCode(milk.animalMilked)}</h3>
+                            </div>
+                            <div className="card-body">
+                                <p className="card-text"><FormattedMessage id="project.milking.liters"/>: {milk.liters}
+                                </p>
+                                <p className="card-text"><FormattedMessage id="project.milking.date"/>: <FormattedDate
+                                    value={new Date(milk.date)}/></p>
+                                <Link className="btn btn-primary" to={`/milking/${milk.id}`}>
+                                    <FormattedMessage id="project.global.seeDetails"/>
+                                </Link>
+                            </div>
+                        </div>
+                    );
+                })}
+                <div className="row mt-4">
+                    <div className="col-12">
+                        <Pager
+                            back={{
+                                enabled: milkingsSearch.criteria.page >= 1,
+                                onClick: () => dispatch(actions.previousGetAllMilkings(milkingsSearch.criteria))
+                            }}
+                            next={{
+                                enabled: milkingsSearch.result.existMoreItems,
+                                onClick: () => dispatch(actions.nextGetAllMilkings(milkingsSearch.criteria))
+                            }}
+                        />
+                    </div>
+                </div>
+            </div>
+        </>
+
     );
 }
 

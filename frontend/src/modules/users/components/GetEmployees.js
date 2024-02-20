@@ -9,6 +9,7 @@ import * as commonActions from "../../app/actions";
 import {useHistory} from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import {Button} from "react-bootstrap";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 
 
 const GetEmployees = () => {
@@ -63,55 +64,64 @@ const GetEmployees = () => {
     }
 
     return (
-        <div className="row justify-content-center fade-in">
-            <div className="col-12 col-sm-10">
-                <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}></Errors>
-                <div className="table-responsive">
-                    <table className="table">
-                        <thead className="thead-dark">
-                        <tr>
-                            <th scope="col"><FormattedMessage id="project.global.fields.userName"/></th>
-                            <th scope="col"><FormattedMessage id="project.global.fields.firstName"/></th>
-                            <th scope="col"><FormattedMessage id="project.global.fields.lastName"/></th>
-                            <th scope="col"><FormattedMessage id="project.global.fields.email"/></th>
-                            <th scope="col"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {employees.map(employee => {
-                            return (
-                                <tr key={employee.id}>
-                                    <td scope="row">{employee.userName}</td>
-                                    <td scope="row">{employee.firstName}</td>
-                                    <td scope="row">{employee.lastName}</td>
-                                    <td scope="row">{employee.email}</td>
-                                    <td scope="row">
-                                        <button className="btn btn-danger" title="Delete" onClick={() => handleShow()}>
-                                            Delete <i className="fas fa-trash"></i>
-                                        </button>
-                                        <Modal show={show} onHide={handleClose}>
-                                            <Modal.Header>
-                                                <Modal.Title>Delete employee</Modal.Title>
-                                            </Modal.Header>
-                                            <Modal.Body>Are you sure to delete this employee? deleting <b>wont affect</b> the data related to this employee</Modal.Body>
-                                            <Modal.Footer>
-                                                <Button variant="secondary" onClick={handleClose}>
-                                                    Cancel
-                                                </Button>
-                                                <Button variant="danger" onClick={() => handleDelete(employee)}>
-                                                    Delete
-                                                </Button>
-                                            </Modal.Footer>
-                                        </Modal>
-                                    </td>
-                                </tr>
-                            )
-                        })}
-                        </tbody>
-                    </table>
+        <>
+            <Breadcrumb>
+                <Breadcrumb.Item href="/">Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item active>Employees list</Breadcrumb.Item>
+            </Breadcrumb>
+            <div className="row justify-content-center fade-in">
+                <div className="col-12 col-sm-10">
+                    <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}></Errors>
+                    <div className="table-responsive">
+                        <table className="table">
+                            <thead className="thead-dark">
+                            <tr>
+                                <th scope="col"><FormattedMessage id="project.global.fields.userName"/></th>
+                                <th scope="col"><FormattedMessage id="project.global.fields.firstName"/></th>
+                                <th scope="col"><FormattedMessage id="project.global.fields.lastName"/></th>
+                                <th scope="col"><FormattedMessage id="project.global.fields.email"/></th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {employees.map(employee => {
+                                return (
+                                    <tr key={employee.id}>
+                                        <td scope="row">{employee.userName}</td>
+                                        <td scope="row">{employee.firstName}</td>
+                                        <td scope="row">{employee.lastName}</td>
+                                        <td scope="row">{employee.email}</td>
+                                        <td scope="row">
+                                            <button className="btn btn-danger" title="Delete"
+                                                    onClick={() => handleShow()}>
+                                                Delete <i className="fas fa-trash"></i>
+                                            </button>
+                                            <Modal show={show} onHide={handleClose}>
+                                                <Modal.Header>
+                                                    <Modal.Title>Delete employee</Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>Are you sure to delete this employee? deleting <b>wont
+                                                    affect</b> the data related to this employee</Modal.Body>
+                                                <Modal.Footer>
+                                                    <Button variant="secondary" onClick={handleClose}>
+                                                        Cancel
+                                                    </Button>
+                                                    <Button variant="danger" onClick={() => handleDelete(employee)}>
+                                                        Delete
+                                                    </Button>
+                                                </Modal.Footer>
+                                            </Modal>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
+
     );
 }
 

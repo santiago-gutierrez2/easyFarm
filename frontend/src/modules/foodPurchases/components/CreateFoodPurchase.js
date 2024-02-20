@@ -6,6 +6,7 @@ import {Errors, Success} from "../../common";
 import {FormattedMessage} from "react-intl";
 import {createFoodPurchase} from "../../../backend/FoodPurchaseService";
 import * as commonActions from "../../app/actions";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 
 
 const CreateFoodPurchase = () => {
@@ -57,94 +58,101 @@ const CreateFoodPurchase = () => {
     }
 
     return (
-        <div className="row justify-content-center fade-in">
-            <div className="col-sm-7 col-12">
-                <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
-                <Success message={success} onClose={() => setSuccess(null)}/>
-                <div className="card bg-light">
-                    <h5 className="card-header card-title-custom ">
-                        <FormattedMessage id="project.foodPurchase.create"></FormattedMessage>
-                    </h5>
-                    <div className="card-body">
-                        <form ref={node => form = node}
-                            className="needs-validation" noValidate
-                            onSubmit={event => handleSubmit(event)}>
-                            <div className="form-group row">
-                                <label htmlFor="productName" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.foodPurchase.productName" />
-                                </label>
-                                <div className="col-md-6">
-                                    <input type="text" id="productName" className="form-control"
-                                        value={productName}
-                                        onChange={e => setProductName(e.target.value)}
-                                        autoFocus
-                                        required/>
+        <>
+            <Breadcrumb>
+                <Breadcrumb.Item href="/">Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item href="/foodPurchase/allFoodPurchases">Food purchases list</Breadcrumb.Item>
+                <Breadcrumb.Item active>Register new</Breadcrumb.Item>
+            </Breadcrumb>
+            <div className="row justify-content-center fade-in">
+                <div className="col-sm-7 col-12">
+                    <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
+                    <Success message={success} onClose={() => setSuccess(null)}/>
+                    <div className="card bg-light">
+                        <h5 className="card-header card-title-custom ">
+                            <FormattedMessage id="project.foodPurchase.create"></FormattedMessage>
+                        </h5>
+                        <div className="card-body">
+                            <form ref={node => form = node}
+                                  className="needs-validation" noValidate
+                                  onSubmit={event => handleSubmit(event)}>
+                                <div className="form-group row">
+                                    <label htmlFor="productName" className="col-md-3 col-form-label">
+                                        <FormattedMessage id="project.foodPurchase.productName"/>
+                                    </label>
+                                    <div className="col-md-6">
+                                        <input type="text" id="productName" className="form-control"
+                                               value={productName}
+                                               onChange={e => setProductName(e.target.value)}
+                                               autoFocus
+                                               required/>
+                                        <div className="invalid-feedback">
+                                            <FormattedMessage id="project.global.validator.required"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
+                                    <label htmlFor="ingredients" className="col-md-3 col-form-label">
+                                        <FormattedMessage id="project.foodPurchase.ingredients"/>
+                                    </label>
+                                    <div className="col-md-6">
+                                    <textarea className="form-control" id="ingredients" rows="3"
+                                              value={ingredients}
+                                              onChange={e => setIngredients(e.target.value)}/>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
+                                    <label htmlFor="supplier" className="col-md-3 col-form-label">
+                                        <FormattedMessage id="project.foodPurchase.supplier"/>
+                                    </label>
+                                    <div className="col-md-6">
+                                        <input type="text" id="supplier" className="form-control"
+                                               value={supplier}
+                                               onChange={e => setSupplier(e.target.value)}/>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
+                                    <label htmlFor="kilos" className="col-md-3 col-form-label">
+                                        <FormattedMessage id="project.foodPurchase.kilos"/>
+                                    </label>
+                                    <div className="col-md-6">
+                                        <input type="number" min="1" step="1" className="form-control"
+                                               value={kilos}
+                                               pattern="[0-9]{10}"
+                                               required
+                                               onChange={e => setKilos(Number(e.target.value))}/>
+                                    </div>
+                                    <div className="invalid-feedback">
+                                        <FormattedMessage id="project.global.validator.integer"/>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
+                                    <label htmlFor="unitPrice" className="col-md-3 col-form-label">
+                                        <FormattedMessage id="project.foodPurchase.unitPrice"/>
+                                    </label>
+                                    <div className="col-md-6">
+                                        <input type="number" min="0" step="0.25" className="form-control"
+                                               value={unitPrice}
+                                               required
+                                               onChange={e => handleUnitPriceChange(e.target.value)}/>
+                                    </div>
                                     <div className="invalid-feedback">
                                         <FormattedMessage id="project.global.validator.required"/>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="form-group row">
-                                <label htmlFor="ingredients" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.foodPurchase.ingredients"/>
-                                </label>
-                                <div className="col-md-6">
-                                    <textarea className="form-control" id="ingredients" rows="3"
-                                        value={ingredients}
-                                        onChange={e => setIngredients(e.target.value)}/>
+                                <div className="form-group row">
+                                    <div className="offset-md-3 col-md-2">
+                                        <button type="submit" className="btn btn-primary">
+                                            <FormattedMessage id="project.global.buttons.create"/>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="form-group row">
-                                <label htmlFor="supplier" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.foodPurchase.supplier"/>
-                                </label>
-                                <div className="col-md-6">
-                                    <input type="text" id="supplier" className="form-control"
-                                        value={supplier}
-                                        onChange={e => setSupplier(e.target.value)}/>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <label htmlFor="kilos" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.foodPurchase.kilos"/>
-                                </label>
-                                <div className="col-md-6">
-                                    <input type="number" min="1" step="1" className="form-control"
-                                           value={kilos}
-                                           pattern="[0-9]{10}"
-                                           required
-                                           onChange={e => setKilos(Number(e.target.value))}/>
-                                </div>
-                                <div className="invalid-feedback">
-                                    <FormattedMessage id="project.global.validator.integer"/>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <label htmlFor="unitPrice" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.foodPurchase.unitPrice"/>
-                                </label>
-                                <div className="col-md-6">
-                                    <input type="number" min="0" step="0.25" className="form-control"
-                                           value={unitPrice}
-                                           required
-                                           onChange={e => handleUnitPriceChange(e.target.value)}/>
-                                </div>
-                                <div className="invalid-feedback">
-                                    <FormattedMessage id="project.global.validator.required"/>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <div className="offset-md-3 col-md-2">
-                                    <button type="submit" className="btn btn-primary">
-                                        <FormattedMessage id="project.global.buttons.create"/>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 
 }

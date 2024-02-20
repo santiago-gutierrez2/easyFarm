@@ -11,6 +11,7 @@ import * as selectors from '../selectors';
 import {Link} from "react-router-dom";
 import {getEmployees} from "../../../backend/userService";
 import * as commonActions from "../../app/actions";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 
 const AllFoodPurchases = () => {
 
@@ -75,81 +76,98 @@ const AllFoodPurchases = () => {
     }
 
     return (
-        <div className="container">
-            <div className="row mb-3">
-                <div className="col-sm-4">
-                    <label className="col-form-label"><FormattedMessage id="project.foodPurchase.productName"/>: </label>
-                    <input type="text" placeholder="Product name" className="form-control" value={productName}
-                           onChange={e => setProductName(e.target.value)}/>
+        <>
+            <Breadcrumb>
+                <Breadcrumb.Item href="/">Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item active>Food purchases list</Breadcrumb.Item>
+            </Breadcrumb>
+            <div className="container">
+                <div className="row mb-3">
+                    <div className="col-sm-4">
+                        <label className="col-form-label"><FormattedMessage id="project.foodPurchase.productName"/>:
+                        </label>
+                        <input type="text" placeholder="Product name" className="form-control" value={productName}
+                               onChange={e => setProductName(e.target.value)}/>
+                    </div>
+                    <div className="col-sm-3">
+                        <label className="col-form-label"><FormattedMessage id="project.foodPurchase.supplier"/>:
+                        </label>
+                        <input type="text" placeholder="Supplier" className="form-control" value={supplier}
+                               onChange={e => setSupplier(e.target.value)}/>
+                    </div>
+                    <div className="col-sm-3">
+                        <label className="col-form-label"><FormattedMessage id="project.issues.creationDate"/>: </label>
+                        <div className="w-100"></div>
+                        <DatePicker className="form-control" selected={startDate}
+                                    onChange={(date) => setStartDate(date)}/>
+                        <DatePicker className="form-control mt-1" selected={endDate}
+                                    onChange={(date) => setEndDate(date)}/>
+                    </div>
+                    <div className="col-sm-2 text-center">
+                        <button className="btn btn-primary" style={{marginTop: '37px'}} onClick={e => handleFilter()}>
+                            <FormattedMessage id="project.global.search"/></button>
+                    </div>
                 </div>
-                <div className="col-sm-3">
-                    <label className="col-form-label"><FormattedMessage id="project.foodPurchase.supplier"/>: </label>
-                    <input type="text" placeholder="Supplier" className="form-control" value={supplier}
-                           onChange={e => setSupplier(e.target.value)}/>
-                </div>
-                <div className="col-sm-3">
-                    <label className="col-form-label"><FormattedMessage id="project.issues.creationDate"/>: </label> <div className="w-100"></div>
-                    <DatePicker className="form-control" selected={startDate} onChange={(date) => setStartDate(date)} />
-                    <DatePicker className="form-control mt-1" selected={endDate} onChange={(date) => setEndDate(date)} />
-                </div>
-                <div className="col-sm-2 text-center">
-                    <button className="btn btn-primary" style={{marginTop: '37px'}} onClick={e => handleFilter()}><FormattedMessage id="project.global.search"/></button>
-                </div>
-            </div>
-            {foodPurchasesSearch.result.items.length === 0 &&
-                <div className="alert alert-danger" role="alert">
-                    <FormattedMessage id='project.foodPurchase.foodPurchasesNotFound'/>
-                </div>
-            }
-            {foodPurchasesSearch.result.items.map(foodPurchase => {
-                return (
-                    <div key={foodPurchase.id} className="card mt-2 bg-light">
-                        <div className="card-header container card-title-custom">
-                            <div className="row">
-                                <div className="col-xl-10 col-7">
-                                    <h3>{foodPurchase.productName}</h3>
-                                </div>
-                                <div className="col-xl-2 col-5 align-self-center">
-                                    <h5>
+                {foodPurchasesSearch.result.items.length === 0 &&
+                    <div className="alert alert-danger" role="alert">
+                        <FormattedMessage id='project.foodPurchase.foodPurchasesNotFound'/>
+                    </div>
+                }
+                {foodPurchasesSearch.result.items.map(foodPurchase => {
+                    return (
+                        <div key={foodPurchase.id} className="card mt-2 bg-light">
+                            <div className="card-header container card-title-custom">
+                                <div className="row">
+                                    <div className="col-xl-10 col-7">
+                                        <h3>{foodPurchase.productName}</h3>
+                                    </div>
+                                    <div className="col-xl-2 col-5 align-self-center">
+                                        <h5>
                                         <span className="badge badge-secondary float-right">
                                             Total: {foodPurchase.unitPrice * foodPurchase.kilos}€
                                         </span>
-                                    </h5>
+                                        </h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="card-body">
-                            <p className="card-text">{foodPurchase.ingredients}</p>
-                            <p className="card-text"><FormattedMessage id="project.foodPurchase.supplier"/>: {foodPurchase.supplier}</p>
-                            <p className="card-text"><FormattedMessage id="project.foodPurchase.purchaseDate"/>: <FormattedDate value={new Date(foodPurchase.purchaseDate)}/></p>
-                            <p className="card-text"><FormattedMessage id="project.foodPurchase.kilos"/>: {foodPurchase.kilos}</p>
-                            <p className="card-text"><FormattedMessage id="project.foodPurchase.unitPrice"/>: {foodPurchase.unitPrice}€</p>
-                            {/*<div className="row">
+                            <div className="card-body">
+                                <p className="card-text">{foodPurchase.ingredients}</p>
+                                <p className="card-text"><FormattedMessage
+                                    id="project.foodPurchase.supplier"/>: {foodPurchase.supplier}</p>
+                                <p className="card-text"><FormattedMessage
+                                    id="project.foodPurchase.purchaseDate"/>: <FormattedDate
+                                    value={new Date(foodPurchase.purchaseDate)}/></p>
+                                <p className="card-text"><FormattedMessage
+                                    id="project.foodPurchase.kilos"/>: {foodPurchase.kilos}</p>
+                                <p className="card-text"><FormattedMessage
+                                    id="project.foodPurchase.unitPrice"/>: {foodPurchase.unitPrice}€</p>
+                                {/*<div className="row">
                               <div className="col-6">*/}
-                                    <Link className="btn btn-primary" to={`/foodPurchase/${foodPurchase.id}`}>
-                                        <FormattedMessage id="project.foodPurchase.viewDetails"/>
-                                    </Link>
-                            {/*</div>
+                                <Link className="btn btn-primary" to={`/foodPurchase/${foodPurchase.id}`}>
+                                    <FormattedMessage id="project.foodPurchase.viewDetails"/>
+                                </Link>
+                                {/*</div>
                           </div>*/}
+                            </div>
                         </div>
+                    )
+                })}
+                <div className="row mt-4">
+                    <div className="col-12">
+                        <Pager
+                            back={{
+                                enabled: foodPurchasesSearch.criteria.page >= 1,
+                                onClick: () => dispatch(actions.previousGetAllFoodPurchases(foodPurchasesSearch.criteria))
+                            }}
+                            next={{
+                                enabled: foodPurchasesSearch.result.existMoreItems,
+                                onClick: () => dispatch(actions.nextGetAllFoodPurchases(foodPurchasesSearch.criteria))
+                            }}
+                        />
                     </div>
-                )
-            })}
-            <div className="row mt-4">
-                <div className="col-12">
-                    <Pager
-                        back={{
-                            enabled: foodPurchasesSearch.criteria.page >= 1,
-                            onClick: () => dispatch(actions.previousGetAllFoodPurchases(foodPurchasesSearch.criteria))
-                        }}
-                        next={{
-                            enabled: foodPurchasesSearch.result.existMoreItems,
-                            onClick: () => dispatch(actions.nextGetAllFoodPurchases(foodPurchasesSearch.criteria))
-                        }}
-                    />
                 </div>
             </div>
-        </div>
+        </>
     );
 
 }

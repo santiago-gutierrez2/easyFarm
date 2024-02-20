@@ -12,6 +12,7 @@ import {FoodConsumptionChart} from "../../charts";
 import * as commonActions from "../../app/actions";
 import Modal from "react-bootstrap/Modal";
 import {Button} from "react-bootstrap";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 
 
 const UpdateFoodPurchase = () => {
@@ -109,6 +110,11 @@ const UpdateFoodPurchase = () => {
 
     return (
         <>
+            <Breadcrumb>
+                <Breadcrumb.Item href="/">Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item href="/foodPurchase/allFoodPurchases">Food purchases list</Breadcrumb.Item>
+                <Breadcrumb.Item active>{foodPurchaseId}</Breadcrumb.Item>
+            </Breadcrumb>
             <div className="row justify-content-center">
                 <ul className="nav nav-tabs col-sm-8 col-12" id="myTab" role="tablist">
                     <li className="nav-item" role="presentation">

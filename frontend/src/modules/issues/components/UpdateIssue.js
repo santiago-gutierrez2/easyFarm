@@ -11,6 +11,7 @@ import {deleteIssue, getIssueById, updateIssue} from "../../../backend/issueServ
 import * as commonActions from "../../app/actions";
 import Modal from "react-bootstrap/Modal";
 import {Button} from "react-bootstrap";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 
 const UpdateIssue = () => {
 
@@ -94,112 +95,123 @@ const UpdateIssue = () => {
     }
 
     return (
-        <div className="row justify-content-center fade-in">
-            <div className="col-sm-8 col-12">
-                <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
-                <Success message={success} onClose={() => setSuccess(null)}></Success>
-                <div className="card bg-light ">
-                    <h5 className="card-header card-title-custom ">
-                        <FormattedMessage id="project.issues.update"/>
-                    </h5>
-                    <div className="card-body">
-                        <form ref={node => form = node}
-                            className="needs-validation" noValidate
-                            onSubmit={e => handleSubmit(e)}>
-                            <div className="form-group row">
-                                <label htmlFor="issueName" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.issues.issueName"/>
-                                </label>
-                                <div className="col-md-7">
-                                    <input type="text" id="issueName" className="form-control"
-                                           value={issueName}
-                                           disabled={!editing}
-                                           onChange={e => setIssueName(e.target.value)}
-                                           autoFocus
-                                           required/>
-                                    <div className="invalid-feedback">
-                                        <FormattedMessage id='project.global.validator.required'/>
+        <>
+            <Breadcrumb>
+                <Breadcrumb.Item href="/">Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item href="/issues/SeeAllIssues">Issues list</Breadcrumb.Item>
+                <Breadcrumb.Item active>{issueId}</Breadcrumb.Item>
+            </Breadcrumb>
+            <div className="row justify-content-center fade-in">
+                <div className="col-sm-8 col-12">
+                    <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
+                    <Success message={success} onClose={() => setSuccess(null)}></Success>
+                    <div className="card bg-light ">
+                        <h5 className="card-header card-title-custom ">
+                            <FormattedMessage id="project.issues.update"/>
+                        </h5>
+                        <div className="card-body">
+                            <form ref={node => form = node}
+                                  className="needs-validation" noValidate
+                                  onSubmit={e => handleSubmit(e)}>
+                                <div className="form-group row">
+                                    <label htmlFor="issueName" className="col-md-3 col-form-label">
+                                        <FormattedMessage id="project.issues.issueName"/>
+                                    </label>
+                                    <div className="col-md-7">
+                                        <input type="text" id="issueName" className="form-control"
+                                               value={issueName}
+                                               disabled={!editing}
+                                               onChange={e => setIssueName(e.target.value)}
+                                               autoFocus
+                                               required/>
+                                        <div className="invalid-feedback">
+                                            <FormattedMessage id='project.global.validator.required'/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="form-group row">
-                                <label htmlFor="description" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.issues.description" />
-                                </label>
-                                <div className="col-md-7">
+                                <div className="form-group row">
+                                    <label htmlFor="description" className="col-md-3 col-form-label">
+                                        <FormattedMessage id="project.issues.description"/>
+                                    </label>
+                                    <div className="col-md-7">
                                     <textarea className="form-control" id="description" rows="3"
                                               value={description}
                                               disabled={!editing}
                                               onChange={e => setDescription(e.target.value)}/>
-                                </div>
-                            </div>
-                            <div className="form-group row">
-                                <label htmlFor="isDone" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.issue.state" />
-                                </label>
-                                <div className="col-md-7">
-                                    <div className="btn-group btn-group-toggle" data-toggle="buttons">
-                                        <label className="btn btn-success active">
-                                            <input type="radio" name="active" id="active" autoComplete="off" checked={!isDone}
-                                                   disabled={!editing}
-                                                   onClick={e => setIsDone(false)}/>
-                                            <FormattedMessage id="project.issue.active"/>
-                                        </label>
-                                        <label className="btn btn-success">
-                                            <input type="radio" name="done" id="done" autoComplete="off" checked={isDone}
-                                                   disabled={!editing}
-                                                   onClick={e => setIsDone(true)}/>
-                                            <FormattedMessage id="project.issue.done" />
-                                        </label>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="form-group row">
-                                {editing &&
-                                    <div className="offset-md-3 col-md-4">
-                                        <button type="submit" className="btn btn-primary">
-                                            <FormattedMessage id="project.global.update"/>
-                                        </button>
-                                        <button onClick={e => setEditing(false)}
-                                                className="btn btn-danger ml-1">
-                                            <FormattedMessage id="project.global.buttons.cancel"/>
-                                        </button>
-                                    </div>
-                                }
-                                {!editing &&
-                                    <>
-                                        <div className="offset-md-3 col-md-3">
-                                            <button onClick={e => setEditing(true)}
-                                                    className="btn btn-primary">
-                                                <FormattedMessage id="project.global.edit"/> <i
-                                                className="fas fa-pen"></i>
-                                            </button>
-                                            <button type="button" className="btn btn-danger ml-1" onClick={() => handleShow()}>
-                                                <FormattedMessage id="project.global.delete"/> <i className="fas fa-trash"></i>
-                                            </button>
-                                            <Modal show={show} onHide={handleClose}>
-                                                <Modal.Header>
-                                                    <Modal.Title>Delete issue</Modal.Title>
-                                                </Modal.Header>
-                                                <Modal.Body>Are you sure to delete this issue?</Modal.Body>
-                                                <Modal.Footer>
-                                                    <Button variant="secondary" onClick={handleClose}>
-                                                        Cancel
-                                                    </Button>
-                                                    <Button variant="danger" onClick={() => handleDelete(issue.id)}>
-                                                        Delete
-                                                    </Button>
-                                                </Modal.Footer>
-                                            </Modal>
+                                <div className="form-group row">
+                                    <label htmlFor="isDone" className="col-md-3 col-form-label">
+                                        <FormattedMessage id="project.issue.state"/>
+                                    </label>
+                                    <div className="col-md-7">
+                                        <div className="btn-group btn-group-toggle" data-toggle="buttons">
+                                            <label className="btn btn-success active">
+                                                <input type="radio" name="active" id="active" autoComplete="off"
+                                                       checked={!isDone}
+                                                       disabled={!editing}
+                                                       onClick={e => setIsDone(false)}/>
+                                                <FormattedMessage id="project.issue.active"/>
+                                            </label>
+                                            <label className="btn btn-success">
+                                                <input type="radio" name="done" id="done" autoComplete="off"
+                                                       checked={isDone}
+                                                       disabled={!editing}
+                                                       onClick={e => setIsDone(true)}/>
+                                                <FormattedMessage id="project.issue.done"/>
+                                            </label>
                                         </div>
-                                    </>
-                                }
-                            </div>
-                        </form>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
+                                    {editing &&
+                                        <div className="offset-md-3 col-md-4">
+                                            <button type="submit" className="btn btn-primary">
+                                                <FormattedMessage id="project.global.update"/>
+                                            </button>
+                                            <button onClick={e => setEditing(false)}
+                                                    className="btn btn-danger ml-1">
+                                                <FormattedMessage id="project.global.buttons.cancel"/>
+                                            </button>
+                                        </div>
+                                    }
+                                    {!editing &&
+                                        <>
+                                            <div className="offset-md-3 col-md-3">
+                                                <button onClick={e => setEditing(true)}
+                                                        className="btn btn-primary">
+                                                    <FormattedMessage id="project.global.edit"/> <i
+                                                    className="fas fa-pen"></i>
+                                                </button>
+                                                <button type="button" className="btn btn-danger ml-1"
+                                                        onClick={() => handleShow()}>
+                                                    <FormattedMessage id="project.global.delete"/> <i
+                                                    className="fas fa-trash"></i>
+                                                </button>
+                                                <Modal show={show} onHide={handleClose}>
+                                                    <Modal.Header>
+                                                        <Modal.Title>Delete issue</Modal.Title>
+                                                    </Modal.Header>
+                                                    <Modal.Body>Are you sure to delete this issue?</Modal.Body>
+                                                    <Modal.Footer>
+                                                        <Button variant="secondary" onClick={handleClose}>
+                                                            Cancel
+                                                        </Button>
+                                                        <Button variant="danger" onClick={() => handleDelete(issue.id)}>
+                                                            Delete
+                                                        </Button>
+                                                    </Modal.Footer>
+                                                </Modal>
+                                            </div>
+                                        </>
+                                    }
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

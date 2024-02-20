@@ -9,6 +9,7 @@ import {useDispatch} from "react-redux";
 import * as commonActions from "../../app/actions";
 import Modal from "react-bootstrap/Modal";
 import {Button} from "react-bootstrap";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 
 
 const UpdateMilking = () => {
@@ -119,98 +120,109 @@ const UpdateMilking = () => {
     }
 
     return (
-      <div className="row justify-content-center fade-in">
-          <div className="col-sm-7 col-12">
-              <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
-              <Success message={success} onClose={() => setSuccess(null)}></Success>
-              <div className="card bg-light">
-                  <h5 className="card-header card-title-custom">
-                      <FormattedMessage id="project.milking.update"/>
-                  </h5>
-                  <div className="card-body">
-                      <form ref={node => form = node}
-                            className="needs-validation" noValidate
-                            onSubmit={e => handleSubmit(e)}>
-                          <div className="form-group row">
-                              <label htmlFor="animal" className="col-md-3 col-form-label">
-                                  <FormattedMessage id="project.milking.animal"/>
-                              </label>
-                              <div className="col-md-7">
-                                  <p style={{marginTop: '8px'}}>
-                                      <Link className="link" to={`/animal/${animalSelected}`}>
-                                          {getAnimaLabel(animalSelected)}
-                                      </Link>
-                                  </p>
-                                  <div className="invalid-feedback">
-                                      <FormattedMessage id="project.global.validator.required"></FormattedMessage>
-                                  </div>
-                              </div>
-                          </div>
-                          <div className="form-group row">
-                              <label htmlFor="liters" className="col-md-3 col-form-label">
-                                  <FormattedMessage id="project.milking.liters"></FormattedMessage>
-                              </label>
-                              <div className="col-md-6">
-                                  <input type="number" min="1"
-                                         value={liters}
-                                         required
-                                         disabled={!editing}
-                                         id="liters"
-                                         className="form-control"
-                                         onChange={e => setLiters(Number(e.target.value))}/>
-                                  <div className="invalid-feedback">
-                                      <FormattedMessage id="project.global.validator.required"></FormattedMessage>
-                                  </div>
-                              </div>
-                          </div>
-                          <div className="form-group row">
-                              {editing &&
-                                  <div className="offset-md-3 col-md-3">
-                                      <button type="submit" className="btn btn-primary">
-                                          <FormattedMessage id="project.global.update"/>
-                                      </button>
-                                      <button onClick={e => {setEditing(false);cancelUpdate();}}
-                                          className="btn btn-danger ml-1">
-                                          <FormattedMessage id="project.global.buttons.cancel"/>
-                                      </button>
-                                  </div>
-                              }
-                              {!editing &&
-                                  <>
-                                      <div className="offset-md-3 col-md-3">
-                                          <button onClick={e => setEditing(true)}
-                                                  className="btn btn-primary">
-                                              <FormattedMessage id="project.global.edit"/> <i
-                                              className="fas fa-pen"></i>
-                                          </button>
-                                          <button type="button" className="btn btn-danger ml-1"
-                                                  onClick={() => handleShow()}>
-                                              <FormattedMessage id="project.global.delete"/> <i
-                                              className="fas fa-trash"></i>
-                                          </button>
-                                          <Modal show={show} onHide={handleClose}>
-                                              <Modal.Header>
-                                                  <Modal.Title>Delete milking</Modal.Title>
-                                              </Modal.Header>
-                                              <Modal.Body>Are you sure to delete this milking?</Modal.Body>
-                                              <Modal.Footer>
-                                                  <Button variant="secondary" onClick={handleClose}>
-                                                      Cancel
-                                                  </Button>
-                                                  <Button variant="danger" onClick={() => handleDelete(milkingId)}>
-                                                      Delete
-                                                  </Button>
-                                              </Modal.Footer>
-                                          </Modal>
-                                      </div>
-                                  </>
-                              }
-                          </div>
-                      </form>
-                  </div>
-              </div>
-          </div>
-      </div>
+        <>
+            <Breadcrumb>
+                <Breadcrumb.Item href="/">Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item href="/milking/AllMilkings">Milkings list</Breadcrumb.Item>
+                <Breadcrumb.Item active>{milkingId}</Breadcrumb.Item>
+            </Breadcrumb>
+            <div className="row justify-content-center fade-in">
+                <div className="col-sm-7 col-12">
+                    <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
+                    <Success message={success} onClose={() => setSuccess(null)}></Success>
+                    <div className="card bg-light">
+                        <h5 className="card-header card-title-custom">
+                            <FormattedMessage id="project.milking.update"/>
+                        </h5>
+                        <div className="card-body">
+                            <form ref={node => form = node}
+                                  className="needs-validation" noValidate
+                                  onSubmit={e => handleSubmit(e)}>
+                                <div className="form-group row">
+                                    <label htmlFor="animal" className="col-md-3 col-form-label">
+                                        <FormattedMessage id="project.milking.animal"/>
+                                    </label>
+                                    <div className="col-md-7">
+                                        <p style={{marginTop: '8px'}}>
+                                            <Link className="link" to={`/animal/${animalSelected}`}>
+                                                {getAnimaLabel(animalSelected)}
+                                            </Link>
+                                        </p>
+                                        <div className="invalid-feedback">
+                                            <FormattedMessage id="project.global.validator.required"></FormattedMessage>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
+                                    <label htmlFor="liters" className="col-md-3 col-form-label">
+                                        <FormattedMessage id="project.milking.liters"></FormattedMessage>
+                                    </label>
+                                    <div className="col-md-6">
+                                        <input type="number" min="1"
+                                               value={liters}
+                                               required
+                                               disabled={!editing}
+                                               id="liters"
+                                               className="form-control"
+                                               onChange={e => setLiters(Number(e.target.value))}/>
+                                        <div className="invalid-feedback">
+                                            <FormattedMessage id="project.global.validator.required"></FormattedMessage>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
+                                    {editing &&
+                                        <div className="offset-md-3 col-md-3">
+                                            <button type="submit" className="btn btn-primary">
+                                                <FormattedMessage id="project.global.update"/>
+                                            </button>
+                                            <button onClick={e => {
+                                                setEditing(false);
+                                                cancelUpdate();
+                                            }}
+                                                    className="btn btn-danger ml-1">
+                                                <FormattedMessage id="project.global.buttons.cancel"/>
+                                            </button>
+                                        </div>
+                                    }
+                                    {!editing &&
+                                        <>
+                                            <div className="offset-md-3 col-md-3">
+                                                <button onClick={e => setEditing(true)}
+                                                        className="btn btn-primary">
+                                                    <FormattedMessage id="project.global.edit"/> <i
+                                                    className="fas fa-pen"></i>
+                                                </button>
+                                                <button type="button" className="btn btn-danger ml-1"
+                                                        onClick={() => handleShow()}>
+                                                    <FormattedMessage id="project.global.delete"/> <i
+                                                    className="fas fa-trash"></i>
+                                                </button>
+                                                <Modal show={show} onHide={handleClose}>
+                                                    <Modal.Header>
+                                                        <Modal.Title>Delete milking</Modal.Title>
+                                                    </Modal.Header>
+                                                    <Modal.Body>Are you sure to delete this milking?</Modal.Body>
+                                                    <Modal.Footer>
+                                                        <Button variant="secondary" onClick={handleClose}>
+                                                            Cancel
+                                                        </Button>
+                                                        <Button variant="danger"
+                                                                onClick={() => handleDelete(milkingId)}>
+                                                            Delete
+                                                        </Button>
+                                                    </Modal.Footer>
+                                                </Modal>
+                                            </div>
+                                        </>
+                                    }
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
     );
 }
 

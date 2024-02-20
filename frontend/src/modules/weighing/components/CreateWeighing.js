@@ -6,6 +6,7 @@ import {FormattedDate, FormattedMessage} from "react-intl";
 import {registerWeighing} from "../../../backend/weighingService";
 import {useDispatch} from "react-redux";
 import * as commonActions from "../../app/actions";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 
 const CreateWeighing = () => {
 
@@ -66,63 +67,70 @@ const CreateWeighing = () => {
     }
 
     return (
-        <div className="row justify-content-center fade-in">
-            <div className="col-sm-7 col-12">
-                <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
-                <Success message={success} onClose={() => setSuccess(null)}></Success>
-                <div className="card bg-light ">
-                    <h5 className="card-header card-title-custom">
-                        <FormattedMessage id="project.weighing.create"/>
-                    </h5>
-                    <div className="card-body">
-                        <form ref={node => form = node}
-                            className="needs-validation" noValidate
-                            onSubmit={event => handleSubmit(event)}>
-                            <div className="form-group row">
-                                <label htmlFor="animal" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.weighing.animal"/>
-                                </label>
-                                <div className="col-md-6">
-                                    <select id="animal" className="form-control" required
-                                        value={animalSelected}
-                                        onChange={e => setAnimalSelected(e.target.value)}>
-                                        {animals && animals.map(a =>
-                                        <option key={a.value} value={a.value}>{a.label}</option>
-                                        )}
-                                    </select>
-                                    <div className="invalid-feedback">
-                                        <FormattedMessage id="project.global.validator.required"/>
+        <>
+            <Breadcrumb>
+                <Breadcrumb.Item href="/">Dashboard</Breadcrumb.Item>
+                <Breadcrumb.Item href="/weighing/AllWeighings">Weighings list</Breadcrumb.Item>
+                <Breadcrumb.Item active>Register</Breadcrumb.Item>
+            </Breadcrumb>
+            <div className="row justify-content-center fade-in">
+                <div className="col-sm-7 col-12">
+                    <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
+                    <Success message={success} onClose={() => setSuccess(null)}></Success>
+                    <div className="card bg-light ">
+                        <h5 className="card-header card-title-custom">
+                            <FormattedMessage id="project.weighing.create"/>
+                        </h5>
+                        <div className="card-body">
+                            <form ref={node => form = node}
+                                  className="needs-validation" noValidate
+                                  onSubmit={event => handleSubmit(event)}>
+                                <div className="form-group row">
+                                    <label htmlFor="animal" className="col-md-3 col-form-label">
+                                        <FormattedMessage id="project.weighing.animal"/>
+                                    </label>
+                                    <div className="col-md-6">
+                                        <select id="animal" className="form-control" required
+                                                value={animalSelected}
+                                                onChange={e => setAnimalSelected(e.target.value)}>
+                                            {animals && animals.map(a =>
+                                                <option key={a.value} value={a.value}>{a.label}</option>
+                                            )}
+                                        </select>
+                                        <div className="invalid-feedback">
+                                            <FormattedMessage id="project.global.validator.required"/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="form-group row">
-                                <label htmlFor="kilos" className="col-md-3 col-form-label">
-                                    <FormattedMessage id="project.weighing.kilos"/>
-                                </label>
-                                <div className="col-md-6">
-                                    <input type="number" min="1"
-                                        value={kilos}
-                                        required
-                                        id="kilos"
-                                        className="form-control"
-                                        onChange={e => setKilos(Number(e.target.value))}/>
-                                    <div className="invalid-feedback">
-                                        <FormattedMessage id="project.global.validator.required"/>
+                                <div className="form-group row">
+                                    <label htmlFor="kilos" className="col-md-3 col-form-label">
+                                        <FormattedMessage id="project.weighing.kilos"/>
+                                    </label>
+                                    <div className="col-md-6">
+                                        <input type="number" min="1"
+                                               value={kilos}
+                                               required
+                                               id="kilos"
+                                               className="form-control"
+                                               onChange={e => setKilos(Number(e.target.value))}/>
+                                        <div className="invalid-feedback">
+                                            <FormattedMessage id="project.global.validator.required"/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="form-group row">
-                                <div className="offset-md-3 col-md-2">
-                                    <button type="submit" className="btn btn-primary">
-                                        <FormattedMessage id="project.global.buttons.create"/>
-                                    </button>
+                                <div className="form-group row">
+                                    <div className="offset-md-3 col-md-2">
+                                        <button type="submit" className="btn btn-primary">
+                                            <FormattedMessage id="project.global.buttons.create"/>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 
