@@ -3,9 +3,11 @@ import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import users from "../../users";
 import {GeneralFoodConsumption, StockHomeChart} from "../../charts";
+import {MyActiveIssues} from "../../issues";
 
 const Home = () => {
     const loggedIn = useSelector(users.selectors.isLoggedIn);
+    const role = useSelector(users.selectors.getRole);
 
     return (
         <div>
@@ -31,6 +33,9 @@ const Home = () => {
                 <div>
                     <div className="container">
                         <h1><b>Dashboard</b></h1>
+                        {role === "EMPLOYEE" &&
+                            <MyActiveIssues></MyActiveIssues>
+                        }
                         <StockHomeChart></StockHomeChart>
                         <GeneralFoodConsumption></GeneralFoodConsumption>
                     </div>

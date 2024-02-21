@@ -30,3 +30,11 @@ export const getAllIssues = ({page, issueName, startDate, endDate, isDone}, onSu
     appFetch(path, config('GET'),
         onSuccess, onErrors);
 }
+
+export const getMyActiveIssues = (onSuccess, onErrors) => {
+    appFetch('/issues/myActiveIssues', config('GET'), onSuccess, onErrors);
+}
+
+export const setIssueAsDone = (issueId, onSuccess, onErrors) => {
+    appFetch(`/issues/${issueId}/setAsDone`, config('PUT'), onSuccess, onErrors);
+}

@@ -60,6 +60,12 @@ public class IssueController {
         return toIssueDto(issueService.updateIssue(id, issueDto.getIssueName(), issueDto.getDescription(), issueDto.getDone()));
     }
 
+    @PutMapping("/{id}/setAsDone")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void setIssueAsDone(@RequestAttribute Long userId, @PathVariable Long id) throws InstanceNotFoundException {
+        issueService.setIssueAsDone(userId, id);
+    }
+
     @DeleteMapping("/{id}/deleteIssue")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteIssue(@RequestAttribute Long userId, @PathVariable Long id) throws InstanceNotFoundException, PermissionException{
@@ -80,5 +86,11 @@ public class IssueController {
         Block<Issue> issueBlock = issueService.getAllIssues(userId, issueName, startDate, endDate, isDone, page, size);
 
         return new BlockDto<>(toIssueDtos(issueBlock.getItems()) , issueBlock.getExistMoreItems());
+    }
+
+    @GetMapping("/myActiveIssues")
+    public List<IssueDto> findMyActiveIssues(@RequestAttribute Long userId) throws InstanceNotFoundException {
+        List<Issue> issues = issueService.myActiveIssues(userId);
+        return toIssueDtos(issues);
     }
 }

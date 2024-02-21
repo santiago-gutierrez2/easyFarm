@@ -21,4 +21,8 @@ public interface IssueService {
 
     Block<Issue> getAllIssues(Long userId, String issueName, String startDate, String endTime,
                               Boolean isDone, int page, int size) throws InstanceNotFoundException;
+
+    List<Issue> myActiveIssues(Long userId) throws InstanceNotFoundException;
+
+    void setIssueAsDone(Long userId, Long id) throws InstanceNotFoundException;
 }

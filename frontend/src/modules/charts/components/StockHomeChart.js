@@ -85,7 +85,7 @@ const StockHomeChart = () => {
     }
 
     return (
-        <div className="card card-chart">
+        <div className="card card-chart mt-3">
             <div className="row">
                 <div className="col-12 ml-4 mt-2 chart-title" onClick={e => setShowChart(!showChart)}>
                     {showChart &&

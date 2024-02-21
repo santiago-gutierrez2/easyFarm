@@ -111,4 +111,37 @@ public class IssueServiceImpl implements IssueService{
 
 
     }
+
+    @Override
+    public List<Issue> myActiveIssues(Long userId) throws InstanceNotFoundException {
+        Optional<User> optionalUser = userDao.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.user", userId);
+        }
+
+        User user = optionalUser.get();
+
+        return issueDao.findAllByAssignedToIdAndIsDoneFalse(user.getId());
+    }
+
+    @Override
+    public void setIssueAsDone(Long userId, Long id) throws InstanceNotFoundException {
+        Optional<User> optionalUser = userDao.findById(userId);
+        Optional<Issue> optionalIssue = issueDao.findById(id);
+
+        if (optionalUser.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.user", userId);
+        } else if (optionalIssue.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.issue", id);
+        }
+
+        Issue issue = optionalIssue.get();
+        issue.setIsDone(true);
+
+        issueDao.save(issue);
+
+    }
+
+
 }
