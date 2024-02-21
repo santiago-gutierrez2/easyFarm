@@ -74,7 +74,7 @@ const MyActiveIssues = () => {
                             </div>
                         }
                         {issues.length > 0 &&
-                            <div className="table-responsive">
+                            <div className="table-responsive custom-table">
                                 <table className="table">
                                     <thead className="thead-dark">
                                     <tr>
