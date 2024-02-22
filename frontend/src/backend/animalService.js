@@ -20,7 +20,7 @@ export const deleteAnimal = (animalId, onSuccess, onErrors) => {
         onSuccess, onErrors);
 }
 
-export const getAllAnimals = ({page, name, identificationNumber, startDate, endDate, isMale}, onSuccess, onErrors) => {
+export const getAllAnimals = ({page, name, identificationNumber, startDate, endDate, isMale, dead}, onSuccess, onErrors) => {
     let path = `/animal/allAnimals?page=${page}&size=5`;
 
     path += name?.length > 0 ? `&name=${encodeURIComponent(name)}` : "";
@@ -28,6 +28,7 @@ export const getAllAnimals = ({page, name, identificationNumber, startDate, endD
     path += startDate ? `&startDate=${encodeURIComponent(startDate.toISOString().substring(0,10))}` : "";
     path += endDate ? `&endDate=${encodeURIComponent(endDate.toISOString().substring(0,10))}` : "";
     path += isMale ? `&isMale=${encodeURIComponent(isMale)}` : "";
+    path += dead ? `&dead=${encodeURIComponent(dead)}` : "";
 
     appFetch(path, config('GET'), onSuccess, onErrors);
 }

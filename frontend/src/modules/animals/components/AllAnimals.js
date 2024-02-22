@@ -21,6 +21,7 @@ const AllAnimals = () => {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [isMale, setIsMale] = useState('');
+    const [dead, setDead] = useState('false');
     const animalsSearch = useSelector(selectors.getAnimalsSearch);
     const dispatch = useDispatch();
     const [backendErrors, setBackendErrors] = useState(null);
@@ -29,7 +30,7 @@ const AllAnimals = () => {
 
     useEffect(() => {
         if (isLoading) {
-            dispatch(actions.getAllAnimals({page: 0},
+            dispatch(actions.getAllAnimals({page: 0, dead: dead},
                 (result) => {
                     console.log(result);
                     setIsLoading(false);
@@ -49,7 +50,8 @@ const AllAnimals = () => {
             identificationNumber: identificationNumber,
             startDate: startDate != null ? startDate : null,
             endDate: endDate != null ? endDate : null,
-            isMale: isMale === "" ? null : isMale
+            isMale: isMale === "" ? null : isMale,
+            dead: dead === "" ? null : dead
         }
         dispatch(actions.getAllAnimals(criteria,
             (result) => {
@@ -82,16 +84,25 @@ const AllAnimals = () => {
             </Breadcrumb>
             <div className="container">
                 <div className="row mb-3">
-                    <div className="col-sm-4">
+                    <div className="col-sm-3">
                         <label className="col-form-label"><FormattedMessage id="project.animal.name"/>: </label>
                         <input type="text" placeholder="animal name" className="form-control" value={name}
                                onChange={e => setName(e.target.value)}/>
                     </div>
-                    <div className="col-sm-3">
+                    <div className="col-sm-2">
                         <label className="col-form-label"><FormattedMessage id="project.animal.identificationNumber"/>:
                         </label>
                         <input type="text" className="form-control" value={identificationNumber}
                                onChange={e => setIdentificationNumber(e.target.value)}/>
+                    </div>
+                    <div className="col-sm-2">
+                        <label className="col-form-label"><FormattedMessage id="project.issue.state"/>: </label>
+                        <select className="form-control" value={dead} onChange={e => setDead(e.target.value)}>
+                            <option key={0} value="">{/*<FormattedMessage id="project.global.all"/>*/}All</option>
+                            <option key={1} value="false">{/*<FormattedMessage id="project.issue.active"/>*/}Available
+                            </option>
+                            <option key={2} value="true">{/*<FormattedMessage id="project.issue.done" />*/}Unavailable</option>
+                        </select>
                     </div>
                     <div className="col-sm-3">
                         <label className="col-form-label"><FormattedMessage id="project.issues.creationDate"/>: </label>
@@ -118,6 +129,15 @@ const AllAnimals = () => {
                                 <div className="row">
                                     <div className="col-xl-10 col-7">
                                         <h3>{animal.identificationNumber}</h3>
+                                    </div>
+                                    <div className="col-xl-2 col-5 align-self-center">
+                                        <h3>
+                                            {animal.dead &&
+                                                <span className="badge badge-danger float-right">
+                                                        Unavailable
+                                                    </span>
+                                            }
+                                        </h3>
                                     </div>
                                 </div>
                             </div>

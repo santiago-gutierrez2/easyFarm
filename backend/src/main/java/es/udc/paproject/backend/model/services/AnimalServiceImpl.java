@@ -89,7 +89,7 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Override
     public Block<Animal> getAllAnimals(Long userId, String name, Long identificationNumber, String startDate, String endDate,
-       Boolean isMale, int page, int size) throws InstanceNotFoundException {
+       Boolean isMale, Boolean dead, int page, int size) throws InstanceNotFoundException {
 
         Optional<User> optionalUser = userDao.findById(userId);
 
@@ -101,8 +101,8 @@ public class AnimalServiceImpl implements AnimalService {
         Farm farm = user.getFarm();
 
         Slice<Animal> animalSlice;
-        if (name != null || identificationNumber != null || startDate != null || endDate != null || isMale != null) {
-            animalSlice = animalDao.find(farm.getId(), name, identificationNumber, startDate, endDate, isMale, page, size);
+        if (name != null || identificationNumber != null || startDate != null || endDate != null || isMale != null || dead != null) {
+            animalSlice = animalDao.find(farm.getId(), name, identificationNumber, startDate, endDate, isMale, dead, page, size);
         } else {
             animalSlice = animalDao.findByBelongsToIdOrderByBirthDateDesc(farm.getId(), PageRequest.of(page, size));
         }

@@ -68,9 +68,9 @@ public class AnimalController {
     @GetMapping("/allAnimals")
     public BlockDto<AnimalDto> getAllAnimals(@RequestAttribute Long userId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,
         @RequestParam(required = false) String name, @RequestParam(required = false) Long identificationNumber, @RequestParam(required = false) String startDate,
-        @RequestParam(required = false) String endDate, @RequestParam(required = false) Boolean isMale) throws InstanceNotFoundException {
+        @RequestParam(required = false) String endDate, @RequestParam(required = false) Boolean isMale, @RequestParam(required = false) Boolean dead) throws InstanceNotFoundException {
 
-        Block<Animal> animalBlock = animalService.getAllAnimals(userId, name, identificationNumber, startDate, endDate, isMale, page, size);
+        Block<Animal> animalBlock = animalService.getAllAnimals(userId, name, identificationNumber, startDate, endDate, isMale, dead, page, size);
 
         return new BlockDto<>(AnimalConversor.toAnimalDtos(animalBlock.getItems()), animalBlock.getExistMoreItems());
     }
