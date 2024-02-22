@@ -11,17 +11,19 @@ public class Weighing {
     private Integer kilos;
     private User madeBy;
     private Animal animalWeighed;
+    private Boolean production;
 
     // empty constructor
     public Weighing() {}
 
     // main constructor
 
-    public Weighing(Integer kilos, User madeBy, Animal animalWeighed) {
+    public Weighing(Integer kilos, User madeBy, Animal animalWeighed, Boolean production) {
         this.kilos = kilos;
         this.madeBy = madeBy;
         this.animalWeighed = animalWeighed;
         this.date = LocalDateTime.now().withNano(0);
+        this.production = production;
     }
 
     @Id
@@ -68,5 +70,14 @@ public class Weighing {
 
     public void setAnimalWeighed(Animal animalWeighed) {
         this.animalWeighed = animalWeighed;
+    }
+
+    @JoinColumn(name = "production")
+    public Boolean getProduction() {
+        return production;
+    }
+
+    public void setProduction(Boolean production) {
+        this.production = production;
     }
 }

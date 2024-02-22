@@ -33,7 +33,7 @@ public class WeighingServiceImpl implements WeighingService{
     }
 
     @Override
-    public void updateWeighing(Long id, Integer kilos) throws InstanceNotFoundException {
+    public void updateWeighing(Long id, Integer kilos, Boolean production) throws InstanceNotFoundException {
         Optional<Weighing> optionalWeighing = weighingDao.findById(id);
 
         if (optionalWeighing.isEmpty()) {
@@ -42,6 +42,7 @@ public class WeighingServiceImpl implements WeighingService{
 
         Weighing weighing = optionalWeighing.get();
         weighing.setKilos(kilos);
+        weighing.setProduction(production);
 
         weighingDao.save(weighing);
     }

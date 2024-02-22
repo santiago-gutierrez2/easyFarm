@@ -14,11 +14,11 @@ public class WeighingConversor {
 
     public final static WeighingDto toWeighingDto(Weighing weighing) {
         return new WeighingDto(weighing.getId(), toMillis(weighing.getDate()), weighing.getKilos(), weighing.getMadeBy().getId(),
-                weighing.getAnimalWeighed().getId());
+                weighing.getAnimalWeighed().getId(), weighing.getProduction());
     }
 
     public final static Weighing toWeighing(WeighingDto weighingDto) {
-        return new Weighing(weighingDto.getKilos(), null, null);
+        return new Weighing(weighingDto.getKilos(), null, null, weighingDto.getProduction());
     }
 
     public final static List<WeighingDto> toWeighingDtos(List<Weighing> weighings) {

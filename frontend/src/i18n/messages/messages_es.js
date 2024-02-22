@@ -109,6 +109,7 @@ export default {
     'project.weighing.kilosRange': 'Rango de peso (kg)',
     'project.weighing.weighingNotFound': 'Weighings not found',
     'project.weighing.List': 'Listado de pesajes',
+    'project.weighing.production': 'Will this weighing will be considered in general farm stats?',
 
     'project.milking.title': 'Ordeños',
     'project.milking.create': 'Registrar nuevo ordeño',

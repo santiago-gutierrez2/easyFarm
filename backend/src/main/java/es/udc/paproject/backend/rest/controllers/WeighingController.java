@@ -55,7 +55,7 @@ public class WeighingController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateWeighing(@RequestAttribute Long userId, @PathVariable Long id,
                        @Validated({WeighingDto.UpdateWeighingValidation.class}) @RequestBody WeighingDto weighingDto) throws InstanceNotFoundException {
-        weighingService.updateWeighing(id, weighingDto.getKilos());
+        weighingService.updateWeighing(id, weighingDto.getKilos(), weighingDto.getProduction());
     }
 
     @DeleteMapping("/{id}")

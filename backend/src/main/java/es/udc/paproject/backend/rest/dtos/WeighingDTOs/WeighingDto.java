@@ -11,13 +11,15 @@ public class WeighingDto {
     private Integer Kilos;
     private Long madeBy;
     private Long animalWeighed;
+    private Boolean production;
 
-    public WeighingDto(Long id, Long date, Integer kilos, Long madeBy, Long animalWeighed) {
+    public WeighingDto(Long id, Long date, Integer kilos, Long madeBy, Long animalWeighed, Boolean production) {
         this.id = id;
         this.date = date;
         Kilos = kilos;
         this.madeBy = madeBy;
         this.animalWeighed = animalWeighed;
+        this.production = production;
     }
 
     public Long getId() {
@@ -60,5 +62,13 @@ public class WeighingDto {
 
     public void setAnimalWeighed(Long animalWeighed) {
         this.animalWeighed = animalWeighed;
+    }
+
+    public Boolean getProduction() {
+        return production;
+    }
+
+    public void setProduction(Boolean production) {
+        this.production = production;
     }
 }

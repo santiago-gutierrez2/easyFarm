@@ -12,7 +12,7 @@ public interface WeighingService {
 
     void createWeighing(Weighing weighing) throws InstanceNotFoundException;
 
-    void updateWeighing(Long id, Integer kilos) throws InstanceNotFoundException;
+    void updateWeighing(Long id, Integer kilos, Boolean production) throws InstanceNotFoundException;
 
     void deleteWeighing(Long userId, Long id) throws InstanceNotFoundException, PermissionException;
 

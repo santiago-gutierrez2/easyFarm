@@ -20,6 +20,7 @@ const UpdateWeighing = () => {
     const [animalSelected, setAnimalSelected] = useState('');
     const [animals, setAnimals] = useState([]);
     const [kilos, setKilos] = useState(1);
+    const [production, setProduction] = useState(true);
     const [backendErrors, setBackendErrors] = useState(null);
     const [success, setSuccess] = useState(null);
     const [show, setShow] = useState(false);
@@ -38,6 +39,7 @@ const UpdateWeighing = () => {
             getWeighingById(id, (weighing) => {
                 setWeighing(weighing);
                 setKilos(weighing.kilos);
+                setProduction(weighing.production);
                 setAnimalSelected(weighing.animalWeighed);
                 // reset backend errors and is loading
                 setBackendErrors(null);
@@ -78,12 +80,15 @@ const UpdateWeighing = () => {
         if (form.checkValidity()) {
             let weighingDTO = {
                 kilos: kilos,
-                animalWeighed: Number.parseInt(animalSelected)
+                animalWeighed: Number.parseInt(animalSelected),
+                production: production
             }
+            console.log(weighingDTO);
             updateWeighing(Number(weighingId), weighingDTO,
                 () => {
                     var newWeighing = {...weighing};
                     newWeighing.kilos = kilos;
+                    newWeighing.production = production;
                     setWeighing(newWeighing);
                     setSuccess('Weighing updated Correctly');
                     setEditing(false);
@@ -167,6 +172,16 @@ const UpdateWeighing = () => {
                                         <div className="invalid-feedback">
                                             <FormattedMessage id="project.global.validator.required"/>
                                         </div>
+                                    </div>
+                                </div>
+                                <div className="form-group row" style={{overflowY: 'scroll'}}>
+                                    <label htmlFor="production" className="col-md-3 col-form-label">
+                                        <FormattedMessage id="project.weighing.production"/>
+                                    </label>
+                                    <div className="col-md-6">
+                                        <input type="checkbox" defaultChecked={production} disabled={!editing}
+                                               onChange={() => setProduction(!production)}
+                                               className="form-check-input custom-check-box" id="production"/>
                                     </div>
                                 </div>
                                 <div className="form-group row">

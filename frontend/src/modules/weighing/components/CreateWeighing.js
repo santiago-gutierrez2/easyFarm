@@ -11,6 +11,7 @@ import Breadcrumb from "react-bootstrap/Breadcrumb";
 const CreateWeighing = () => {
 
     const [kilos, setKilos] = useState(1);
+    const [production, setProduction] = useState(true);
     const [animals, setAnimals] = useState([]);
     const [animalSelected, setAnimalSelected] = useState('');
     const [isLoading, setIsLoading] = useState(true);
@@ -43,7 +44,8 @@ const CreateWeighing = () => {
         if (form.checkValidity()) {
             let weighing = {
                 kilos: kilos,
-                animalWeighed: Number.parseInt(animalSelected)
+                animalWeighed: Number.parseInt(animalSelected),
+                production: production
             }
             registerWeighing(weighing, () => {
                 setSuccess('Weighing created correctly');
@@ -116,6 +118,16 @@ const CreateWeighing = () => {
                                         <div className="invalid-feedback">
                                             <FormattedMessage id="project.global.validator.required"/>
                                         </div>
+                                    </div>
+                                </div>
+                                <div className="form-group row" style={{overflowY: 'scroll'}}>
+                                    <label htmlFor="production" className="col-md-3 col-form-label">
+                                        <FormattedMessage id="project.weighing.production"/>
+                                    </label>
+                                    <div className="col-md-6">
+                                        <input type="checkbox" defaultChecked={production}
+                                               onChange={() => setProduction(!production)}
+                                                className="form-check-input custom-check-box" id="production"/>
                                     </div>
                                 </div>
                                 <div className="form-group row">

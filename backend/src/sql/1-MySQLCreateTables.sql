@@ -86,6 +86,7 @@ CREATE TABLE Weighing (
     date DATETIME NOT NULL,
     kilos INTEGER NOT NULL,
     madeBy BIGINT NOT NULL,
+    production BOOLEAN DEFAULT TRUE,
     animalWeighed BIGINT NOT NULL,
     CONSTRAINT WeighingPK PRIMARY KEY (id),
     CONSTRAINT WeighingMadeByFK FOREIGN KEY (madeBy) REFERENCES User(id) ON DELETE CASCADE,

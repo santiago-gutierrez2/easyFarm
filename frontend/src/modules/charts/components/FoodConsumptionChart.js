@@ -8,9 +8,7 @@ import {getFoodConsumptionChartData} from "../../../backend/foodConsumptionServi
 const FoodConsumptionChart = () => {
 
     const {foodPurchaseId} = useParams();
-    const [foodConsumptionChartDtos, setFoodConsumptionChartDtos] = useState([]);
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+    const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [backendErrors, setBackendErrors] = useState(null);
 
@@ -66,6 +64,7 @@ const FoodConsumptionChart = () => {
             // get chartData
             getFoodConsumptionChartData(id, (chartData) => {
                 console.log(chartData);
+                setData(chartData);
                 let data = {
                     data: [],
                     type: 'line',
@@ -108,7 +107,18 @@ const FoodConsumptionChart = () => {
                   <h4><b>Chart of consumption</b></h4>
               </div>
           </div>
-          <ReactEcharts option={option} lazyUpdate={true}/>
+          {data.length > 0 &&
+              <ReactEcharts option={option} lazyUpdate={true}/>
+          }
+          {data.length === 0 &&
+              <div className="row justify-content-center">
+                  <div className="col-11">
+                      <div className="alert alert-primary" role="alert">
+                          This batch doesn't have consumptions
+                      </div>
+                  </div>
+              </div>
+          }
       </div>
     );
 
