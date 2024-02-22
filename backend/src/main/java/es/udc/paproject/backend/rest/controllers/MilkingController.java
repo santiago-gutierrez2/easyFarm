@@ -84,4 +84,9 @@ public class MilkingController {
     public List<MilkingChartDto> getAllMilkingByAnimalId(@RequestAttribute Long userId, @PathVariable Long id) throws InstanceNotFoundException {
         return milkingService.findMilkingByAnimalMilkedId(userId, id);
     }
+
+    @GetMapping("/generalMilkingChart")
+    public List<MilkingChartDto> getGenerelMilkingProductionChart(@RequestAttribute Long userId) throws InstanceNotFoundException {
+        return milkingService.getGeneralMilkProduction(userId);
+    }
  }

@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
-import {getGeneralConsumptionChart} from "../../../backend/foodConsumptionService";
+import {getGeneralMilkingChart} from "../../../backend/milkingService";
 import {MoonLoader} from "react-spinners";
 import ReactEcharts from "echarts-for-react";
 
-const GeneralFoodConsumption = () => {
+
+const GeneralMilkProductionChart = () => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [backendErrors, setBackendErrors] = useState(null);
@@ -14,13 +15,13 @@ const GeneralFoodConsumption = () => {
             axisPointer: {
                 type: 'shadow'
             },
-            valueFormatter: (value) => value + ' kg'
+            valueFormatter: (value) => value + ' liters'
         },
         title: {
             text: '',
             left: 'center',
             textStyle: {
-                fontSize: 12,
+                fontSize: 12
             }
         },
         toolbox: {
@@ -47,17 +48,16 @@ const GeneralFoodConsumption = () => {
         yAxis: {
             type: 'value',
             axisLabel: {
-                formatter: '{value} kg'
+                formatter: '{value} liters'
             }
         },
         series: []
-    };
+    }
     const [option, setOption] = useState(optionDefault);
 
     useEffect(() => {
-        if(isLoading) {
-            // get chart data
-            getGeneralConsumptionChart((chartData) => {
+        if (isLoading) {
+            getGeneralMilkingChart((chartData) => {
                 console.log(chartData);
                 let data = {
                     data: [],
@@ -70,14 +70,14 @@ const GeneralFoodConsumption = () => {
                         color: '#00B63E'
                     }
                 }
-                let sumKilos = 0;
+                let sumLiters = 0;
                 chartData.forEach((dto) => {
-                    sumKilos += dto.kilos;
-                    data.data.push(dto.kilos);
-                    optionDefault.xAxis.data.push(dto.consumptionDate);
+                    sumLiters += dto.liters;
+                    data.data.push(dto.liters);
+                    optionDefault.xAxis.data.push(dto.date);
                 });
                 optionDefault.series.push(data);
-                optionDefault.title.text = `Average daily consumption: ${(sumKilos/chartData.length).toFixed(2)} kg`;
+                optionDefault.title.text = `Average daily milk production: ${(sumLiters/chartData.length).toFixed(2)} liters`
                 setOption(optionDefault);
                 setIsLoading(false);
             }, errors => {
@@ -98,22 +98,22 @@ const GeneralFoodConsumption = () => {
     }
 
     return (
-      <div className="card card-chart mt-3">
-          <div className="row">
-              <div className="col-12 ml-4 mt-2 chart-title" onClick={e => setShowChart(!showChart)}>
-                  {showChart &&
-                      <h4><b>Daily food consumption <i className="fas fa-caret-up"></i></b></h4>
-                  }
-                  {!showChart &&
-                      <h4><b>Daily food consumption <i className="fas fa-caret-down"></i></b></h4>
-                  }
-              </div>
-          </div>
-          {showChart &&
-              <ReactEcharts option={option} lazyUpdate={true}/>
-          }
-      </div>
+        <div className="card card-chart mt-3">
+            <div className="row">
+                <div className="col-12 ml-4 mt-2 chart-title" onClick={e => setShowChart(!showChart)}>
+                    {showChart &&
+                        <h4><b>Milk production <i className="fas fa-caret-up"></i></b></h4>
+                    }
+                    {!showChart &&
+                        <h4><b>Milk production <i className="fas fa-caret-down"></i></b></h4>
+                    }
+                </div>
+            </div>
+            {showChart &&
+                <ReactEcharts option={option} lazyUpdate={true}/>
+            }
+        </div>
     );
 }
 
-export default GeneralFoodConsumption;
+export default GeneralMilkProductionChart;

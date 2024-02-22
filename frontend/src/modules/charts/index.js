@@ -5,3 +5,4 @@ export {default as AnimalFoodConsumptionChart} from './components/AnimalFoodCons
 export {default as AnimalWeighingChart} from './components/AnimalWeighingChart';
 export {default as AnimalMilkingChart} from './components/AnimalMilkingChart';
 export {default as GeneralFoodConsumption} from './components/GeneralFoodConsumption';
+export {default as GeneralMilkProductionChart} from './components/GeneralMilkProductionChart';

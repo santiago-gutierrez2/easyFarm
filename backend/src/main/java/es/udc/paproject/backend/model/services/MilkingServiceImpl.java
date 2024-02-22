@@ -109,4 +109,18 @@ public class MilkingServiceImpl implements MilkingService{
 
         return milkingDao.findMilkingByAnimalMilkedId(animalId);
     }
+
+    @Override
+    public List<MilkingChartDto> getGeneralMilkProduction(Long userId) throws InstanceNotFoundException {
+        Optional<User> optionalUser = userDao.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.user", userId);
+        }
+
+        User user = optionalUser.get();
+        Farm farm = user.getFarm();
+
+        return milkingDao.getGeneralMilkProduction(farm.getId());
+    }
 }

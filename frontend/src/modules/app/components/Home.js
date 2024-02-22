@@ -2,7 +2,7 @@ import {FormattedMessage} from 'react-intl';
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import users from "../../users";
-import {GeneralFoodConsumption, StockHomeChart} from "../../charts";
+import {GeneralFoodConsumption, GeneralMilkProductionChart, StockHomeChart} from "../../charts";
 import {MyActiveIssues} from "../../issues";
 
 const Home = () => {
@@ -38,6 +38,7 @@ const Home = () => {
                         }
                         <StockHomeChart></StockHomeChart>
                         <GeneralFoodConsumption></GeneralFoodConsumption>
+                        <GeneralMilkProductionChart></GeneralMilkProductionChart>
                     </div>
                 </div>
             }

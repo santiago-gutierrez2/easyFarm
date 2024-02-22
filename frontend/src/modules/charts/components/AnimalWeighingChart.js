@@ -8,6 +8,7 @@ import {getAllWeighingsByAnimalId} from "../../../backend/weighingService";
 const AnimalWeighingChart = () => {
 
     const {animalId} = useParams();
+    const [data, setData] = useState([]);
     const [showChart, setShowChart] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
     const [backendErrors, setBackendErrors] = useState(null);
@@ -67,6 +68,7 @@ const AnimalWeighingChart = () => {
             // get chartData
             getAllWeighingsByAnimalId(id, (weighinDtos) => {
                 console.log(weighinDtos);
+                setData(weighinDtos);
                 let data = {
                     data: [],
                     type: 'line',
@@ -115,8 +117,17 @@ const AnimalWeighingChart = () => {
                     }
                 </div>
             </div>
-            {showChart &&
+            {showChart && data.length > 0 &&
                 <ReactEcharts option={option} lazyUpdate={true}/>
+            }
+            {showChart && data.length === 0 &&
+                <div className="row justify-content-center">
+                    <div className="col-11">
+                        <div className="alert alert-primary" role="alert">
+                            This animal doesn't have weighings
+                        </div>
+                    </div>
+                </div>
             }
         </div>
     );

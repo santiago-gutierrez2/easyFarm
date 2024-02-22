@@ -31,3 +31,7 @@ export const getAllMilkings = ({page, animalId, startLiters, endLiters, startDat
 export const getAllMilkingByAnimalId = (animalId, onSuccess, onErrors) => {
     appFetch(`/milking/allMilkingByAnimalId/${animalId}`, config('GET'), onSuccess, onErrors);
 }
+
+export const getGeneralMilkingChart = (onSuccess, onErrors) => {
+    appFetch('/milking/generalMilkingChart', config('GET'), onSuccess, onErrors);
+}

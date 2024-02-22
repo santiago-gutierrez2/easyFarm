@@ -22,4 +22,6 @@ public interface MilkingService {
                                   int page, int size) throws InstanceNotFoundException;
 
     List<MilkingChartDto> findMilkingByAnimalMilkedId(Long userId, Long animalId) throws InstanceNotFoundException;
+
+    List<MilkingChartDto> getGeneralMilkProduction(Long userId) throws InstanceNotFoundException;
 }

@@ -19,4 +19,12 @@ public interface MilkingDao extends PagingAndSortingRepository<Milking, Long>, C
             "where m.animalMilked.id = :animalId " +
             "group by DATE_FORMAT(m.date, '%Y-%m-%d'), m.animalMilked ")
     List<MilkingChartDto> findMilkingByAnimalMilkedId(Long animalId);
+
+    @Query("SELECT new es.udc.paproject.backend.rest.dtos.MilkingDTOs.MilkingChartDto(SUM(m.liters), DATE_FORMAT(m.date, '%Y-%m-%d'), f.id) " +
+            "FROM Milking m " +
+            "Left join Animal a on a.id = m.animalMilked.id " +
+            "Left join Farm f on f.id = a.belongsTo.id " +
+            "Where f.id = :farmId " +
+            "group by DATE_FORMAT(m.date, '%Y-%m-%d'), f.id ")
+    List<MilkingChartDto> getGeneralMilkProduction(Long farmId);
 }

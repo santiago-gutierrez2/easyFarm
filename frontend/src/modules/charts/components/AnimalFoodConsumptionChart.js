@@ -8,6 +8,7 @@ import ReactEcharts from "echarts-for-react";
 const AnimalFoodConsumptionChart = () => {
 
     const {animalId} = useParams();
+    const [data, setData] = useState([]);
     const [showChart, setShowChart] = useState(true);
     const [isLoading, setIsLoading] = useState(true);
     const [backendErrors, setBackendErrors] = useState(null);
@@ -71,6 +72,7 @@ const AnimalFoodConsumptionChart = () => {
             // get chartData
             getAnimalFoodConsumptionChartData(id, (chartData) => {
                 console.log(chartData);
+                setData(chartData);
                 let data = {
                     data: [],
                     type: 'line',
@@ -121,8 +123,17 @@ const AnimalFoodConsumptionChart = () => {
                     }
                 </div>
             </div>
-            {showChart &&
+            {showChart && data.length > 0 &&
                 <ReactEcharts option={option} lazyUpdate={true}/>
+            }
+            {showChart && data.length === 0 &&
+                <div className="row justify-content-center">
+                    <div className="col-11">
+                        <div className="alert alert-primary" role="alert">
+                            This animal doesn't have food consumptions
+                        </div>
+                    </div>
+                </div>
             }
         </div>
     );
