@@ -50,7 +50,7 @@ public class CustomizedIssueDaoImpl implements CustomizedIssueDao{
             if (tokens.length > 0) {
                 queryString += "AND ";
             }
-            queryString += "i.creationDate > :startDate ";
+            queryString += "i.creationDate >= :startDate ";
         }
 
         // endTime
@@ -58,7 +58,7 @@ public class CustomizedIssueDaoImpl implements CustomizedIssueDao{
             if (tokens.length > 0 || startDate != null) {
                 queryString += " AND ";
             }
-            queryString += "i.creationDate < :endDate ";
+            queryString += "i.creationDate <= :endDate ";
         }
 
         // isDone
@@ -85,6 +85,7 @@ public class CustomizedIssueDaoImpl implements CustomizedIssueDao{
             //query.setParameter("startTime", startTime.toString().substring(0,10));
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime sd = LocalDateTime.parse(startDate + " 23:59:59", formatter);
+            sd = sd.plusDays(1);
             query.setParameter("startDate", sd);
         }
 
@@ -92,6 +93,7 @@ public class CustomizedIssueDaoImpl implements CustomizedIssueDao{
         if (endDate != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime ed = LocalDateTime.parse(endDate + " 23:59:59", formatter);
+            ed = ed.plusDays(1);
             query.setParameter("endDate", ed);
         }
 

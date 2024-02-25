@@ -56,7 +56,7 @@ public class CustomizedAnimalDaoImpl implements CustomizedAnimalDao{
             if (tokensName.length > 0 || identificationNumber != null) {
                 queryString += " AND ";
             }
-            queryString += "a.birthDate > :startDate ";
+            queryString += "a.birthDate >= :startDate ";
         }
 
         // endDate
@@ -64,7 +64,7 @@ public class CustomizedAnimalDaoImpl implements CustomizedAnimalDao{
             if (tokensName.length > 0 || identificationNumber != null || startDate != null) {
                 queryString += " AND ";
             }
-            queryString += "a.birthDate < :endDate ";
+            queryString += "a.birthDate <= :endDate ";
         }
 
         // isMale
@@ -102,6 +102,7 @@ public class CustomizedAnimalDaoImpl implements CustomizedAnimalDao{
         if (startDate != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime sd = LocalDateTime.parse(startDate + " 00:00:01", formatter);
+            sd = sd.plusDays(1);
             query.setParameter("startDate", sd);
         }
 
@@ -109,6 +110,7 @@ public class CustomizedAnimalDaoImpl implements CustomizedAnimalDao{
         if (endDate != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime ed = LocalDateTime.parse(endDate + " 23:59:59", formatter);
+            ed = ed.plusDays(1);
             query.setParameter("endDate", ed);
         }
 

@@ -53,7 +53,7 @@ public class CustomizedMilkingDaoImpl implements CustomizedMilkingDao{
             if (animalId != null || startLiters != null || endLiters != null) {
                 queryString += " AND ";
             }
-            queryString += "m.date > :startDate ";
+            queryString += "m.date >= :startDate ";
         }
 
         // endDate
@@ -61,7 +61,7 @@ public class CustomizedMilkingDaoImpl implements CustomizedMilkingDao{
             if (animalId != null || startLiters != null || endLiters != null || startDate != null) {
                 queryString += " AND ";
             }
-            queryString += "m.date < :endDate ";
+            queryString += "m.date <= :endDate ";
         }
 
         queryString += " ORDER BY m.date DESC";
@@ -86,6 +86,7 @@ public class CustomizedMilkingDaoImpl implements CustomizedMilkingDao{
         if (startDate != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime sd = LocalDateTime.parse(startDate + " 00:00:01", formatter);
+            sd = sd.plusDays(1);
             query.setParameter("startDate", sd);
         }
 
@@ -93,6 +94,7 @@ public class CustomizedMilkingDaoImpl implements CustomizedMilkingDao{
         if (endDate != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime ed = LocalDateTime.parse(endDate + " 23:59:59", formatter);
+            ed = ed.plusDays(1);
             query.setParameter("endDate", ed);
         }
 

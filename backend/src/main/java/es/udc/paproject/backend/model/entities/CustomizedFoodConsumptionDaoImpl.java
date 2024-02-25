@@ -45,7 +45,7 @@ public class CustomizedFoodConsumptionDaoImpl implements CustomizedFoodConsumpti
             if ((animalId != null && !animalId.isEmpty()) || foodBatchId != null) {
                 queryString += " AND ";
             }
-            queryString += "f.date > :startDate ";
+            queryString += "f.date >= :startDate ";
         }
 
         // endDate
@@ -53,7 +53,7 @@ public class CustomizedFoodConsumptionDaoImpl implements CustomizedFoodConsumpti
             if ((animalId != null && !animalId.isEmpty()) || foodBatchId != null || startDate != null) {
                 queryString += " AND ";
             }
-            queryString += "f.date < :endDate ";
+            queryString += "f.date <= :endDate ";
         }
 
         queryString += " ORDER BY f.date DESC";
@@ -73,6 +73,7 @@ public class CustomizedFoodConsumptionDaoImpl implements CustomizedFoodConsumpti
         if (startDate != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime sd = LocalDateTime.parse(startDate + " 00:00:01", formatter);
+            sd = sd.plusDays(1);
             query.setParameter("startDate", sd);
         }
 
@@ -80,6 +81,7 @@ public class CustomizedFoodConsumptionDaoImpl implements CustomizedFoodConsumpti
         if (endDate != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime ed = LocalDateTime.parse(endDate + " 23:59:59", formatter);
+            ed = ed.plusDays(1);
             query.setParameter("endDate", ed);
         }
 

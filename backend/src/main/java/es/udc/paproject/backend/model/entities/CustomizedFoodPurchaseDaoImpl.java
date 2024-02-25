@@ -65,7 +65,7 @@ public class CustomizedFoodPurchaseDaoImpl implements CustomizedFoodPurchaseDao 
                 queryString += "AND ";
             }
 
-            queryString += "f.purchaseDate > :startDate ";
+            queryString += "f.purchaseDate >= :startDate ";
         }
 
         // endDate
@@ -74,7 +74,7 @@ public class CustomizedFoodPurchaseDaoImpl implements CustomizedFoodPurchaseDao 
                 queryString += "AND ";
             }
 
-            queryString += "f.purchaseDate < :endDate ";
+            queryString += "f.purchaseDate <= :endDate ";
         }
 
         queryString += " ORDER BY f.purchaseDate DESC";
@@ -99,6 +99,7 @@ public class CustomizedFoodPurchaseDaoImpl implements CustomizedFoodPurchaseDao 
         if (startDate != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime sd = LocalDateTime.parse(startDate + " 23:59:59", formatter);
+            sd = sd.plusDays(1);
             query.setParameter("startDate", sd);
         }
 
@@ -106,6 +107,7 @@ public class CustomizedFoodPurchaseDaoImpl implements CustomizedFoodPurchaseDao 
         if (endDate != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime ed = LocalDateTime.parse(endDate + " 23:59:59", formatter);
+            ed = ed.plusDays(1);
             query.setParameter("endDate", ed);
         }
 

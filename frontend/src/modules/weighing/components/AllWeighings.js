@@ -137,7 +137,20 @@ const AllWeighings = () => {
                     return (
                         <div key={weighing.id} className="card mt-2 bg-light">
                             <div className="card-header container card-title-custom">
-                                <h3>{getAnimalNameAndCode(weighing.animalWeighed)}</h3>
+                                <div className="row">
+                                    <div className="col-xl-10 col-7">
+                                        <h3>{getAnimalNameAndCode(weighing.animalWeighed)}</h3>
+                                    </div>
+                                    <div className="col-xl-2 col-5 align-self-center">
+                                        <h3>
+                                            {weighing.production &&
+                                                <span className="badge badge-info float-right">
+                                                    Meat production
+                                                </span>
+                                            }
+                                        </h3>
+                                    </div>
+                                </div>
                             </div>
                             <div className="card-body">
                                 <p className="card-text"><FormattedMessage

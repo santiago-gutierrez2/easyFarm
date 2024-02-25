@@ -36,7 +36,7 @@ public class CustomizedWeighingDaoImpl implements CustomizedWeighingDao{
             if (animalId != null) {
                 queryString += " AND ";
             }
-            queryString += "w.kilos > :startKilos ";
+            queryString += "w.kilos >= :startKilos ";
         }
 
         // endKilos
@@ -44,7 +44,7 @@ public class CustomizedWeighingDaoImpl implements CustomizedWeighingDao{
             if (animalId != null || startKilos != null) {
                 queryString += " AND ";
             }
-            queryString += "w.kilos < :endKilos ";
+            queryString += "w.kilos <= :endKilos ";
         }
 
         // startDate
@@ -52,7 +52,7 @@ public class CustomizedWeighingDaoImpl implements CustomizedWeighingDao{
             if (animalId != null || startKilos != null || endKilos != null) {
                 queryString += " AND ";
             }
-            queryString += "w.date > :startDate ";
+            queryString += "w.date >= :startDate ";
         }
 
         // endDate
@@ -60,7 +60,7 @@ public class CustomizedWeighingDaoImpl implements CustomizedWeighingDao{
             if (animalId != null || startKilos != null || endKilos != null || startDate != null) {
                 queryString += " AND ";
             }
-            queryString += "w.date < :endDate ";
+            queryString += "w.date <= :endDate ";
         }
 
         queryString += " ORDER BY w.date DESC";
@@ -85,6 +85,7 @@ public class CustomizedWeighingDaoImpl implements CustomizedWeighingDao{
         if (startDate != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime sd = LocalDateTime.parse(startDate + " 00:00:01", formatter);
+            sd = sd.plusDays(1);
             query.setParameter("startDate", sd);
         }
 
@@ -92,6 +93,7 @@ public class CustomizedWeighingDaoImpl implements CustomizedWeighingDao{
         if (endDate != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             LocalDateTime ed = LocalDateTime.parse(endDate + " 23:59:59", formatter);
+            ed = ed.plusDays(1);
             query.setParameter("endDate", ed);
         }
 
