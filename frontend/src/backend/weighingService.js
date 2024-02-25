@@ -31,3 +31,7 @@ export const getAllWeighing = ({page, animalId, startKilos, endKilos, startDate,
 export const getAllWeighingsByAnimalId = (animalId, onSuccess, onErrors) => {
     appFetch(`/weighing/allWeighingByAnimalId/${animalId}`, config('GET'), onSuccess, onErrors);
 }
+
+export const getMeatProductionEvolution = (onSuccess, onErrors) => {
+    appFetch('/weighing/meatProductionEvolution', config('GET'), onSuccess, onErrors);
+}

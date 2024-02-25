@@ -11,6 +11,7 @@ import es.udc.paproject.backend.model.services.Block;
 import es.udc.paproject.backend.model.services.UserService;
 import es.udc.paproject.backend.model.services.WeighingService;
 import es.udc.paproject.backend.rest.dtos.BlockDto;
+import es.udc.paproject.backend.rest.dtos.WeighingDTOs.WeighingChartDto;
 import es.udc.paproject.backend.rest.dtos.WeighingDTOs.WeighingConversor;
 import es.udc.paproject.backend.rest.dtos.WeighingDTOs.WeighingDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,5 +84,10 @@ public class WeighingController {
     @GetMapping("/allWeighingByAnimalId/{id}")
     public List<WeighingDto> getAllWeighingByAnimalId(@RequestAttribute Long userId, @PathVariable Long id) throws InstanceNotFoundException {
         return weighingService.getAllWeighingByAnimalId(userId, id);
+    }
+
+    @GetMapping("/meatProductionEvolution")
+    public List<WeighingChartDto> getChartOfMeatProductionEvolution(@RequestAttribute Long userId) throws InstanceNotFoundException {
+        return weighingService.getFarmMeatProductionEvolution(userId);
     }
 }

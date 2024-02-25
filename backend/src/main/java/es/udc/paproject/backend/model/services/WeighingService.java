@@ -3,6 +3,7 @@ package es.udc.paproject.backend.model.services;
 import es.udc.paproject.backend.model.entities.Weighing;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.exceptions.PermissionException;
+import es.udc.paproject.backend.rest.dtos.WeighingDTOs.WeighingChartDto;
 import es.udc.paproject.backend.rest.dtos.WeighingDTOs.WeighingDto;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -22,4 +23,6 @@ public interface WeighingService {
             int page, int size) throws InstanceNotFoundException;
 
     List<WeighingDto> getAllWeighingByAnimalId(Long userId, Long animalId) throws InstanceNotFoundException;
+
+    List<WeighingChartDto> getFarmMeatProductionEvolution(Long userId) throws InstanceNotFoundException;
 }

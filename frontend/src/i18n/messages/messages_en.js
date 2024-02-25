@@ -114,7 +114,7 @@ export default {
     'project.weighing.kilosRange': 'Weight range (kg)',
     'project.weighing.weighingNotFound': 'Weighings not found',
     'project.weighing.List': 'List of weighings',
-    'project.weighing.production': 'Will this weighing will be considered in general farm stats?',
+    'project.weighing.production': 'Do you want this weighing to be used in meat production stats?',
 
     'project.milking.title': 'Milkings',
     'project.milking.create': 'Register new milking',

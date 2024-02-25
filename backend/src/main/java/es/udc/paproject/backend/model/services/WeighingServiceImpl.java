@@ -3,6 +3,7 @@ package es.udc.paproject.backend.model.services;
 import es.udc.paproject.backend.model.entities.*;
 import es.udc.paproject.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.paproject.backend.model.exceptions.PermissionException;
+import es.udc.paproject.backend.rest.dtos.WeighingDTOs.WeighingChartDto;
 import es.udc.paproject.backend.rest.dtos.WeighingDTOs.WeighingConversor;
 import es.udc.paproject.backend.rest.dtos.WeighingDTOs.WeighingDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,5 +112,19 @@ public class WeighingServiceImpl implements WeighingService{
         List<Weighing> weighingsList = weighingDao.findWeighingByAnimalWeighedId(animalId);
 
         return weighingsList.stream().map(WeighingConversor::toWeighingDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<WeighingChartDto> getFarmMeatProductionEvolution(Long userId) throws InstanceNotFoundException {
+        Optional<User> optionalUser = userDao.findById(userId);
+
+        if (optionalUser.isEmpty()) {
+            throw new InstanceNotFoundException("project.entities.user", userId);
+        }
+
+        User user = optionalUser.get();
+        Farm farm = user.getFarm();
+
+        return weighingDao.getFarmMeatProductionEvolution(farm.getId());
     }
 }
