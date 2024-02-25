@@ -19,6 +19,7 @@ const AllWeighings = () => {
     const [endKilos, setEndKilos] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const [production, setProduction] = useState('');
     const [animalsOptions, setAnimalsOptions] = useState([]);
     const weighingsSearch = useSelector(selectors.getWeighingsSearch);
     const dispatch = useDispatch();
@@ -57,7 +58,8 @@ const AllWeighings = () => {
             startKilos: startKilos,
             endKilos: endKilos,
             startDate: startDate,
-            endDate: endDate
+            endDate: endDate,
+            production: production === "" ? null : production
         }
         dispatch(actions.getAllWeighings(criteria,
             (result) => {
@@ -98,7 +100,7 @@ const AllWeighings = () => {
             </Breadcrumb>
             <div className="container">
                 <div className="row mb-3">
-                    <div className="col-sm-4">
+                    <div className="col-sm-3">
                         <label className="col-form-label"><FormattedMessage id="project.weighing.animal"/></label>
                         <select className="form-control" id="animal"
                                 value={animalSelected}
@@ -109,6 +111,16 @@ const AllWeighings = () => {
                             )}
                         </select>
                     </div>
+                    <div className="col-sm-2">
+                        <label className="col-form-label">Type of weighing: </label>
+                        <select className="form-control" value={production} onChange={e => setProduction(e.target.value)}>
+                            <option key={0} value="">{/*<FormattedMessage id="project.global.all"/>*/}All</option>
+                            <option key={1} value="true">{/*<FormattedMessage id="project.issue.active"/>*/}Meat production
+                            </option>
+                            <option key={2} value="false">{/*<FormattedMessage id="project.issue.done" />*/}Not meat production
+                            </option>
+                        </select>
+                    </div>
                     <div className="col-sm-3">
                         <label className="col-form-label"><FormattedMessage id="project.weighing.date"/></label>
                         <DatePicker className="form-control" selected={startDate}
@@ -116,7 +128,7 @@ const AllWeighings = () => {
                         <DatePicker className="form-control mt-1" selected={endDate}
                                     onChange={(date) => setEndDate(date)}/>
                     </div>
-                    <div className="col-sm-3">
+                    <div className="col-sm-2">
                         <label className="col-form-label"><FormattedMessage id="project.weighing.kilosRange"/></label>
                         <input type="number" min="1" value={startKilos} className="form-control" placeholder="min"
                                onChange={e => setStartKilos(e.target.value)}/>

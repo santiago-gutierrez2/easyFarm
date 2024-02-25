@@ -20,7 +20,7 @@ public interface WeighingService {
     Weighing getWeighingById(Long id) throws InstanceNotFoundException;
 
     Block<Weighing> getAllWeighings(Long userId, Long animalId, Integer startKilos, Integer endKilos, String startDate, String endDate,
-            int page, int size) throws InstanceNotFoundException;
+            Boolean production, int page, int size) throws InstanceNotFoundException;
 
     List<WeighingDto> getAllWeighingByAnimalId(Long userId, Long animalId) throws InstanceNotFoundException;
 

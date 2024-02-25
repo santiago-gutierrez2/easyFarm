@@ -16,7 +16,7 @@ export const getWeighingById = (weighingId, onSuccess, onErrors) => {
     appFetch(`/weighing/${weighingId}`, config('GET'), onSuccess, onErrors);
 }
 
-export const getAllWeighing = ({page, animalId, startKilos, endKilos, startDate, endDate}, onSuccess, onErrors) => {
+export const getAllWeighing = ({page, animalId, startKilos, endKilos, startDate, endDate, production}, onSuccess, onErrors) => {
     let path = `/weighing/AllWeighingByFarmId?page=${page}&size=5`;
 
     path += animalId != null && animalId > 0 ? `&animalId=${encodeURIComponent(animalId)}` : "";
@@ -24,6 +24,7 @@ export const getAllWeighing = ({page, animalId, startKilos, endKilos, startDate,
     path += endKilos != null && endKilos > 0 ? `&endKilos=${encodeURIComponent(endKilos)}` : "";
     path += startDate ? `&startDate=${encodeURIComponent(startDate.toISOString().substring(0,10))}` : "";
     path += endDate ? `&endDate=${encodeURIComponent(endDate.toISOString().substring(0,10))}` : "";
+    path += production ? `&production=${encodeURIComponent(production)}` : "";
 
     appFetch(path, config('GET'), onSuccess, onErrors);
 }

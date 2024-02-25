@@ -76,7 +76,7 @@ public class WeighingServiceImpl implements WeighingService{
     }
 
     @Override
-    public Block<Weighing> getAllWeighings(Long userId, Long animalId, Integer startKilos, Integer endKilos, String startDate, String endDate, int page, int size) throws InstanceNotFoundException {
+    public Block<Weighing> getAllWeighings(Long userId, Long animalId, Integer startKilos, Integer endKilos, String startDate, String endDate, Boolean production, int page, int size) throws InstanceNotFoundException {
         Optional<User> optionalUser = userDao.findById(userId);
 
         if (optionalUser.isEmpty()) {
@@ -87,8 +87,8 @@ public class WeighingServiceImpl implements WeighingService{
         Farm farm = user.getFarm();
 
         Slice<Weighing> weighingSlice;
-        if (animalId != null || startKilos != null || endKilos != null || startDate != null || endDate != null) {
-            weighingSlice = weighingDao.find(farm.getId(), animalId, startKilos, endKilos, startDate, endDate, page, size);
+        if (animalId != null || startKilos != null || endKilos != null || startDate != null || endDate != null || production != null) {
+            weighingSlice = weighingDao.find(farm.getId(), animalId, startKilos, endKilos, startDate, endDate, production, page, size);
         } else {
             weighingSlice = weighingDao.findByAnimalWeighedBelongsToIdOrderByDateDesc(farm.getId(), PageRequest.of(page,size));
         }

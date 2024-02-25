@@ -17,12 +17,12 @@ public class CustomizedWeighingDaoImpl implements CustomizedWeighingDao{
     private EntityManager entityManager;
 
     @Override
-    public Slice<Weighing> find(Long farmId, Long animalId, Integer startKilos, Integer endKilos, String startDate, String endDate, int page, int size) {
+    public Slice<Weighing> find(Long farmId, Long animalId, Integer startKilos, Integer endKilos, String startDate, String endDate, Boolean production, int page, int size) {
         String queryString = "SELECT w from Weighing w " +
                 "left join Animal a on w.animalWeighed.id = a.id " +
                 "WHERE a.belongsTo.id = " + farmId.toString();
 
-        if (animalId != null || startKilos != null || endKilos != null || startDate != null || endDate != null) {
+        if (animalId != null || startKilos != null || endKilos != null || startDate != null || endDate != null || production != null) {
             queryString += " AND ";
         }
 
@@ -63,6 +63,14 @@ public class CustomizedWeighingDaoImpl implements CustomizedWeighingDao{
             queryString += "w.date <= :endDate ";
         }
 
+        // production
+        if (production != null) {
+            if (animalId != null || startKilos != null || endKilos != null || startDate != null || endDate != null) {
+                queryString += " AND ";
+            }
+            queryString += "w.production = :production ";
+        }
+
         queryString += " ORDER BY w.date DESC";
         Query query = entityManager.createQuery(queryString).setFirstResult(page*size).setMaxResults(size+1);
 
@@ -95,6 +103,11 @@ public class CustomizedWeighingDaoImpl implements CustomizedWeighingDao{
             LocalDateTime ed = LocalDateTime.parse(endDate + " 23:59:59", formatter);
             ed = ed.plusDays(1);
             query.setParameter("endDate", ed);
+        }
+
+        // production
+        if (production != null) {
+            query.setParameter("production", production);
         }
 
         List<Weighing> weighings = query.getResultList();

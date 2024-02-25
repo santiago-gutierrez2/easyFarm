@@ -74,9 +74,9 @@ public class WeighingController {
     @GetMapping("/AllWeighingByFarmId")
     public BlockDto<WeighingDto> getAllWeighing(@RequestAttribute Long userId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,
             @RequestParam(required = false) Long animalId, @RequestParam(required = false) Integer startKilos, @RequestParam(required = false) Integer endKilos,
-            @RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) throws InstanceNotFoundException {
+            @RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate, @RequestParam(required = false) Boolean production) throws InstanceNotFoundException {
 
-        Block<Weighing> weighingBlock = weighingService.getAllWeighings(userId, animalId, startKilos, endKilos, startDate, endDate, page, size);
+        Block<Weighing> weighingBlock = weighingService.getAllWeighings(userId, animalId, startKilos, endKilos, startDate, endDate, production, page, size);
 
         return new BlockDto<>(WeighingConversor.toWeighingDtos(weighingBlock.getItems()), weighingBlock.getExistMoreItems());
     }
