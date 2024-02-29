@@ -50,7 +50,7 @@ const Login = () => {
                 </p>*/}
                 <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
                 <div className="card bg-light">
-                    <h5 className="card-header">
+                    <h5 className="card-header card-title-custom">
                         <FormattedMessage id="project.users.Login.title"/>
                     </h5>
                     <div className="card-body">
