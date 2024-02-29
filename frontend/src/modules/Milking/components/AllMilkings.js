@@ -141,9 +141,9 @@ const AllMilkings = () => {
                                 <h3>{getAnimalNameAndCode(milk.animalMilked)}</h3>
                             </div>
                             <div className="card-body">
-                                <p className="card-text"><FormattedMessage id="project.milking.liters"/>: {milk.liters}
+                                <p className="card-text"><b><FormattedMessage id="project.milking.liters"/>:</b> {milk.liters}
                                 </p>
-                                <p className="card-text"><FormattedMessage id="project.milking.date"/>: <FormattedDate
+                                <p className="card-text"><b><FormattedMessage id="project.milking.date"/>:</b> <FormattedDate
                                     value={new Date(milk.date)}/></p>
                                 <Link className="btn btn-primary" to={`/milking/${milk.id}`}>
                                     <FormattedMessage id="project.global.seeDetails"/>

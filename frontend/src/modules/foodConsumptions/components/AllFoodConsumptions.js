@@ -177,16 +177,16 @@ const AllFoodConsumptions = () => {
                             </div>
                             <div className="card-body">
                                 <p className="card-text">
-                                    <FormattedMessage id="project.foodConsumption.animals"/>: <Link className="link"
-                                                                                                    to={`/animal/${foodConsumption.consumedBy}`}>{getAnimalNameAndCode(foodConsumption.consumedBy)}</Link>
+                                    <b><FormattedMessage id="project.foodConsumption.animals"/>:</b> <Link className="link"
+                                        to={`/animal/${foodConsumption.consumedBy}`}>{getAnimalNameAndCode(foodConsumption.consumedBy)}</Link>
                                 </p>
-                                <p className="card-text"><FormattedMessage
-                                    id="project.foodConsumption.foodBatch"/>: {getFoodBatchProductName(foodConsumption.foodBatch)}
+                                <p className="card-text"><b><FormattedMessage
+                                    id="project.foodConsumption.foodBatch"/>:</b> {getFoodBatchProductName(foodConsumption.foodBatch)}
                                 </p>
-                                <p className="card-text"><FormattedMessage
-                                    id="project.foodConsumption.kilos"/>: {foodConsumption.kilos}</p>
-                                <p className="card-text"><FormattedMessage
-                                    id="project.foodConsumption.date"/>: <FormattedDate
+                                <p className="card-text"><b><FormattedMessage
+                                    id="project.foodConsumption.kilos"/>:</b> {foodConsumption.kilos}</p>
+                                <p className="card-text"><b><FormattedMessage
+                                    id="project.foodConsumption.date"/>:</b> <FormattedDate
                                     value={new Date(foodConsumption.date)}/></p>
                                 <button className="btn btn-danger" onClick={() => handleShow()}>
                                     <FormattedMessage id="project.foodConsumption.delete"/> <i

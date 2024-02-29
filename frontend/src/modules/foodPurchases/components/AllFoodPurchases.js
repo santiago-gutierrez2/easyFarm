@@ -132,15 +132,15 @@ const AllFoodPurchases = () => {
                             </div>
                             <div className="card-body">
                                 <p className="card-text">{foodPurchase.ingredients}</p>
-                                <p className="card-text"><FormattedMessage
-                                    id="project.foodPurchase.supplier"/>: {foodPurchase.supplier}</p>
-                                <p className="card-text"><FormattedMessage
-                                    id="project.foodPurchase.purchaseDate"/>: <FormattedDate
+                                <p className="card-text"><b><FormattedMessage
+                                    id="project.foodPurchase.supplier"/>:</b> {foodPurchase.supplier}</p>
+                                <p className="card-text"><b><FormattedMessage
+                                    id="project.foodPurchase.purchaseDate"/>:</b> <FormattedDate
                                     value={new Date(foodPurchase.purchaseDate)}/></p>
-                                <p className="card-text"><FormattedMessage
-                                    id="project.foodPurchase.kilos"/>: {foodPurchase.kilos}</p>
-                                <p className="card-text"><FormattedMessage
-                                    id="project.foodPurchase.unitPrice"/>: {foodPurchase.unitPrice}€</p>
+                                <p className="card-text"><b><FormattedMessage
+                                    id="project.foodPurchase.kilos"/>:</b> {foodPurchase.kilos}</p>
+                                <p className="card-text"><b><FormattedMessage
+                                    id="project.foodPurchase.unitPrice"/>:</b> {foodPurchase.unitPrice}€</p>
                                 {/*<div className="row">
                               <div className="col-6">*/}
                                 <Link className="btn btn-primary" to={`/foodPurchase/${foodPurchase.id}`}>

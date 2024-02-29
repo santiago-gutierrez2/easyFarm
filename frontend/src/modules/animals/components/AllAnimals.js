@@ -143,11 +143,11 @@ const AllAnimals = () => {
                             </div>
                             <div className="card-body">
                                 <p className="card-text">{animal.physicalDescription}</p>
-                                <p className="card-text"><FormattedMessage id="project.animal.name"/>: {animal.name}</p>
-                                <p className="card-text"><FormattedMessage
-                                    id="project.animal.birthDate"/>: <FormattedDate value={new Date(animal.birthDate)}/>
+                                <p className="card-text"><b><FormattedMessage id="project.animal.name"/>:</b> {animal.name}</p>
+                                <p className="card-text"><b><FormattedMessage
+                                    id="project.animal.birthDate"/>:</b> <FormattedDate value={new Date(animal.birthDate)}/>
                                 </p>
-                                <p className="card-text"><FormattedMessage id="project.animal.gender"/>: {animal.male ?
+                                <p className="card-text"><b><FormattedMessage id="project.animal.gender"/>:</b> {animal.male ?
                                     <FormattedMessage id="project.animal.male"/> :
                                     <FormattedMessage id="project.animal.female"/>}</p>
                                 {

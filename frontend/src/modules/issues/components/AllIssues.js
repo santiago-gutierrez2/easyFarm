@@ -161,11 +161,11 @@ const AllIssues = () => {
                             </div>
                             <div className="card-body">
                                 <p className="card-text">{issue.description}</p>
-                                <p className="card-text"><FormattedMessage
-                                    id="project.issues.creationDate"/>: <FormattedDate
+                                <p className="card-text"><b><FormattedMessage
+                                    id="project.issues.creationDate"/>:</b> <FormattedDate
                                     value={new Date(issue.creationDate)}/></p>
-                                <p className="card-text"><FormattedMessage
-                                    id="project.issues.assignedTo"/>: {getEmployeeUserName(issue.assignedTo)}</p>
+                                <p className="card-text"><b><FormattedMessage
+                                    id="project.issues.assignedTo"/>:</b> {getEmployeeUserName(issue.assignedTo)}</p>
                                 {/*<div className="row">
                               <div className="col-6">*/}
                                 <Link className="btn btn-primary" to={`/issues/${issue.id}`}>
