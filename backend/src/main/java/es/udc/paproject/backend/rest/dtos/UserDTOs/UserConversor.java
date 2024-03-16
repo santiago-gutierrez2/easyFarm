@@ -13,8 +13,8 @@ public class UserConversor {
 	private UserConversor() {}
 	
 	public final static UserDto toUserDto(User user) {
-		return new UserDto(user.getId(), user.getUserName(), user.getFirstName(), user.getLastName(), user.getEmail(),
-			user.getRole().toString(), toFarmDto(user.getFarm()));
+		return new UserDto(user.getId(), user.getUserName(), user.getDni(), user.getNss(), user.getIsSuspended(), user.getFirstName(),
+				user.getLastName(), user.getEmail(), user.getRole().toString(), toFarmDto(user.getFarm()));
 	}
 
 	public final static List<UserDto> toUserDtos(List<User> users) {
@@ -28,7 +28,7 @@ public class UserConversor {
 	}*/
 
 	public final static User toUser(UserDto userDto, Farm farm) {
-		return new User(userDto.getUserName(), userDto.getPassword(), userDto.getFirstName(), userDto.getLastName(),
+		return new User(userDto.getUserName(), userDto.getDni(), userDto.getNss(), userDto.getPassword(), userDto.getFirstName(), userDto.getLastName(),
 				userDto.getEmail(), farm);
 	}
 	

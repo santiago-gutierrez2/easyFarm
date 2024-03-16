@@ -15,6 +15,9 @@ public class UserDto {
 
 	private Long id;
 	private String userName;
+	private String dni;
+	private String nss;
+	private Boolean isSuspended;
 	private String password;
 	private String firstName;
 	private String lastName;
@@ -24,10 +27,13 @@ public class UserDto {
 
 	public UserDto() {}
 
-	public UserDto(Long id, String userName, String firstName, String lastName, String email, String role, FarmDto farm) {
+	public UserDto(Long id, String userName, String dni, String nss, Boolean isSuspended, String firstName, String lastName, String email, String role, FarmDto farm) {
 
 		this.id = id;
 		this.userName = userName != null ? userName.trim() : null;
+		this.dni = dni;
+		this.nss = nss;
+		this.isSuspended = isSuspended;
 		this.firstName = firstName.trim();
 		this.lastName = lastName.trim();
 		this.email = email.trim();
@@ -106,4 +112,29 @@ public class UserDto {
 
 	public void setFarmId(FarmDto farm) {this.farm = farm;}
 
+	@NotNull(groups={AllValidations.class})
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	@NotNull(groups={AllValidations.class})
+	public String getNss() {
+		return nss;
+	}
+
+	public void setNss(String nss) {
+		this.nss = nss;
+	}
+
+	public Boolean getIsSuspended() {
+		return isSuspended;
+	}
+
+	public void setIsSuspended(Boolean suspended) {
+		isSuspended = suspended;
+	}
 }

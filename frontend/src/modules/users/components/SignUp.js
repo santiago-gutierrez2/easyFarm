@@ -17,6 +17,8 @@ const SignUp = () => {
     const history = useHistory();
     const user = useSelector(users.selectors.getUser); // admin user (creator) to get info of farm.
     const [userName, setUserName] = useState('');
+    const [dni, setDni] = useState('');
+    const [nss, setNss] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -38,6 +40,8 @@ const SignUp = () => {
             
             dispatch(actions.signUp(
                 {userName: userName.trim(),
+                dni: dni.trim(),
+                nss: nss.trim(),
                 password: password,
                 firstName: firstName.trim(),
                 lastName: lastName.trim(),
@@ -48,6 +52,8 @@ const SignUp = () => {
                     setSuccess('Employee created correctly');
                     // reset state of form
                     setUserName('');
+                    setDni('');
+                    setNss('');
                     setPassword('');
                     setConfirmPassword('');
                     setFirstName('');
@@ -114,6 +120,35 @@ const SignUp = () => {
                                   className="needs-validation" noValidate
                                   onSubmit={e => handleSubmit(e)}>
                                 <div className="form-group row">
+                                    <label htmlFor="dni" className="col-md-3 col-form-label">
+                                        DNI
+                                    </label>
+                                    <div className="col-md-6">
+                                        <input type="text" id="dni" className="form-control"
+                                               value={dni}
+                                               onChange={e => setDni(e.target.value)}
+                                               autoFocus
+                                               required/>
+                                    </div>
+                                    <div className="invalid-feedback">
+                                        <FormattedMessage id='project.global.validator.required'/>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
+                                    <label htmlFor="nss" className="col-md-3 col-form-label">
+                                        N.S.S.
+                                    </label>
+                                    <div className="col-md-6">
+                                        <input type="text" id="nss" className="form-control"
+                                               value={nss}
+                                               onChange={e => setNss(e.target.value)}
+                                               required/>
+                                    </div>
+                                    <div className="invalid-feedback">
+                                        <FormattedMessage id='project.global.validator.required'/>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
                                     <label htmlFor="userName" className="col-md-3 col-form-label">
                                         <FormattedMessage id="project.global.fields.userName"/>
                                     </label>
@@ -121,7 +156,6 @@ const SignUp = () => {
                                         <input type="text" id="userName" className="form-control"
                                                value={userName}
                                                onChange={e => setUserName(e.target.value)}
-                                               autoFocus
                                                required/>
                                         <div className="invalid-feedback">
                                             <FormattedMessage id='project.global.validator.required'/>

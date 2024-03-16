@@ -25,4 +25,10 @@ public interface UserService {
 
 	List<User> getEmployees(Long userId) throws InstanceNotFoundException;
 
+	List<User> getActiveEmployees(Long userId) throws InstanceNotFoundException;
+
+	void suspendEmployee(Long employeeId) throws InstanceNotFoundException;
+
+	void unsuspendEmployee(Long employeeId) throws InstanceNotFoundException;
+
 }

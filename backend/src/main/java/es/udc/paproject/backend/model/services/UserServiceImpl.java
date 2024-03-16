@@ -125,4 +125,33 @@ public class UserServiceImpl implements UserService {
 				.filter(user -> !user.getIsEliminated() && user.getRole() == User.RoleType.EMPLOYEE).collect(Collectors.toList());
 	}
 
+	@Override
+	public List<User> getActiveEmployees(Long userId) throws InstanceNotFoundException {
+		Optional<User> admin = userDao.findById(userId);
+
+		if (admin.isEmpty()) {
+			throw new InstanceNotFoundException("project.entities.user", userId);
+		}
+
+		Farm farm = admin.get().getFarm();
+
+		return farm.getUsers().stream()
+				.filter(user -> !user.getIsSuspended() && !user.getIsEliminated() && user.getRole() == User.RoleType.EMPLOYEE).collect(Collectors.toList());
+	}
+
+	@Override
+	public void suspendEmployee(Long employeeId) throws InstanceNotFoundException {
+		User employee = permissionChecker.checkUser(employeeId);
+		employee.setIsSuspended(true);
+		userDao.save(employee);
+	}
+
+	@Override
+	public void unsuspendEmployee(Long employeeId) throws InstanceNotFoundException {
+		User employee = permissionChecker.checkUser(employeeId);
+		employee.setIsSuspended(false);
+		userDao.save(employee);
+	}
+
+
 }

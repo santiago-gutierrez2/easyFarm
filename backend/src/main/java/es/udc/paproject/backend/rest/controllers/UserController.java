@@ -171,7 +171,33 @@ public class UserController {
 		List<User> employees =  userService.getEmployees(userId);
 		return toUserDtos(employees);
 	}
-	
+
+	@GetMapping("/getActiveEmployees")
+	public List<UserDto> getActiveEmployees(@RequestAttribute Long userId) throws InstanceNotFoundException {
+		List<User> employees = userService.getActiveEmployees(userId);
+		return toUserDtos(employees);
+	}
+
+	@PutMapping("/suspend/{employeeId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void suspendEmployee(@RequestAttribute Long userId, @PathVariable Long employeeId)
+			throws PermissionException, InstanceNotFoundException {
+		if (userId.equals(employeeId)) {
+			throw new PermissionException();
+		}
+		userService.suspendEmployee(employeeId);
+	}
+
+	@PutMapping("/unsuspend/{employeeId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void unsuspendEmployee(@RequestAttribute Long userId, @PathVariable Long employeeId)
+			throws PermissionException, InstanceNotFoundException {
+		if (userId.equals(employeeId)) {
+			throw new PermissionException();
+		}
+		userService.unsuspendEmployee(employeeId);
+	}
+
 	private String generateServiceToken(User user) {
 		
 		JwtInfo jwtInfo = new JwtInfo(user.getId(), user.getUserName(), user.getRole().toString());

@@ -51,11 +51,28 @@ export const changePassword = (id, oldPassword, newPassword, onSuccess,
         config('POST', {oldPassword, newPassword}),
         onSuccess, onErrors);
 
-export const getEmployees = (onSuccess, onErrors) => {
+export const getEmployeesAdmin = (onSuccess, onErrors) => {
     appFetch('/users/getEmployees', config('GET'),
         (employees) => {
             onSuccess(employees)
         }, onErrors);
+}
+
+export const getEmployees = (onSuccess, onErrors) => {
+    appFetch('/users/getActiveEmployees', config('GET'),
+        (employees) => {
+        onSuccess(employees)
+        }, onErrors);
+}
+
+export const suspendEmployee = (employeeId, onSuccess, onErrors) => {
+    appFetch(`/users/suspend/${employeeId}`, config('PUT'),
+        onSuccess, onErrors);
+}
+
+export const unsuspendEmployee = (employeeId, onSuccess, onErrors) => {
+    appFetch(`/users/unsuspend/${employeeId}`, config('PUT'),
+        onSuccess, onErrors);
 }
 
 export const deleteEmployee = (employeeId, onSuccess, onErrors) => {

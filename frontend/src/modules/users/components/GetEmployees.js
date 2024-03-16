@@ -2,7 +2,13 @@ import {useState} from "react";
 import {FormattedMessage} from "react-intl";
 import {Errors} from "../../common";
 import {useEffect} from "react";
-import {deleteEmployee, getEmployees} from "../../../backend/userService";
+import {
+    deleteEmployee,
+    getEmployees,
+    getEmployeesAdmin,
+    suspendEmployee,
+    unsuspendEmployee
+} from "../../../backend/userService";
 import {BounceLoader, MoonLoader, PuffLoader} from "react-spinners";
 import {useDispatch} from "react-redux";
 import * as commonActions from "../../app/actions";
@@ -28,7 +34,7 @@ const GetEmployees = () => {
     useEffect(async () => {
         if (isLoading) {
             //await sleep(2000)
-            getEmployees((employeesDTO) => {
+            getEmployeesAdmin((employeesDTO) => {
                 setEmployees(employeesDTO);
                 setBackendErrors(null);
                 setIsLoading(false);
@@ -50,6 +56,28 @@ const GetEmployees = () => {
             errors => {
                 setBackendErrors(errors);
                 setIsLoading(false);
+            })
+    }
+
+    function suspend(employeeId) {
+        suspendEmployee(employeeId,
+            () => {
+                console.log('suspend: ' + employeeId);
+                setIsLoading(true);
+            }, errors => {
+                setBackendErrors(errors);
+                setIsLoading(true);
+            })
+    }
+
+    function unSuspend(employeeId) {
+        unsuspendEmployee(employeeId,
+            () => {
+                console.log('unsuspend: ' + employeeId);
+                setIsLoading(true);
+            }, errors => {
+                setBackendErrors(errors);
+                setIsLoading(true);
             })
     }
 
@@ -92,6 +120,18 @@ const GetEmployees = () => {
                                         <td scope="row">{employee.lastName}</td>
                                         <td scope="row">{employee.email}</td>
                                         <td scope="row">
+                                            {!employee.isSuspended &&
+                                                <button className="btn btn-primary mr-2" title="suspend"
+                                                        onClick={() => suspend(employee.id)}>
+                                                    Suspend <i className="fas fa-pause-circle"></i>
+                                                </button>
+                                            }
+                                            {employee.isSuspended &&
+                                                <button className="btn btn-primary mr-2" title="unsuspend"
+                                                        onClick={() => unSuspend(employee.id)}>
+                                                    unsuspend <i className="fas fa-play-circle"></i>
+                                                </button>
+                                            }
                                             <button className="btn btn-danger" title="Delete"
                                                     onClick={() => handleShow()}>
                                                 Delete <i className="fas fa-trash"></i>

@@ -27,7 +27,8 @@ public class UserServiceTest {
 	private UserService userService;
 	
 	private User createUser(String userName, Farm farm) {
-		return new User(userName, "password", "firstName", "lastName", userName + "@" + userName + ".com", farm);
+		return new User(userName,"55043207K", "17000058787", "password", "firstName",
+				"lastName", userName + "@" + userName + ".com", farm);
 	}
 
 	private Farm createFarm(String name, String address) {
