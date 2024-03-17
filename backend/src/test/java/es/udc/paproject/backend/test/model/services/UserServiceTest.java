@@ -1,6 +1,7 @@
 package es.udc.paproject.backend.test.model.services;
 
 import es.udc.paproject.backend.model.entities.Farm;
+import es.udc.paproject.backend.model.entities.FarmDao;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +14,9 @@ import es.udc.paproject.backend.model.entities.User;
 import es.udc.paproject.backend.model.exceptions.IncorrectLoginException;
 import es.udc.paproject.backend.model.exceptions.IncorrectPasswordException;
 import es.udc.paproject.backend.model.services.UserService;
+import org.springframework.web.context.request.FacesRequestAttributes;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,38 +25,38 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 public class UserServiceTest {
 	
-	private final Long NON_EXISTENT_ID = Long.valueOf(-1);
+	private final Long NON_EXISTENT_ID = (long) -1;
 	
 	@Autowired
 	private UserService userService;
-	
+	@Autowired
+	private FarmDao farmDao;
+
+
 	private User createUser(String userName, Farm farm) {
 		return new User(userName,"55043207K", "17000058787", "password", "firstName",
 				"lastName", userName + "@" + userName + ".com", farm);
 	}
-
-	private Farm createFarm(String name, String address) {
-		return new Farm(name, address, 20);
-	}
 	
-	/*@Test
+	@Test
 	public void testSignUpAndLoginFromId() throws DuplicateInstanceException, InstanceNotFoundException {
+		Farm farm = farmDao.findById(1L).get();
 		
-		User user = createUser("user");
+		User user = createUser("user", farm);
 		
 		userService.signUp(user);
 		
 		User loggedInUser = userService.loginFromId(user.getId());
 		
 		assertEquals(user, loggedInUser);
-		assertEquals(User.RoleType.USER, user.getRole());
+		assertEquals(User.RoleType.EMPLOYEE, user.getRole());
 		
 	}
 	
 	@Test
 	public void testSignUpDuplicatedUserName() throws DuplicateInstanceException {
-		
-		User user = createUser("user");
+		Farm farm = farmDao.findById(1L).get();
+		User user = createUser("user", farm);
 		
 		userService.signUp(user);
 		assertThrows(DuplicateInstanceException.class, () -> userService.signUp(user));
@@ -66,8 +70,8 @@ public class UserServiceTest {
 	
 	@Test
 	public void testLogin() throws DuplicateInstanceException, IncorrectLoginException {
-		
-		User user = createUser("user");
+		Farm farm = farmDao.findById(1L).get();
+		User user = createUser("user", farm);
 		String clearPassword = user.getPassword();
 				
 		userService.signUp(user);
@@ -80,8 +84,8 @@ public class UserServiceTest {
 	
 	@Test
 	public void testLoginWithIncorrectPassword() throws DuplicateInstanceException {
-		
-		User user = createUser("user");
+		Farm farm = farmDao.findById(1L).get();
+		User user = createUser("user", farm);
 		String clearPassword = user.getPassword();
 		
 		userService.signUp(user);
@@ -97,8 +101,8 @@ public class UserServiceTest {
 	
 	@Test
 	public void testUpdateProfile() throws InstanceNotFoundException, DuplicateInstanceException {
-		
-		User user = createUser("user");
+		Farm farm = farmDao.findById(1L).get();
+		User user = createUser("user", farm);
 		
 		userService.signUp(user);
 		
@@ -112,7 +116,6 @@ public class UserServiceTest {
 		User updatedUser = userService.loginFromId(user.getId());
 		
 		assertEquals(user, updatedUser);
-		
 	}
 	
 	@Test
@@ -124,8 +127,8 @@ public class UserServiceTest {
 	@Test
 	public void testChangePassword() throws DuplicateInstanceException, InstanceNotFoundException,
 		IncorrectPasswordException, IncorrectLoginException {
-		
-		User user = createUser("user");
+		Farm farm = farmDao.findById(1L).get();
+		User user = createUser("user", farm);
 		String oldPassword = user.getPassword();
 		String newPassword = 'X' + oldPassword;
 		
@@ -143,8 +146,8 @@ public class UserServiceTest {
 	
 	@Test
 	public void testChangePasswordWithIncorrectPassword() throws DuplicateInstanceException {
-		
-		User user = createUser("user");
+		Farm farm = farmDao.findById(1L).get();
+		User user = createUser("user", farm);
 		String oldPassword = user.getPassword();
 		String newPassword = 'X' + oldPassword;
 		
@@ -152,6 +155,94 @@ public class UserServiceTest {
 		assertThrows(IncorrectPasswordException.class, () ->
 			userService.changePassword(user.getId(), 'Y' + oldPassword, newPassword));
 		
-	}*/
+	}
+
+	@Test
+	public void testDeleteEmployee() throws InstanceNotFoundException, DuplicateInstanceException{
+		Farm farm = farmDao.findById(1L).get();
+		User user = createUser("user", farm);
+		userService.signUp(user);
+		User loggedInUser = userService.loginFromId(user.getId());
+
+		userService.deleteEmployee(loggedInUser.getId());
+
+        assertTrue(loggedInUser.getIsEliminated());
+	}
+
+	@Test
+	public void testDeleteWithNoExistingUser() {
+		assertThrows(InstanceNotFoundException.class, () -> userService.deleteEmployee(-1L));
+	}
+
+	@Test
+	public void testGetEmployees() throws InstanceNotFoundException {
+		User user = userService.loginFromId(1L);
+		List<User> employees = userService.getEmployees(user.getId());
+		assertEquals(employees.size(), 2);
+	}
+
+	@Test
+	public void testGetEmployeesWithNoExistingUser() {
+		assertThrows(InstanceNotFoundException.class, () -> userService.getEmployees(-1L));
+	}
+
+	@Test
+	public void testGetActiveEmployees() throws InstanceNotFoundException, DuplicateInstanceException {
+		Farm farm = farmDao.findById(1L).get();
+		User user = createUser("user", farm);
+		userService.signUp(user);
+
+		// suspend user
+		userService.suspendEmployee(user.getId());
+		// get active employees
+		List<User> activeEmployees = userService.getActiveEmployees(1L);
+
+		assertEquals(activeEmployees.size(), 2);
+	}
+
+	@Test
+	public void testGetActiveEmployeesWithNoExistingUser() {
+		assertThrows(InstanceNotFoundException.class, () -> userService.getActiveEmployees(-1L));
+	}
+
+	@Test
+	public void suspendEmployee() throws InstanceNotFoundException, DuplicateInstanceException {
+		Farm farm = farmDao.findById(1L).get();
+		User user = createUser("user", farm);
+		userService.signUp(user);
+
+		// suspend user
+		userService.suspendEmployee(user.getId());
+		// get Employee
+		User suspendedEmployee = userService.loginFromId(user.getId());
+
+        assertTrue(suspendedEmployee.getIsSuspended());
+	}
+
+	@Test
+	public void suspendEmployeeWithNoExistingUser() {
+		assertThrows(InstanceNotFoundException.class, () -> userService.suspendEmployee(-1L));
+	}
+
+	@Test
+	public void unsuspendEmployee() throws InstanceNotFoundException, DuplicateInstanceException {
+		Farm farm = farmDao.findById(1L).get();
+		User user = createUser("user", farm);
+		userService.signUp(user);
+
+		// suspend employee
+		userService.suspendEmployee(user.getId());
+		// unsuspend employee
+		userService.unsuspendEmployee(user.getId());
+		// get Employee
+		User suspendedEmployee = userService.loginFromId(user.getId());
+
+		assertFalse(suspendedEmployee.getIsSuspended());
+	}
+
+	@Test
+	public void unsuspendEmployeeWithNoExistingUser() {
+		assertThrows(InstanceNotFoundException.class, () -> userService.unsuspendEmployee(-1L));
+	}
 
 }

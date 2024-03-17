@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		User u = user.get();
-		if (u.getIsEliminated()) {
+		if (u.getIsEliminated() || u.getIsSuspended()) {
 			throw new IncorrectLoginException(userName, password);
 		}
 		

@@ -190,11 +190,20 @@
                                     <include>
                                         src/sql/${dataSource.createTablesScript}
                                     </include>
+                                    <include>
+                                        src/sql/${dataSource.createDataScript}
+                                    </include>
                                 </includes>
                             </fileset>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
             </plugin>
             
         </plugins>

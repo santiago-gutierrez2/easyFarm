@@ -1,7 +1,7 @@
 spring:
   datasource:
-    url: @testDataSource.url@
-    username: @testDataSource.user@
-    password: @testDataSource.password@
+    url: jdbc:mysql://localhost/easyfarmtest?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Europe/Madrid
+    username: easyfarm
+    password: easyfarm
     max-active: 1
     max-idle: 1
