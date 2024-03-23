@@ -36,8 +36,6 @@ public class IssueServiceTest {
     private FarmDao farmDao;
     @Autowired
     private UserDao userDao;
-    @Autowired
-    private EntityManager entityManager;
 
     private User createEmployee(String userName) throws DuplicateInstanceException {
         Farm farm = farmDao.findById(1L).get();
